@@ -32,6 +32,8 @@ else{
     echo "Já existe";
 }
 
+echo "tese";
+
 /*
 //Cria uma variável com INSERT INTO nome_tabela(campo,campo) para selecionar os campos de destino, e VALUES com os valores que irão para estes campos;
 $sql = "INSERT INTO usuario (nome, cpf, dt_nascimento, senha,id_cidade,tipo_usuario) VALUES ($nome, $cpf, $dt_nasci, $pass, $cep,0)";
