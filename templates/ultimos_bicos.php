@@ -1,3 +1,8 @@
+<?php
+include '../conection/protected.php';
+$caminho = 'http://localhost/BicoJobs/';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +12,15 @@
     <link rel="stylesheet" href="/static/css/nav.css">
     <link rel="stylesheet" href="/static/css/seus_bicos.css">
     <link rel="stylesheet" href="../static/css/card.css">
+
+    <style>
+    <?php 
+        include '../static/css/servicos_css.php';
+        include '../static/css/nav.php';
+        include '../static/css/card.php';
+    ?>
+    </style>
+
     <title>BicoJobs | Seus Bicos</title>
 </head>
 <body>
@@ -96,25 +110,28 @@
 
     
     <header>
-        <img src="/media/Logo.svg" alt="Logo BicoJobs" class="logo">
+        <img src="../media/Logo.svg" alt="Logo BicoJobs" class="logo">
 
         <nav>
-            <a href="#">Home</a>
-            <a href="serviços.html">Serviços</a>
-            <a href="seus_bicos.html">Meus Bicos</a>
-            <a href="ultimos_bicos.html">Últimos serviços</a>
-            <a href="regras.html">Regras</a>
+            <a href="../templates/servicos.php">Serviços</a>
+            <?php 
+                if($_SESSION['tipo_user'] != 0){
+                    echo '<a href="../templates/seus_bicos.php">Meus Bicos</a>';
+                }
+            ?>
+            <a href="../templates/ultimos_bicos.php">Últimos serviços</a>
+            <a href="../templates/regras.php">Regras</a>
         </nav>
 
         <div class="perfil" onclick="abrir_options()">
-            <p class="nome_perfil">Nome Genérico</p>
-            <div class="img"><img src="/media/svg's/perfil.svg" alt="perfil"></div>
+            <p class="nome_perfil"><?php echo $_SESSION['nome']; ?></p>
+            <div class="img"><img src="../media/svg's/perfil.svg" alt="perfil"></div>
         </div>
 
         <div class="opçoes op_none">
             <a href="perfil.html">Perfil</a>
             <div></div>
-            <a href="sair">Sair</a>
+            <a href="<?php echo $caminho."conection/logout.php"?>">Sair</a>
         </div>
     </header>
 
@@ -130,7 +147,7 @@
             <div class="campo_pesquisa">
                 <input type="text" class="campo" placeholder="Buscar seus serviços..." onclick="ativate()">
                 
-                <button class="botao_pesquisa"><img src="/media/svg's/search.svg" alt="Lupa"></button>
+                <button class="botao_pesquisa"><img src="../media/svg's/search.svg" alt="Lupa"></button>
             </div>
 
         </div>
@@ -138,15 +155,15 @@
         <div class="conteudo">
             <div class="geral">
                 <div class="card">
-                    <img src="/media/limp.svg" alt="#" class="img_fundo">
+                    <img src="../media/limp.svg" alt="#" class="img_fundo">
 
-                    <img src="/media/fundo_azul.svg" alt="" class="fundo_azul">
+                    <img src="../media/fundo_azul.svg" alt="" class="fundo_azul">
 
                     <div class="card_detalhes">
 
 
                         <div class="info_princ">
-                            <img src="/media/area-atuação/limpeza.svg" alt="">
+                            <img src="../media/area-atuação/limpeza.svg" alt="">
                             <h2>Faxina</h2>
                         </div>
                         
@@ -171,7 +188,7 @@
                         <div class="oferta_detalhes">
                             <div class="pessoais">
                                 <div class="img">
-                                    <img src="/media/area-atuação/limpeza.svg" alt="">
+                                    <img src="../media/area-atuação/limpeza.svg" alt="">
                                 </div>
                                 <h3>Willian Rodrigues</h3>
                                 <p>4.0</p>
@@ -206,18 +223,18 @@
 
         <div class="contact">
             <a href="#">
-                <img src="/media/svg's/instagram.svg" alt="">
+                <img src="../media/svg's/instagram.svg" alt="">
             </a>
             <a href="#">
-                <img src="/media/svg's/whatsapp.svg" alt="">
+                <img src="../media/svg's/whatsapp.svg" alt="">
             </a>
             <a href="#">
-                <img src="/media/svg's/email.svg" alt="">
+                <img src="../media/svg's/email.svg" alt="">
             </a>
         </div>
     </footer>
 
-    <script src="/static/js/servicos.js"></script>
-    <script src="/static/js/nav.js"></script>
+    <script src="<?php echo $caminho."static/js/servicos.js"?>"></script>
+    <script src="<?php echo $caminho."static/js/nav.js"?>"></script>
 </body>
 </html>

@@ -47,7 +47,7 @@ include("../conection/conection.php");
         </div>
 
 
-        <form action="" method="POST" class="log">
+        <form action="../functions/login.php" method="POST" class="log">
             <h1>Login</h1>
 
             <input type="text" placeholder="Usuário ou Email" id="user" name="user_log" class="text">

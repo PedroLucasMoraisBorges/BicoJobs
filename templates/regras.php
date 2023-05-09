@@ -1,4 +1,7 @@
 <?php 
+
+include '../conection/protected.php';
+
 $caminho = 'http://localhost/BicoJobs/';
 ?>
 <!DOCTYPE html>
@@ -23,19 +26,23 @@ $caminho = 'http://localhost/BicoJobs/';
         <header>
             <img src="../media/Logo.svg" alt="Logo BicoJobs" class="logo">
             <nav>
-                <a href="#">Home</a>
                 <a href="<?php echo $caminho."templates/servicos.php"?>">Serviços</a>
-                <a href="<?php echo $caminho."templates/seus_bicos.php"?>">Meus Bicos</a>
+
+                <?php if($_SESSION['tipo_user'] != 0){
+                    echo '<a href="../templates/seus_bicos.php">Meus Bicos</a>';
+                }
+                ?>
+
                 <a href="<?php echo $caminho."templates/ultimos_bicos.php"?>">Últimos serviços</a>
                 <a class="currentPage" href="<?php echo $caminho."templates/regras.php"?>">Regras</a>
             </nav>
             <div class="perfil" onclick="abrir_options()">
-                <p class="nome_perfil">Nome Genérico</p>
+                <p class="nome_perfil"><?php echo $_SESSION['nome']; ?></p>
                 <div class="img"><img src="../media/svg's/perfil.svg" alt="perfil"></div>
                 <div class="opçoes op_none">
                     <a href="<?php echo $caminho."templates/perfil.php"?>" class="perfil_Click_Option">Perfil</a>
                     <div></div>
-                    <a href="sair" class="perfil_Click_Option">Sair</a>
+                    <a href="<?php echo $caminho."conection/logout.php"?>" class="perfil_Click_Option">Sair</a>
                 </div>
             </div>
         </header>

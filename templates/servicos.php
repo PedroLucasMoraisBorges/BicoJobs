@@ -1,6 +1,6 @@
 <?php 
 $caminho = 'http://localhost/BicoJobs/';
-session_start();
+include '../conection/protected.php';
 ?>
 
 <head>
@@ -112,9 +112,14 @@ session_start();
         <img src="<?php echo $caminho.'/media/Logo.svg'?>" alt="Logo BicoJobs" class="logo">
 
         <nav>
-            <a href="#">Home</a>
             <a href="<?php echo $caminho."templates/servicos.php"?>">Serviços</a>
-            <a href="<?php echo $caminho."templates/seus_bicos.php"?>">Meus Bicos</a>
+
+            <?php 
+                if($_SESSION['tipo_user'] != 0){
+                    echo '<a href="../templates/seus_bicos.php">Meus Bicos</a>';
+                }
+            ?>
+
             <a href="<?php echo $caminho."templates/ultimos_bicos.php"?>">Últimos serviços</a>
             <a href="<?php echo $caminho."templates/regras.php"?>">Regras</a>
         </nav>
@@ -127,7 +132,7 @@ session_start();
         <div class="opçoes op_none">
             <a href="<?php echo $caminho."templates/perfil.php"?>" >Perfil</a>
             <div></div>
-            <a href="sair">Sair</a>
+            <a href="<?php echo $caminho."conection/logout.php"?>">Sair</a>
         </div>
     </header>
     
