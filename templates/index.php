@@ -1,4 +1,9 @@
 <?php 
+// start da sessao
+if(!isset($_SESSION)){
+    session_start();
+}
+
 $caminho = 'http://localhost/BicoJobs/';
 include("../conection/conection.php");
 ?>
@@ -95,7 +100,7 @@ include("../conection/conection.php");
             <input type="text" name="cep" class="text cep" placeholder="CEP">
 
             
-            <button onclick="cadastro()">Cadastrar</button>
+            <button>Cadastrar</button>
             <a href="<?php echo $caminho."templates/servicos.php"; ?>" class="cadastro">
             </a>
 

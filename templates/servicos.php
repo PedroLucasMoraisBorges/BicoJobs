@@ -1,5 +1,6 @@
 <?php 
 $caminho = 'http://localhost/BicoJobs/';
+session_start();
 ?>
 
 <head>
@@ -119,7 +120,7 @@ $caminho = 'http://localhost/BicoJobs/';
         </nav>
 
         <div class="perfil" onclick="abrir_options()">
-            <p class="nome_perfil">Nome Genérico</p>
+            <p class="nome_perfil"><?php echo $_SESSION['nome']; ?> </p>
             <div class="img"><img src="../media/svg's/perfil.svg" alt="perfil"></div>
         </div>
 
