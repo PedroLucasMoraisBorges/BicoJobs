@@ -1,114 +1,125 @@
 <?php 
-// start da sessao
-if(!isset($_SESSION)){
-    session_start();
-}
-
 $caminho = 'http://localhost/BicoJobs/';
-include("../conection/conection.php");
 ?>
 
 <!DOCTYPE html>
-<html lang="PT-BR">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/landing_page.css">
 
     <style>
-        <?php include '../static/css/log_cad_css.php'; ?>
+    <?php
+        include '../static/css/landing_page_css.php';
+    ?>
     </style>
-
 
     <title>BicoJobs</title>
 </head>
 
 <body>
-    <div class="back"></div>
-
-    <section class="main">
-
-        <div class="img" id="slideImg">
-            <div class="img-cad">
-                <img src="<?php echo $caminho."media/img_cad.svg"; ?>" alt="Pessoas se ajudando">
-                <div class="texto">
-                    <h2>BicoJobs</h2>
-                    <p>A melhor opção para quem quer trabalhar de forma autônoma e ainda ser valorizado pelos serviços prestados!</p>
-                </div>
+    <header>
+        <div class="top-bar">
+            <img src="../media/Logo.svg" alt="">
+            <nav>
+                <li class="nav-option"><a href="#">Funcionalidades</a></li>
+                <li class="nav-option"><a href="#">Sobre Nós</a></li>
+                <li class="nav-option"><a href="#">Contate-nos</a></li>
+                <li><a href="<?php echo $caminho."templates/logcad.php"?>" class="signup-link">Cadastre-se</a></li>
+            </nav>
+        </div>
+        <section class="call-to-action">
+            <div>
+                <h1>BicoJobs</h1>
+                <p>A melhor opção para quem quer trabalhar de forma autônoma e ainda ser valorizado pelos serviços prestados!</p>
+                <a href="<?php echo $caminho."templates/logcad.php"?>" class="signin-link">Procure Bicos!</a>
             </div>
-
-            <div class="img-log">
-                <img src="<?php echo $caminho."media/img_login.svg"; ?>" alt="Pessoa organizando uma lista">
-                <div class="texto">
-                    <p>É um prazer vê-lo(a) novamente</p>
-                    <p>Mais oportunidades estão a sua espera, <strong>APROVEITE!</strong></p>
+            <img src="../media/landing_page/img_1_lp.png" alt="people at services">
+        </section>
+        <img src="../media/landing_page/Rectangle 56.svg" alt="waves" class="waves">
+    </header>
+    <main>
+        <section class="funcionalidades">
+            <h2>Funcionalidades</h2>
+            <article class="func">
+                <img src="../media/landing_page/img_2_lb.png" alt="image of people working">
+                <div class="func-info">
+                    <h3>Oferte Bicos</h3>
+                    <p>Está com algum problema e precisa de alguém para resolver?
+                        Não se preocupe, o BicoJobs traz a solução, divulgue seu serviço em nossa plataforma e em pouco tempo receba solicitações de  pessoas interessadas em te ajudar.</p>
                 </div>
+            </article>
+            <article class="func func-middle">
+                <div class="img">
+                    <img  class="top-layer" src="../media/landing_page/img_3_lb.svg" alt="image of people according with a plan">
+                </div>
+                <div class="func-info">
+                    <h3>Faça bicos</h3>
+                    <p>Precisando de uma graninha extra? Na nossa plataforma você encontrará pessoas com serviços a serem realizados, que tal dar uma olhadinha e ver o que você pode fazer para ajudá-las e ainda receber por isso! Contamos com você!</p>
+                </div>
+            </article>
+            <article class="func func-end">
+                <img src="../media/landing_page/img_4_lb.png" alt="image of people working">
+                <div class="func-info">
+                    <h3>Sobre Nós</h3>
+                    <p>Somos uma equipe focada em conectar as pessoas que buscam criar uma fonte extra de renda e as que precisam de trabalhos diversos, como editar vídeos ou até mesmo instalar o seu novo chuveiro elétrico.</p>
+                    <p>  Um projeto acadêmico coletivo em desenvolvimento feito pelos alunos do Curso de Analise e Desenvolviemento de Sistemas e Sistemas de Informação da Universidade Faculdade Paraíso.</p>
+                </div>
+            </article>
+        </section>
+
+        <div class="messageReceiveConfirmation" id="messageSendSignal"> 
+            <img src="../media/svg's/email.svg" alt="email logo (carta)">
+            <div>
+                <p>Mensagem enviada com sucesso!</p>
+                <p>Agradecemos o Contato!</p>
             </div>
         </div>
 
-
-        <form action="" method="POST" class="log">
-            <h1>Login</h1>
-
-            <input type="text" placeholder="Usuário ou Email" id="user" name="user_log" class="text">
-
-            <input type="password" name="password_log" placeholder="Senha" id="senha" class="text">
-
-            <div class="inline">
-                <div class="senha">
-                    <input type="checkbox" name="ver_senha" id="ver_senha" class="check pass" onclick="ver_senha()">
-                    <label for="ver_senha" class="rad
-                    ">Ver senha</label>
-                </div>
-                <a href="#" class="esq_senha">Esqueceu a senha?</a>
+        <section class="email-form">
+            <div>
+                <h2>Fale Conosco!</h2>
+                <p>Envie um e-mail:</p>
+                <form>
+                    <input placeholder="Nome" name="FNAME" id="nameCamp">
+                    <p class="error-log"></p>
+                    <input placeholder="Email" id="emailCamp" name="EMAIL" type="email">
+                    <p class="error-log"></p>
+                    <input placeholder="Mensagem" id="messageCamp">
+                    <p class="error-log"></p>
+                    <button class="send-button" id="sendButton" id="buttonEmail"><img src="../media/landing_page/post-icon.svg" alt="post img" class="post-icon"> Enviar e-mail</button>
+                </form>
             </div>
+            <img src="../media/landing_page/img_5_lb.svg" alt="decorative image of a plant, a portrait and a seat">
+        </section>
+    </main>
 
-            <div class="check_lembrar">
-                <input type="checkbox" name="lembrar" id="lembrar" class="check">
-                <label for="lembrar" class="rad">Lembrar de mim</label>
-            </div>
+    <footer>
+        <div class="copy">
+            <img src="../media/svg's/copyright.svg" alt="copyright logo">
+            <p>2023. Todos os direitos reservados.</p>
+        </div>
 
-            <a href="<?php echo $caminho."templates/servicos.php"; ?>" class="login" >
-                <button>Entrar</button>
+        <img src="../media/Logo.svg" alt="" class="logo">
+
+        <div class="contact">
+            <a href="#">
+                <img src="../media/svg's/instagram.svg" alt="logo do instagram">
             </a>
-
-            <p class="interacao">Ainda não possui conta? <a href="<?php echo $servicos;?>" onclick="slide_img()">Cadastre-se</a></p>
-        </form>
-
-
-
-        <form action="../functions/cadastro.php" method="POST" class="cad">
-            
-            <h1>Cadastro</h1>
-            <input type="email" name="email_cad" class="text email" placeholder="Email">
-
-            <input type="text" name="user_cad" class="text user" placeholder="Usuário">
-
-            <input type="text" class="text" placeholder="CPF..." name="cpf">
-
-            <input type="date" class="text" name="dtNasci" id="dtNasci">
-
-            <input type="password" name="password_cad" class="text senha" placeholder="Senha">
-
-            <input type="password" name="password2" class="text rep_senha" placeholder="Repetir senha">
-
-            <div class="inline">
-                <input type="checkbox" name="ver_senha" id="ver_senhaCad" class="ver_senha" onclick="ver_senha_cad()">
-                <label for="ver_senhaCad" class="rad">Ver senha</label>
-            </div>
-
-            <input type="text" name="cep" class="text cep" placeholder="CEP">
-
-            
-            <button>Cadastrar</button>
-            <a href="<?php echo $caminho."templates/servicos.php"; ?>" class="cadastro">
+            <a href="#">
+                <img src="../media/svg's/whatsapp.svg" alt="logo do whatsapp">
             </a>
+            <a href="#">
+                <img src="../media/svg's/email.svg" alt="logo email (carta)">
+            </a>
+        </div>
+    </footer>
 
-            <p class="interacao">Já possui conta? <a href="#" onclick="slide_img()">Faça login</a></p>
-        </form>
+    <script src="../static/js/landing_page.js"></script>
 
-    </section>
-
-    <script src="<?php echo $caminho."static/js/log-cad.js"; ?>"></script>
 </body>
+
 </html>
