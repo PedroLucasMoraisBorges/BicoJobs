@@ -38,22 +38,18 @@ function login(){
 }
 */
 
-function ver_senha(){
-    var senha_log = log.querySelector("#senha");
-    var teste = senha_log.classList.contains("texto_p");
-    console.log(teste)
-    if(teste == false){
-        var senha_log = log.querySelector("#senha");
-        senha_log.type = "text";
-        senha_log.classList.remove("pass");
-        senha_log.classList.add("texto_p");
+let checkbox = document.getElementById("ver_senha");
+checkbox.addEventListener("click", versenha);
+
+function versenha(){
+    let passwordCampLogin = document.getElementById("senha");
+    if(passwordCampLogin.type == "password"){
+        passwordCampLogin.type = "text";
     }
     else{
-        var senha_log = log.querySelector("#senha");
-        senha_log.type = "password";
-        senha_log.classList.remove("texto_p");
-        senha_log.classList.add("pass");
+        passwordCampLogin.type = "password";
     }
+
 }
 
 /*

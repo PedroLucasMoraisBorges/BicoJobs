@@ -55,7 +55,7 @@ include("../conection/conection.php");
 
             <div class="inline">
                 <div class="senha">
-                    <input type="checkbox" name="ver_senha" id="ver_senha" class="check pass" onclick="ver_senha()">
+                    <input type="checkbox" name="ver_senha" id="ver_senha" class="check pass">
                     <label for="ver_senha" class="rad
                     ">Ver senha</label>
                 </div>
