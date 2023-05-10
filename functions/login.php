@@ -6,7 +6,7 @@ $senha = $_POST['password_log'];
 
 
 
-$sql_code_contato = "SELECT id FROM contato WHERE contato = '$email'";
+$sql_code_contato = "SELECT id FROM contato WHERE email = '$email'";
 $sql_code_last_id = "SELECT id FROM contato";
 
 

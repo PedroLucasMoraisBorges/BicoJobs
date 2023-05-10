@@ -90,26 +90,7 @@ $caminho = 'http://localhost/BicoJobs/';
         </section>
     </main>
 
-    <footer>
-        <div class="copy">
-            <img src="../media/svg's/copyright.svg" alt="copyright logo">
-            <p>2023. Todos os direitos reservados.</p>
-        </div>
-
-        <img src="../media/Logo.svg" alt="" class="logo">
-
-        <div class="contact">
-            <a href="#">
-                <img src="../media/svg's/instagram.svg" alt="logo do instagram">
-            </a>
-            <a href="#">
-                <img src="../media/svg's/whatsapp.svg" alt="logo do whatsapp">
-            </a>
-            <a href="#">
-                <img src="../media/svg's/email.svg" alt="logo email (carta)">
-            </a>
-        </div>
-    </footer>
+    <?php include 'componentes/footer.html';?>
 
     <script src="../static/js/landing_page.js"></script>
 
