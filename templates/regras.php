@@ -19,35 +19,13 @@ $caminho = 'http://localhost/BicoJobs/';
 </head>
 <body>
     <div id="pageContainer">
-        <header>
-            <img src="../media/Logo.svg" alt="Logo BicoJobs" class="logo">
-            <nav>
-                <a href="<?php echo $caminho."templates/servicos.php"?>">Serviços</a>
-
-                <?php if($_SESSION['tipo_user'] != 0){
-                    echo '<a href="../templates/seus_bicos.php">Meus Bicos</a>';
-                }
-                ?>
-
-                <a href="<?php echo $caminho."templates/ultimos_bicos.php"?>">Últimos serviços</a>
-                <a class="currentPage" href="<?php echo $caminho."templates/regras.php"?>">Regras</a>
-            </nav>
-            <div class="perfil" onclick="abrir_options()">
-                <p class="nome_perfil"><?php echo $_SESSION['nome']; ?></p>
-                <div class="img"><img src="../media/svg's/perfil.svg" alt="perfil"></div>
-                <div class="opçoes op_none">
-                    <a href="<?php echo $caminho."templates/perfil.php"?>" class="perfil_Click_Option">Perfil</a>
-                    <div></div>
-                    <a href="<?php echo $caminho."conection/logout.php"?>" class="perfil_Click_Option">Sair</a>
-                </div>
-            </div>
-        </header>
-
+        
+        <?php include 'componentes/nav.html';?>
 
         <main>
             <section class="info">
                 <span class="local">Juazeiro Do Norte - CE</span>
-                <h1>Regras da Plataforma</h1>
+                <h1>Regras</h1>
                 <div class="accordion">
                     <div class="accordion-component is_closed">
                         <h2 class="dropdown-activer">Sobre a Plataforma <img src="../media/svg's/dropdown-arrow.svg" alt="arrow for dropdownmenu"></h2>
@@ -117,24 +95,8 @@ $caminho = 'http://localhost/BicoJobs/';
                 <img src="../media/svg's/cell.svg" alt="cellphone image">
             </div>
         </main>
-        <footer>
-            <div class="copy">
-                <img src="../media/svg's/copyright.svg" alt="logo copyright">
-                <p>2023. Todos os direitos reservados.</p>
-            </div>
-            <img src="../media/Logo.svg" alt="" class="logo">
-            <div class="contact">
-                <a href="#">
-                    <img src="../media/svg's/instagram.svg" alt="logo instagram">
-                </a>
-                <a href="#">
-                    <img src="../media/svg's/whatsapp.svg" alt="logo whatsapp">
-                </a>
-                <a href="#">
-                    <img src="../media/svg's/email.svg" alt="logo email (carta)">
-                </a>
-            </div>
-        </footer>
+        
+        <?php include 'componentes/footer.html';?>
     </div>
 
     <script src="../static/js/regras.js"></script>
