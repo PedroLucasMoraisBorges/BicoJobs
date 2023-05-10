@@ -6,6 +6,6 @@ if(!isset($_SESSION)) {
 // destroi a sessao e o id
 session_destroy();
 // redireciona ao login
-header("Location: index.php");
+header("Location: http://localhost/BicoJobs/templates/index.php");
 
 ?>

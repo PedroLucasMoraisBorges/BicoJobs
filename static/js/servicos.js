@@ -53,10 +53,19 @@ function abrir_filtro(){
     modal.classList.remove("none");
     modal_info.classList.remove("none");
 }
+
 function fechar_filtro(){
     var modal = document.querySelector(".modal_fundo");
     var modal_info = document.querySelector(".campo_filtro");
 
     modal.classList.add("none");
     modal_info.classList.add("none");
+}
+
+function mudar_tipo(){
+    var modal = document.querySelector(".modal_fundo");
+    var modal_info = document.querySelector(".modal_mudar_tipo");
+
+    modal.classList.remove("none");
+    modal_info.classList.remove("none");
 }

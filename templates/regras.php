@@ -11,14 +11,10 @@ $caminho = 'http://localhost/BicoJobs/';
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BicoJobs | Regras</title>
-    <link rel="stylesheet" href="../static/css/nav.css">
-    <link rel="stylesheet" href="../static/css/regras.css">
+    <link rel="stylesheet" href="../static/css/regras_css.css">
 
     <style>
-    <?php 
-        include '../static/css/nav.php';
-        include '../static/css/regras_css.php';
-    ?>
+        <?php include '../static/css/nav_css.php'; ?>
     </style>
 </head>
 <body>

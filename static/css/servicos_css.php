@@ -97,99 +97,6 @@ button:hover{
     width: 100%;
 }
 
-/*
-.filtro{
-    position: relative;
-    margin-right: 10%;
-}
-
-.botao_filtro{
-    background-color: white;
-    border: 0;
-}
-
-
-.campo_filtro{
-    position: absolute;
-    width: max-content;
-    right: 0;
-    z-index: 2;
-    background-color: white;
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 2px 2px 2px #40404050;
-    display: flex;
-    flex-direction: column;
-}
-
-.campo_filtro button{
-    align-self: flex-end;
-    margin-right: 1em;
-    margin-bottom: .5em;
-}
-
-.fechar{
-    background-color: white;
-    border: 0;
-}
-
-.fechar img{
-    width: 25px;
-    display: inline-block;
-}
-
-.aplicar{
-    background-color: #143dba;
-    color: white;
-    border: 0;
-    padding: 10px 20px;
-    font-size: 1.1rem;
-    font-weight: 500;
-    border-radius: 10px;
-    font-family: 'Roboto',sans-serif;
-}
-
-.aplicar:hover{
-    transition: .3s;
-    background-color: #2954d4;
-}
-
-.options{
-   display: flex;
-   padding: 0em 1em 0em 1em;
-}
-
-.campo_filtro .options h3{
-    margin-bottom: .5em
-}
-
-.campo_filtro .options input{
-    margin-right: 10px;
-}
-
-.campo_filtro .options label{
-    font-weight: 500;
-}
-
-.campo_filtro .options .area{
-    display: flex;
-    flex-direction: column;
-    margin-right: 3em;
-}
-
-.area div{
-    margin-bottom: 10px;
-}
-
-.campo_filtro .options .valor{
-    display: flex;
-    flex-direction: column;
-}
-
-.valor div{
-    margin-bottom: 10px;
-}
-*/
 
 .adicionar{
     display: flex;
@@ -264,9 +171,24 @@ button:hover{
     }
 }
 
-.modal_adiconar{
+.modal{
     width: 60%;
     height: 75%;
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    transition: .7s;
+    animation: surgir .7s;
+}
+
+.modal_adiconar{
+    width: 60%;
     background-color: white;
     border-radius: 10px;
     display: flex;
@@ -361,7 +283,8 @@ label:hover{
 }
 
 .modal_adiconar .modal_footer{
-    height: 15%;
+    height: fit-content;
+    padding: 10px;
     border-radius: 0px 0px 10px 10px;
     display: flex;
     justify-content: flex-end;
@@ -380,6 +303,52 @@ label:hover{
 
 
 
+/*mudar tipo*/
+
+.modal_mudar_tipo{
+    width: 35%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal_mudar_tipo .modal_header{
+    width: 100%;
+    height: 15%;
+    margin: 0;
+}
+
+.modal_mudar_tipo .text{
+    width: 90%;
+    text-align: center;
+}
+
+.modal_mudar_tipo form{
+    width: 100%;
+    height: 15%;
+    display: flex;
+    justify-content: flex-end;
+}
+.modal_mudar_tipo .modal_footer{
+    width: 100%;
+    border-radius: 0px 0px 10px 10px;
+}
+
+.modal_mudar_tipo .fechar{
+    margin-bottom: 0;
+}
+
+.modal_mudar_tipo .fechar:hover{
+    cursor: pointer;
+}
+
+.modal_mudar_tipo .modal_footer .ofertar{
+    margin-left: 2%;
+    background-color: #143dba;
+    color: white;
+}
 
 
 /* Modal verOferta*/

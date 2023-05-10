@@ -14,7 +14,6 @@ include("../conection/conection.php");
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <style>
         <?php include '../static/css/log_cad_css.php'; ?>
     </style>
@@ -109,6 +108,6 @@ include("../conection/conection.php");
 
     </section>
 
-    <script src="<?php echo $caminho."static/js/log-cad.js"; ?>"></script>
+    <script src="../static/js/log-cad.js"></script>
 </body>
 </html>

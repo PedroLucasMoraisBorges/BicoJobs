@@ -9,15 +9,12 @@ $caminho = 'http://localhost/BicoJobs/';
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/css/nav.css">
-    <link rel="stylesheet" href="/static/css/seus_bicos.css">
-    <link rel="stylesheet" href="../static/css/card.css">
 
     <style>
     <?php 
         include '../static/css/servicos_css.php';
-        include '../static/css/nav.php';
-        include '../static/css/card.php';
+        include '../static/css/nav_css.php';
+        include '../static/css/card_css.php';
     ?>
     </style>
 
@@ -26,86 +23,6 @@ $caminho = 'http://localhost/BicoJobs/';
 <body>
 
     <div class="modal_fundo none">
-        <div class="modal_adiconar none">
-
-            <div class="modal_header">
-                <h2>Detalhes da oferta</h2>
-            </div>
-
-            <form action="">
-                <div class="oferta_detalhes">
-
-                    <div class="pessoais">
-                        <label for="input_img"><img src="/media/svg's/add_foto.svg" alt=""></label>
-                        <input type="file" id="input_img" name="input">
-                        <h3>Willian Rodrigues</h3>
-                        <p>4.0</p>
-                    </div>
-
-                    <div class="oferta">
-
-                        <div class="div_servico">
-                            <label for="servico">Serviço</label>
-                            <input type="text" placeholder="Professor de Mat" class="servico" id="servico" name="servico">
-                        </div>
-
-                        <div class="div_horario">
-                            <label for="horario">Horário</label>
-                            <input type="text" placeholder="Manhã" class="horario" id="horario" name="horario">
-                        </div>
-
-                        <div>
-                            <label for="area-atuação">Área de atuação</label>
-                            <input type="text" placeholder="Educação" class="area-atuacao" id="area-atuacao" name="area-atuacao" list="faixa">
-                            <datalist id="faixa">
-                                <option value="Educação"></option>
-                                <option value="Construção"></option>
-                                <option value="Alimentação"></option>
-                                <option value="Digital"></option>
-                                <option value="Elétrica"></option>
-                                <option value="Limpeza"></option>
-                                <option value="Cuidados"></option>
-                                <option value="Mecânica"></option>
-                                <option value="Encanamento"></option>
-                            </datalist>
-                        </div>
-
-                        <div class="espaco_descricao">
-                            <label for="descricao">Descrição</label>
-                            <textarea name="" id="descricao" cols="30" rows="5" placeholder="Descreva o seu serviço..." class="descricao"  ></textarea>
-                        </div>
-                
-                        <div class="div_valor">
-                            <label for="valor">Valor</label>
-                            <input type="text" placeholder="A combinar" class="valor" id="valor" list="valores">
-                            <datalist id="valores">
-                                <option value="A combinar"></option>
-                            </datalist>
-                        </div>
-                
-                        <div>
-                            <label for="contato">Contato</label>
-                            <input type="text" placeholder="(88) 99999-9999" class="contato" id="contato" list="contatos">
-                            <datalist id="contatos">
-                                <option value="Contato 1"></option>
-                                <option value="Contato 2"></option>
-                            </datalist>
-                        </div>
-
-                    </div>
-                </div>
-            </form>
-
-            <hr>
-
-            <div class="modal_footer">
-                <button class="fechar" onclick="fecharModal_add()">
-                    Fechar
-                </button>
-
-                <button class="ofertar">Ofertar</button>
-            </div>
-        </div>
     </div>
 
     
@@ -113,14 +30,14 @@ $caminho = 'http://localhost/BicoJobs/';
         <img src="../media/Logo.svg" alt="Logo BicoJobs" class="logo">
 
         <nav>
-            <a href="../templates/servicos.php">Serviços</a>
+            <a href="<?php echo $caminho."templates/servicos.php"?>">Serviços</a>
             <?php 
                 if($_SESSION['tipo_user'] != 0){
                     echo '<a href="../templates/seus_bicos.php">Meus Bicos</a>';
                 }
             ?>
-            <a href="../templates/ultimos_bicos.php">Últimos serviços</a>
-            <a href="../templates/regras.php">Regras</a>
+            <a href="<?php echo $caminho."templates/ultimos_bicos.php"?>">Últimos serviços</a>
+            <a href="<?php echo $caminho."templates/regras.php"?>">Regras</a>
         </nav>
 
         <div class="perfil" onclick="abrir_options()">
@@ -129,9 +46,9 @@ $caminho = 'http://localhost/BicoJobs/';
         </div>
 
         <div class="opçoes op_none">
-            <a href="perfil.html">Perfil</a>
+            <a href="<?php echo $caminho."templates/perfil.php"?>" class="perfil_Click_Option">Perfil</a>
             <div></div>
-            <a href="<?php echo $caminho."conection/logout.php"?>">Sair</a>
+            <a href="<?php echo $caminho."conection/logout.php"?>" class="perfil_Click_Option">Sair</a>
         </div>
     </header>
 

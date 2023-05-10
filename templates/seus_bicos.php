@@ -1,4 +1,5 @@
 <?php 
+session_start();
 include '../conection/protected.php';
 $caminho = 'http://localhost/BicoJobs/';
 ?>
@@ -9,10 +10,6 @@ $caminho = 'http://localhost/BicoJobs/';
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/css/nav.css">
-    <link rel="stylesheet" href="/static/css/seus_bicos.css">
-    <link rel="stylesheet" href="../static/css/card.css">
-
     <style>
     <?php 
         include '../static/css/servicos_css.php';

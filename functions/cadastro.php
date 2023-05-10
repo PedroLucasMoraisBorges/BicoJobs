@@ -8,7 +8,7 @@ $dt_nasci = $_POST['dtNasci'];
 $pass = $_POST['password_cad'];
 $pass1 = $_POST['password2'];
 $cep = $_POST['cep'];
-$contato = $_POST['email_cad'];
+$email = $_POST['email_cad'];
 $sql_codes = [];
 
 
@@ -64,7 +64,7 @@ else{
 
 
 // Verifica se tem contato no banco
-$sql_code_contato = "SELECT id FROM contato WHERE contato = '$contato'";
+$sql_code_contato = "SELECT id FROM contato WHERE email = '$email'";
 $sql_code_last_id = "SELECT id FROM contato";
 
 
@@ -77,16 +77,16 @@ $last_id = $sql_query_last_id->num_rows;
 
 if($sql_query->num_rows <= 0){
     if($sql_query_last_id->num_rows <=0){
-        $sql = "INSERT INTO contato (id, contato) VALUES ($last_id, '$contato')";
+        $sql = "INSERT INTO contato (id, email) VALUES ($last_id, '$email')";
         $sql_codes[] = $sql;
         //(mysqli_query($mysqli, $sql));
-        $contato = $last_id;
+        $email = $last_id;
     }
     else{
-        $sql = "INSERT INTO contato (id, contato) VALUES ($last_id, '$contato')";
+        $sql = "INSERT INTO contato (id, contato) VALUES ($last_id, '$email')";
         $sql_codes[] = $sql;
         //(mysqli_query($mysqli, $sql));
-        $contato = $last_id;
+        $email = $last_id;
     }
 }
 else{
@@ -144,7 +144,7 @@ if($sql_query->num_rows <= 0){
             (mysqli_query($mysqli, $sql_codes[$i]));
         }
     
-        $sql = "INSERT INTO usuario (id ,nome, cpf, senha, id_cidade, id_contato,tipo_usuario ) VALUES (0 ,'$nome', '$cpf', '$pass', $cep, $contato, 0)";
+        $sql = "INSERT INTO usuario (id ,nome, cpf, senha, id_cidade, id_contato,tipo_usuario ) VALUES (0 ,'$nome', '$cpf', '$pass', $cep, $email, 0)";
     
         $mysqli->query($sql);
 
@@ -160,6 +160,10 @@ if($sql_query->num_rows <= 0){
         //Criado a sessao do USER
         $_SESSION["id"] = $user["id"];
         $_SESSION["nome"] = $user["nome"];
+        $_SESSION["cep"] = $user['cep'];
+        $_SESSION['id_contato'] = $user['id_contato'];
+        $_SESSION['tipo_user'] = $user['tipo_usuario'];
+        $_SESSION['senha'] = $user['senha'];
 
         //redicionando o user
         header("Location: http://localhost/BicoJobs/templates/servicos.php");
@@ -191,6 +195,10 @@ else{
         //Criado a sessao do USER
         $_SESSION["id"] = $user["id"];
         $_SESSION["nome"] = $user["nome"];
+        $_SESSION["cep"] = $user['cep'];
+        $_SESSION['id_contato'] = $user['id_contato'];
+        $_SESSION['tipo_user'] = $user['tipo_usuario'];
+        $_SESSION['senha'] = $user['senha'];
 
         //redicionando o user
         header("Location: http://localhost/BicoJobs/templates/servicos.php");

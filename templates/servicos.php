@@ -1,4 +1,5 @@
 <?php 
+session_start();
 $caminho = 'http://localhost/BicoJobs/';
 include '../conection/protected.php';
 ?>
@@ -16,14 +17,31 @@ include '../conection/protected.php';
     <style>
     <?php 
         include '../static/css/servicos_css.php';
-        include '../static/css/nav.php';
-        include '../static/css/card.php';
+        include '../static/css/nav_css.php';
+        include '../static/css/card_css.php';
     ?>
     </style>
     <title>BicoJobs | Serviços</title>
 </head>
 <body>
     <div class="modal_fundo none">
+        <div class="modal modal_mudar_tipo none">
+            <div class="modal_header">
+                <h2>Alterar Tipo de perfil</h2>
+            </div>
+
+            <p class="text">Você está prestes a se tornar um ofertante de serviços, quer prosseguir com esta ação?</p>
+
+            <form action="../functions/alterar_tipo.php"  method="POST" >
+                <div class="modal_footer">
+                    <p class="fechar" onclick="fecharModal()">
+                        Fechar
+                    </p>
+                    <button class="ofertar">Confirmar</button>
+
+                </div>
+            </form>
+        </div>
         <div class="modal_adiconar none">
 
             <div class="modal_header">
@@ -93,17 +111,16 @@ include '../conection/protected.php';
 
                     </div>
                 </div>
+                <hr>
+
+                <div class="modal_footer">
+                    <p class="fechar" onclick="fecharModal_add()">
+                        Fechar
+                    </p>
+
+                    <button class="ofertar">Ofertar</button>
+                </div>
             </form>
-
-            <hr>
-
-            <div class="modal_footer">
-                <button class="fechar" onclick="fecharModal_add()">
-                    Fechar
-                </button>
-
-                <button class="ofertar">Ofertar</button>
-            </div>
         </div>
     </div>
 
@@ -150,83 +167,15 @@ include '../conection/protected.php';
                 
                 <button class="botao_pesquisa"><img src="../media/svg's/search.svg" alt="Lupa"></button>
 
-                <!--
-                <div class="filtro">
-                    <button class="botao_filtro" onclick="abrir_filtro()"><img src="/media/svg's/filtro.svg" alt="filtro"></button>
-                
-                    <div class="campo_filtro none">
-                        <button onclick="fechar_filtro()" class="fechar"><img src="/media/svg's/x.svg" alt="X"></button>
 
-                        <div class="options">
-                            <div class="area">
-                                <h3>Área de autação:</h3>
-                                <div>
-                                    <input type="radio" name="area_atuacao" id="limpeza">
-                                    <label for="limpeza">Limpeza</label>
-                                </div>
-                                <div>
-                                    <input type="radio" name="area_atuacao" id="construcao">
-                                    <label for="construcao">Construção</label>
-                                </div>
-                                <div>
-                                    <input type="radio" name="area_atuacao" id="encanamento">
-                                    <label for="encanamento">Encanamento</label>
-                                </div>
-                                <div>
-                                    <input type="radio" name="area_atuacao" id="eletrica">
-                                    <label for="eletrica">Elétrica</label>
-                                </div>
-                                <div>
-                                    <input type="radio" name="area_atuacao" id="educacao">
-                                    <label for="educacao">Educação</label>
-                                </div>
-                                <div>
-                                    <input type="radio" name="area_atuacao" id="alimentacao">
-                                    <label for="alimentacao">Alimentação</label>
-                                </div>
-                                <div>
-                                    <input type="radio" name="area_atuacao" id="digital">
-                                    <label for="digital">Digital</label>
-                                </div>
-                                <div>
-                                    <input type="radio" name="area_atuacao" id="cuidados">
-                                    <label for="cuidados">Cuidados</label>
-                                </div>
-                                <div>
-                                    <input type="radio" name="area_atuacao" id="mecanico">
-                                    <label for="mecanico">Mecânico</label>
-                                </div>
-                            </div>
-
-
-                            <div class="valor">
-                                <h3>Valor:</h3>
-                                <div>
-                                    <input type="radio" name="valor" id="zero_cinquenta">
-                                    <label for="zero_cinquenta">De R$ 00.00 a R$ 50.00</label>
-                                </div>
-                                <div>
-                                    <input type="radio" name="valor" id="cinquenta_cem">
-                                    <label for="cinquenta_cem">De R$ 50.01 a R$ 100.00</label>
-                                </div>
-                                <div>
-                                    <input type="radio" name="valor" id="cem_acima">
-                                    <label for="cem_acima">Acima de R$ 100.00</label>
-                                </div>
-                                <div>
-                                    <input type="radio" name="valor" id="a_combinar">
-                                    <label for="a_combinar">A combinar</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <button class="aplicar" onclick="fechar_filtro()">Aplicar</button>
-                    </div>
-                </div>
-                -->
-        
-
-                <button class="adicionar" onclick="adicionar()">
+                <button class="adicionar" onclick="<?php 
+                if($_SESSION['tipo_user'] != 0){
+                    echo "adicionar()";
+                }
+                else{
+                    echo "mudar_tipo()";
+                }
+                ?>">
                     <img src="../media/svg's/plus.svg" alt="Adicionar">
                     <p>Anunciar o seu serviço</p>
                 </button>
