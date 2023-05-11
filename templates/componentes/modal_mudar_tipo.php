@@ -5,7 +5,7 @@
 
     
 
-    <form action="../functions/alterar_tipo.php"  method="POST" >
+    <form action="<?php echo $caminho."functions/alterar_tipo.php"?>" method="POST" >
 
 
         <div class="forms">

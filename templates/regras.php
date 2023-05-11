@@ -1,7 +1,5 @@
 <?php 
-
-include '../conection/protected.php';
-
+session_start();
 $caminho = 'http://localhost/BicoJobs/';
 ?>
 <!DOCTYPE html>
@@ -20,7 +18,7 @@ $caminho = 'http://localhost/BicoJobs/';
 <body>
     <div id="pageContainer">
         
-        <?php include 'componentes/nav.html';?>
+        <?php include 'componentes/nav.php';?>
 
         <main>
             <section class="info">

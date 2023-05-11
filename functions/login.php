@@ -2,6 +2,8 @@
 include("../conection/conection.php");
 include("../templates/logcad.php");
 
+//require_once("../class/user.php");
+
 $email = $_POST['user_log'];
 $senha = $_POST['password_log'];
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 10/05/2023 às 23:52
+-- Tempo de geração: 11/05/2023 às 15:38
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.2.4
 
@@ -52,7 +52,8 @@ CREATE TABLE `cidade` (
 CREATE TABLE `contato` (
   `id` int(11) NOT NULL,
   `email` varchar(50) DEFAULT NULL,
-  `telefone` varchar(15) DEFAULT NULL
+  `telefone` varchar(15) DEFAULT NULL,
+  `id_usuario` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -127,7 +128,8 @@ ALTER TABLE `cidade`
 -- Índices de tabela `contato`
 --
 ALTER TABLE `contato`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_usuario` (`id_usuario`);
 
 --
 -- Índices de tabela `idioma`
@@ -158,6 +160,12 @@ ALTER TABLE `usuario`
 --
 
 --
+-- Restrições para tabelas `contato`
+--
+ALTER TABLE `contato`
+  ADD CONSTRAINT `contato_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`);
+
+--
 -- Restrições para tabelas `servico`
 --
 ALTER TABLE `servico`
@@ -169,7 +177,6 @@ ALTER TABLE `servico`
 -- Restrições para tabelas `usuario`
 --
 ALTER TABLE `usuario`
-  ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`id_contato`) REFERENCES `contato` (`id`),
   ADD CONSTRAINT `usuario_ibfk_2` FOREIGN KEY (`id_idioma`) REFERENCES `idioma` (`id`),
   ADD CONSTRAINT `usuario_ibfk_3` FOREIGN KEY (`id_cidade`) REFERENCES `cidade` (`id`);
 COMMIT;

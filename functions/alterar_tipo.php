@@ -1,6 +1,7 @@
 <?php
 include("../conection/conection.php");
 require_once("../templates/servicos.php");
+//require_once("../class/user.php");
 
 $id = $_SESSION['id'];
 

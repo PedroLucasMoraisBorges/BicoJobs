@@ -1,6 +1,8 @@
 <?php
 include("../conection/conection.php");
+
 $caminho = 'http://localhost/BicoJobs';
+
 
 //Cria as variáveis, puxando do form no template
 $nome = $_POST['user_cad'];
@@ -43,8 +45,6 @@ if($sql_query->num_rows <= 0){
 else{
     $cep = $row["id"];
 }
-
-
 
 /*===================================================================================================================*/
 
