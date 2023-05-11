@@ -79,7 +79,7 @@ CREATE TABLE `servico` (
   `id_cidade` int(11) DEFAULT NULL,
   `nome` varchar(40) DEFAULT NULL,
   `valor` decimal(6,2) DEFAULT NULL,
-  `desccicao` varchar(350) DEFAULT NULL,
+  `descricao` varchar(350) DEFAULT NULL,
   `estado` int(11) DEFAULT NULL,
   `horario` varchar(20) DEFAULT NULL,
   `img_servico` varchar(50) DEFAULT NULL
