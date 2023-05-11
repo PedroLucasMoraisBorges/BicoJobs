@@ -306,18 +306,18 @@ label:hover{
 /*mudar tipo*/
 
 .modal_mudar_tipo{
-    width: 35%;
-    height: 50%;
+    height: fit-content;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: start;
     align-items: center;
 }
 
 .modal_mudar_tipo .modal_header{
     width: 100%;
-    height: 15%;
+    height: 4rem;
     margin: 0;
+    margin-bottom: 3rem;
 }
 
 .modal_mudar_tipo .text{
@@ -327,10 +327,58 @@ label:hover{
 
 .modal_mudar_tipo form{
     width: 100%;
-    height: 15%;
+    height: fit-content;
     display: flex;
+    flex-direction: column;
     justify-content: flex-end;
 }
+
+.modal_mudar_tipo div{
+    margin-bottom: 3%;
+}
+
+.forms{
+    display: flex;
+    padding: 0px 2rem 0px 2rem;
+}
+
+.modal_mudar_tipo .div_inp{
+    display: flex;
+    align-items: flex-start;
+}
+
+.modal_mudar_tipo .div_inp div{
+    margin-right: 2rem;
+}
+
+.modal_mudar_tipo label{
+    margin-bottom: 1%;
+    display: block;
+}
+
+.modal_mudar_tipo input{
+    margin-bottom: 2%;
+    display: block;
+    font-size: 1rem;
+    padding: 5px;
+    border: 2px solid #90909075;
+    border-radius: 10px;
+}
+
+.modal_mudar_tipo img{
+    margin-right: 3rem;
+}
+
+.modal_mudar_tipo textarea{
+    margin-bottom: 2%;
+    display: block;
+    font-size: 1rem;
+    padding: 5px;
+    border: 2px solid #90909075;
+    border-radius: 10px;
+    resize: none;
+}
+
 .modal_mudar_tipo .modal_footer{
     width: 100%;
     border-radius: 0px 0px 10px 10px;

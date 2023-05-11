@@ -1,0 +1,80 @@
+<div class="modal_adiconar none">
+
+    <div class="modal_header">
+        <h2>Detalhes da oferta</h2>
+    </div>
+
+    <form action="#" method="POST">
+        <div class="oferta_detalhes">
+
+            <div class="pessoais">
+                <label for="input_img"><img src="../media/svg's/add_foto.svg" alt=""></label>
+                <input type="file" id="input_img" name="input">
+                <h3>Willian Rodrigues</h3>
+                <p>4.0</p>
+            </div>
+
+            <div class="oferta">
+
+                <div class="div_servico">
+                    <label for="servico">Serviço</label>
+                    <input type="text" placeholder="Professor de Mat" class="servico" id="servico" name="servico">
+                </div>
+
+                <div class="div_horario">
+                    <label for="horario">Horário</label>
+                    <input type="text" placeholder="Manhã" class="horario" id="horario" name="horario">
+                </div>
+
+                <div>
+                    <label for="area-atuação">Área de atuação</label>
+                    <input type="text" placeholder="Educação" class="area-atuacao" id="area-atuacao" name="area-atuacao" list="faixa">
+                    <datalist id="faixa">
+                        <option value="Educação"></option>
+                        <option value="Construção"></option>
+                        <option value="Alimentação"></option>
+                        <option value="Digital"></option>
+                        <option value="Elétrica"></option>
+                        <option value="Limpeza"></option>
+                        <option value="Cuidados"></option>
+                        <option value="Mecânica"></option>
+                        <option value="Encanamento"></option>
+                        <option value="Outros"></option>
+                    </datalist>
+                </div>
+
+                <div class="espaco_descricao">
+                    <label for="descricao">Descrição</label>
+                    <textarea name="descricao" id="descricao" cols="30" rows="5" placeholder="Descreva o seu serviço..." class="descricao"  ></textarea>
+                </div>
+        
+                <div class="div_valor">
+                    <label for="valor">Valor</label>
+                    <input type="text" name="valor" placeholder="A combinar" class="valor" id="valor" list="valores">
+                    <datalist id="valores">
+                        <option value="A combinar"></option>
+                    </datalist>
+                </div>
+        
+                <div>
+                    <label for="contato">Contato</label>
+                    <input type="text" name="contato" placeholder="(88) 99999-9999" class="contato" id="contato" list="contatos">
+                    <datalist id="contatos">
+                        <option value="Contato 1"></option>
+                        <option value="Contato 2"></option>
+                    </datalist>
+                </div>
+
+            </div>
+        </div>
+        <hr>
+
+        <div class="modal_footer">
+            <p class="fechar" onclick="fecharModal_add()">
+                Fechar
+            </p>
+
+            <button class="ofertar">Ofertar</button>
+        </div>
+    </form>
+</div>
