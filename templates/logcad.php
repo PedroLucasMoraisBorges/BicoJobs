@@ -23,6 +23,7 @@ include("../conection/conection.php");
 </head>
 
 <body>
+    <div class="error-msg" id="error-msg-login"></div>
     <div class="back"></div>
 
     <section class="main">
@@ -68,7 +69,7 @@ include("../conection/conection.php");
             </div>
 
             <a href="<?php echo $caminho."templates/servicos.php"; ?>" class="login" >
-                <button>Entrar</button>
+                <button id="buttonLogin">Entrar</button>
             </a>
 
             <p class="interacao">Ainda não possui conta? <a href="<?php echo $servicos;?>" onclick="slide_img()">Cadastre-se</a></p>
