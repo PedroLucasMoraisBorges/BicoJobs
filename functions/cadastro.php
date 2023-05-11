@@ -1,6 +1,8 @@
 <?php
 include("../conection/conection.php");
-//require_once("../class/user.php");
+
+$caminho = 'http://localhost/BicoJobs';
+
 
 //Cria as variáveis, puxando do form no template
 $nome = $_POST['user_cad'];
@@ -13,21 +15,7 @@ $email = $_POST['email_cad'];
 $sql_codes = [];
 
 
-/*===================================================================================================================*/
 
-if(strlen($cpf) != 11 || $cpf == "00000000000" || $cpf == "11111111111" || $cpf == "22222222222" || $cpf == "33333333333"|| $cpf == "44444444444"|| $cpf == "55555555555" || $cpf == "66666666666" || $cpf == "77777777777" || $cpf == "88888888888" || $cpf == "99999999999"){
-    die("CPF inválido");
-}
-
-if($pass != $pass1){
-    die("As senhas não coincidem");
-} else if(strlen($pass) < 8){
-    die("A senha deve ter no mínimo 8 caracteres");
-}
-
-if(strlen($cep) != 8 || $cep == "00000000"){
-    die("Cep inválido");
-}
 
 /*===================================================================================================================*/
 
@@ -89,7 +77,7 @@ if($sql_query->num_rows <= 0){
     }
 }
 else{
-    die("O email já está cadastrado");
+    die("O email já está cadastrado <a href='javascript:history.back()'>Retornar</a>");
 }
 
 /*===================================================================================================================*/
@@ -109,7 +97,7 @@ $last_id = $sql_query_last_id->num_rows;
 
 
 if($sql_query->num_rows == 1){
-    die("O cpf já está cadastrado");
+    die("O cpf já está cadastrado <a href='javascript:history.back()'>Retornar</a>");
 }
 
 
@@ -125,7 +113,7 @@ $sql_query = $mysqli->query($sql_code_cpf) or die("Falha na execuça do código 
 $row = $sql_query->fetch_assoc();
 
 if($sql_query->num_rows == 1){
-    die("O nome de usuario já está cadastrado");
+    die("O nome de usuario já está cadastrado <a href='javascript:history.back()'>Retornar</a>");
 }
 
 

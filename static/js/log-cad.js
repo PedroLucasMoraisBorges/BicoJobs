@@ -42,9 +42,14 @@ let userCampLogin = document.getElementById("user");
 let passwordCampLogin = document.getElementById("senha");
 let checkbox = document.getElementById("ver_senha");
 let button = document.getElementById("buttonLogin");
+let buttonCad = document.getElementById("buttonCadastro");
+let checkboxCad =document.getElementById("ver_senhaCad");
 
 checkbox.addEventListener("click", versenha);
+checkboxCad.addEventListener("click", versenhaCadastro);
 button.addEventListener("click", validateLogin);
+buttonCad.addEventListener("click", validateCadastro);
+
 
 function versenha(){
     if(passwordCampLogin.type == "password"){
@@ -52,6 +57,20 @@ function versenha(){
     }
     else{
         passwordCampLogin.type = "password";
+    }
+}
+
+function versenhaCadastro(){
+    let password1 = document.getElementById("pass1");
+    let password2 = document.getElementById("pass2");
+
+    if(password1.type == "password"){
+        password1.type = "text";
+        password2.type = "text";
+    }
+    else{
+        password1.type = "password";
+        password2.type = "password";
     }
 }
 
@@ -92,7 +111,7 @@ function validateLogin(e){
     }
 
     if(pass == "" | user == "" || spaces > 0){
-        errorMsg = "Usuário ou Senha vazio(s)!";
+        errorMsg = "Usuário ou Senha inválidos(s)!";
         e.preventDefault();
     }
 
@@ -122,6 +141,75 @@ function validateLogin(e){
     
 
 }
+
+function validateCadastro(e){
+    let vazios = 0;
+    let errorLog = document.getElementById("error-msg-login");
+    let errorMsg = null;
+    let cpf = document.getElementById("cpf");
+    let password1 = document.getElementById("pass1");
+    let password2 = document.getElementById("pass2");
+    let cep = document.getElementById("cep");
+
+    let camps = document.querySelectorAll(".cad .text");
+    camps.forEach(camp => {
+        camp.value = camp.value.trim();
+        if(camp.value == ""){
+            camp.classList.add("error-camp");
+            vazios++;
+        }
+        else{
+            camp.classList.remove("error-camp");
+        }
+    });
+
+    if(vazios > 0){
+        errorMsg = "Campo(s) Vazio(s)/Inválidos(s)!";
+    }
+    else{
+        if(cpf.value.length != 11 || cpf == "00000000000" || cpf == "11111111111" || cpf == "22222222222" || cpf == "33333333333"|| cpf == "44444444444"|| cpf == "55555555555" || cpf == "66666666666" || cpf == "77777777777" || cpf == "88888888888" || cpf == "99999999999" || isNaN(cpf.value) == true){
+            errorMsg = "CPF inválido!";
+            cpf.classList.add("error-camp");
+        }
+        else{
+            cpf.classList.remove("error-camp");
+            if(password1.value != password2.value){
+                errorMsg = "Senhas não coincidem!";
+                password1.classList.add("error-camp");
+                password2.classList.add("error-camp");
+            }
+            else if(password1.value.length < 8){
+                errorMsg = "A senha deve ter no mínimo 8 caracteres!";
+                password1.classList.add("error-camp");
+                password2.classList.add("error-camp");
+            }
+            else{
+                password1.classList.remove("error-camp");
+                password2.classList.remove("error-camp");
+                if(cep.value.length != 8 || cep.value == "00000000" || isNaN(cep.value) == true){
+                    errorMsg = "CEP inválido!";
+                    cep.classList.add("error-camp");
+                }
+                else{
+                    cep.classList.remove("error-camp");
+                }
+            }
+        }
+    }
+
+    if(errorMsg != null){
+        e.preventDefault();
+        errorLog.innerHTML = errorMsg;
+        if(errorLog.classList.contains("slide") == false){
+            errorLog.classList.add("slide");
+            setTimeout(() => {
+                errorLog.classList.remove("slide");
+            }, 3000);
+        }
+    }
+}
+
+
 
 
 

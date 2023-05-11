@@ -14,9 +14,7 @@ include("../conection/conection.php");
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        <?php include '../static/css/log_cad_css.php'; ?>
-    </style>
+    <link rel="stylesheet" href="../static/css/log_cad.css">
 
 
     <title>BicoJobs</title>
@@ -50,7 +48,7 @@ include("../conection/conection.php");
         <form action="../functions/login.php" method="POST" class="log">
             <h1>Login</h1>
 
-            <input type="text" placeholder="Usuário ou Email" id="user" name="user_log" class="text">
+            <input type="text" placeholder="Email" id="user" name="user_log" class="text">
 
             <input type="password" name="password_log" placeholder="Senha" id="senha" class="text">
 
@@ -80,27 +78,29 @@ include("../conection/conection.php");
         <form action="../functions/cadastro.php" method="POST" class="cad">
             
             <h1>Cadastro</h1>
-            <input type="email" name="email_cad" class="text email" placeholder="Email">
+            <input type="email" name="email_cad" class="text email" placeholder="Email" id="email">
 
             <input type="text" name="user_cad" class="text user" placeholder="Usuário">
 
-            <input type="text" class="text" placeholder="CPF..." name="cpf">
+            <input type="text" class="text" placeholder="CPF..." name="cpf" id="cpf">
 
             <input type="date" class="text" name="dtNasci" id="dtNasci">
 
-            <input type="password" name="password_cad" class="text senha" placeholder="Senha">
+            <input type="password" name="password_cad" class="text senha" placeholder="Senha" id="pass1">
 
-            <input type="password" name="password2" class="text rep_senha" placeholder="Repetir senha">
+            <input type="password" name="password2" class="text rep_senha" placeholder="Repetir senha" id="pass2">
 
             <div class="inline">
                 <input type="checkbox" name="ver_senha" id="ver_senhaCad" class="ver_senha" onclick="ver_senha_cad()">
                 <label for="ver_senhaCad" class="rad">Ver senha</label>
             </div>
 
-            <input type="text" name="cep" class="text cep" placeholder="CEP">
+            <input type="text" name="cep" class="text cep" placeholder="CEP" id="cep">
 
             
-            <button>Cadastrar</button>
+            <button id="buttonCadastro" class="cadastroButton">Cadastrar</button>
+            <a href="<?php echo $caminho."templates/servicos.php"; ?>" class="cadastro">
+            </a>
 
             <p class="interacao">Já possui conta? <a href="#" onclick="slide_img()">Faça login</a></p>
         </form>
