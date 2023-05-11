@@ -30,7 +30,7 @@ $caminho = 'http://localhost/BicoJobs/';
 
 
     <?php include 'componentes/nav.php';?>
-    
+
 
     <main onclick="fechar_op()">
         <div class="pesquisa">

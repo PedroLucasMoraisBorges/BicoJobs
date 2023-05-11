@@ -1,4 +1,5 @@
 <?php 
+session_start();
 $caminho = 'http://localhost/BicoJobs/';
 ?>
 
