@@ -48,7 +48,7 @@ class servico {
     public function setId_catagoria($id_categoria){
         $this -> id_categoria = $id_categoria;
     }
-    public function setId_cidade(){
+    public function setId_cidade($id_cidade){
         $this -> id_cidade = $id_cidade;
     }
 
