@@ -38,19 +38,92 @@ function login(){
 }
 */
 
+let userCampLogin = document.getElementById("user");
+let passwordCampLogin = document.getElementById("senha");
 let checkbox = document.getElementById("ver_senha");
+let button = document.getElementById("buttonLogin");
+
 checkbox.addEventListener("click", versenha);
+button.addEventListener("click", validateLogin);
 
 function versenha(){
-    let passwordCampLogin = document.getElementById("senha");
     if(passwordCampLogin.type == "password"){
         passwordCampLogin.type = "text";
     }
     else{
         passwordCampLogin.type = "password";
     }
+}
+
+function validateLogin(e){
+    let errorLog = document.getElementById("error-msg-login");
+    let errorMsg = null;
+    let spaces = 0;
+    let spaces_user = 0;
+    let spaces_pass = 0;
+    let i;
+
+    let user = userCampLogin.value;
+    let pass = passwordCampLogin.value;
+
+    for(i = 0; i < user.length; i++){
+        if(user[i] == ' '){
+            spaces_user++;
+            spaces++;
+            userCampLogin.classList.add("error-camp");
+        }
+    }
+
+
+    if(spaces_user == 0){
+        userCampLogin.classList.remove("error-camp");
+    }
+
+    for(i = 0; i < pass.length; i++){
+        if(pass[i] == ' '){
+            spaces_pass++;
+            spaces++;
+            passwordCampLogin.classList.add("error-camp");
+        }
+    }
+
+    if(spaces_pass == 0){
+        passwordCampLogin.classList.remove("error-camp");
+    }
+
+    if(pass == "" | user == "" || spaces > 0){
+        errorMsg = "Usuário ou Senha vazio(s)!";
+        e.preventDefault();
+    }
+
+    if(pass == ""){
+        passwordCampLogin.classList.add("error-camp");
+    }
+    else{
+        passwordCampLogin.classList.remove("error-camp");
+    }
+
+    if(user == ""){
+        userCampLogin.classList.add("error-camp");
+    }
+    else{
+        userCampLogin.classList.remove("error-camp");
+    }
+
+    if(errorMsg != null){
+        errorLog.innerHTML = errorMsg;
+        if(errorLog.classList.contains("slide") == false){
+            errorLog.classList.add("slide");
+            setTimeout(() => {
+                errorLog.classList.remove("slide");
+            }, 3000);
+        }
+    }
+    
 
 }
+
+
 
 /*
 function cadastro(){

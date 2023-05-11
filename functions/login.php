@@ -15,14 +15,7 @@ $row = $sql_query->fetch_assoc();
 
 if($sql_query->num_rows == 1){
     $email = $row["id"];
-}
-else{
-    die("O email já está não está cadastrado");
-}
-
-
-
-$sql = "SELECT * FROM usuario WHERE id_contato = '$email'";
+    $sql = "SELECT * FROM usuario WHERE id_contato = '$email'";
 $sql_qery = $mysqli->query($sql);
 
 $user = $sql_qery->fetch_assoc();
@@ -46,3 +39,9 @@ if($sql_qery -> num_rows < 0){
     //redicionando o user
     header("Location: http://localhost/BicoJobs/templates/servicos.php");
 }
+}
+else{
+    echo "<script>  window.location.href='../templates/logcad.php';  alert('Usuário ou senha não correspondem!'); </script>";
+}
+
+

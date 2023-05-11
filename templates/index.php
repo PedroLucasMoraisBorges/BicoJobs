@@ -14,6 +14,7 @@ $caminho = 'http://localhost/BicoJobs/';
 </head>
 
 <body>
+    </div>
     <header>
         <div class="top-bar">
             <img src="../media/Logo.svg" alt="">
