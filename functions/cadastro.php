@@ -1,5 +1,6 @@
 <?php
 include("../conection/conection.php");
+//require_once("../class/user.php");
 
 //Cria as variáveis, puxando do form no template
 $nome = $_POST['user_cad'];
@@ -57,8 +58,6 @@ else{
     $cep = $row["id"];
 }
 
-
-
 /*===================================================================================================================*/
 
 
@@ -83,7 +82,7 @@ if($sql_query->num_rows <= 0){
         $email = $last_id;
     }
     else{
-        $sql = "INSERT INTO contato (id, contato) VALUES ($last_id, '$email')";
+        $sql = "INSERT INTO contato (id, email) VALUES ($last_id, '$email')";
         $sql_codes[] = $sql;
         //(mysqli_query($mysqli, $sql));
         $email = $last_id;
@@ -176,7 +175,7 @@ else{
             (mysqli_query($mysqli, $sql_codes[$i]));
         }
     
-        $sql = "INSERT INTO usuario (id ,nome, cpf, senha, id_cidade, id_contato,tipo_usuario ) VALUES ($last_id ,'$nome', '$cpf', '$pass', $cep, $contato, 0)";
+        $sql = "INSERT INTO usuario (id ,nome, cpf, senha, id_cidade, id_contato,tipo_usuario ) VALUES ($last_id ,'$nome', '$cpf', '$pass', $cep, $email, 0)";
     
         ($mysqli->query($sql));
 

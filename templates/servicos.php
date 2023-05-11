@@ -1,7 +1,6 @@
 <?php 
 session_start();
 $caminho = 'http://localhost/BicoJobs/';
-include '../conection/protected.php';
 ?>
 
 <head>
@@ -25,12 +24,12 @@ include '../conection/protected.php';
 </head>
 <body>
     <div class="modal_fundo none">
-        <?php include 'componentes/modal_mudar_tipo.html'; ?>
+        <?php include 'componentes/modal_mudar_tipo.php'; ?>
         <?php include 'componentes/adicionar_serv.html'; ?>
     </div>
 
 
-    <?php include 'componentes/nav.html';?>
+    <?php include 'componentes/nav.php';?>
     
 
     <main onclick="fechar_op()">

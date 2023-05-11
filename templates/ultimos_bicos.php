@@ -1,5 +1,5 @@
 <?php
-include '../conection/protected.php';
+session_start();
 $caminho = 'http://localhost/BicoJobs/';
 ?>
 
@@ -26,7 +26,7 @@ $caminho = 'http://localhost/BicoJobs/';
     </div>
 
     
-    <?php include 'componentes/nav.html';?>
+    <?php include 'componentes/nav.php';?>
 
 
     <main onclick="fechar_op()">

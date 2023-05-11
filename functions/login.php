@@ -1,6 +1,8 @@
 <?php
 include("../conection/conection.php");
 
+//require_once("../class/user.php");
+
 $email = $_POST['user_log'];
 $senha = $_POST['password_log'];
 

@@ -1,6 +1,4 @@
 <?php 
-session_start();
-include '../conection/protected.php';
 $caminho = 'http://localhost/BicoJobs/';
 ?>
 
@@ -13,8 +11,8 @@ $caminho = 'http://localhost/BicoJobs/';
     <style>
     <?php 
         include '../static/css/servicos_css.php';
-        include '../static/css/nav.php';
-        include '../static/css/card.php';
+        include '../static/css/nav_css.php';
+        include '../static/css/card_css.php';
     ?>
     </style>
     <title>BicoJobs | Seus Bicos</title>
@@ -106,7 +104,7 @@ $caminho = 'http://localhost/BicoJobs/';
     </div>
 
     
-    <?php include 'componentes/nav.html';?>
+    <?php include 'componentes/nav.php';?>
 
 
 <main onclick="fechar_op()">
