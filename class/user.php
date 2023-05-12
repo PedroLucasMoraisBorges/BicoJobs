@@ -217,23 +217,32 @@ class User{
 
 
 
-    public function alterar_tipo($id,$mysqli,$img_perfil,$descricao,$habilidade,$idioma,$telefone){
+    public function alterar_tipo($id,$mysqli,$img_perfil,$descricao,$habilidade,$idioma,$telefone,$nome_comp){
 
         $sql = "SELECT id FROM idioma WHERE id = $id";
         $sql_query = $mysqli->query($sql);
-        $id_idioma = $sql_query->num_rows;
+        if($sql_query->num_rows <=0){
+            $id_idioma = 0;
+        }
+        else{
+            $id_idioma = $sql_query->fetch_assoc();
+            $id_idioma = $id_idioma['id'];
+        }
+
+        $sql_code = "SELECT id FROM idioma";
+        $sql_query = $mysqli->query($sql_code);
 
         $sql = "INSERT INTO idioma (id, idioma) VALUES ($sql_query->num_rows , '$idioma')";
         $sql_query = $mysqli->query($sql);
 
-        $sql = "UPDATE usuario SET tipo_usuario= 1, img_perfil= '$img_perfil',descricao= '$descricao', habilidades= '$habilidade' , id_idioma= $id_idioma avalicao= 5.0 WHERE id = $id";
+        $sql = "UPDATE usuario SET tipo_usuario= 1, img_perfil= '$img_perfil',descricao= '$descricao', habilidades= '$habilidade' , id_idioma= $id_idioma,  avaliacao= 5.0, nome_comp= '$nome_comp' WHERE id = $id";
         $sql_query = $mysqli->query($sql);
 
         $sql = "UPDATE contato SET telefone='$telefone' WHERE id = $id";
         $sql_query = $mysqli->query($sql);
 
 
-        $sql = "SELECT tipo_usuario FROM usuario WHERE id = '$id'";
+        $sql = "SELECT * FROM usuario WHERE id = '$id'";
         $sql_query = $mysqli->query($sql);
         $user = $sql_query->fetch_assoc();
 
@@ -241,12 +250,12 @@ class User{
             session_start();
         }
 
+        $_SESSION['avaliacao'] = $user['avaliacao'];
         $_SESSION['tipo_user'] = $user['tipo_usuario'];
         $_SESSION['id_idioma'] = $user['id_idioma'];
         $_SESSION['descicao'] = $user['descricao'];
         $_SESSION['img_perfil'] = $user['img_perfil'];
         $_SESSION['habilidades'] = $user['habilidades'];
-
-        header("Location: http://localhost/BicoJobs/templates/servicos.php");
+        $_SESSION['nome_comp'] = $user['nome_comp'];
     }
 }

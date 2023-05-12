@@ -17,7 +17,12 @@
             </div>
             
             <div class="inputs">
-                <div class="div_inp">
+                <div>
+                    <label for="nome_comp">Nome completo:</label>
+                    <input type="text" name="nome_comp" placeholder="Nome completo">
+                </div>
+
+                <div>
                     <div>
                         <label for="descricao">Descrição:</label>
                         <textarea name="descricao" id="descricao" cols="75" rows="5"></textarea>

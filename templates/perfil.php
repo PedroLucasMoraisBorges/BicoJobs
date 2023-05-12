@@ -36,29 +36,27 @@ $caminho = 'http://localhost/BicoJobs/';
             <div class="left">
                 <img src="https://pbs.twimg.com/profile_images/1380598069528510466/rlqqyNbd_400x400.jpg" alt="">
                 <div class="habilidades">
-                    <h3>Habilidades</h3>
-                    <p>Assistência técnica</p>
-                    <p>Computação</p>
+                    <h3>Proeficiência:</h3>
+                    <p><?php echo $_SESSION['habilidades']?></p>
                 </div>
             </div>
 
             <div class="right">
                 <div class="nome">
-                    <p>5.0</p>
-                    <h2>Pedro Lucas</h2>
+                    <p><?php echo $_SESSION['avaliacao']?></p>
+                    <h2><?php echo $_SESSION['nome']?></h2>
                 </div>
 
                 <div class="info_pessoais">
                     <div class="nome_comp">
                         <h3>Nome completo:</h3>
-                        <p>Pedro Lucas de Morais Borges</p>
+                        <p><?php echo $_SESSION['nome_comp']?></p>
                     </div>
 
                     <div class="linguas">
-                        <h3>Línguas:</h3>
+                        <h3>Fluente em:</h3>
                         <div>
-                            <p>Português</p>
-                            <p>Inglês</p>
+                            <p><?php echo $_SESSION['id_idioma']?></p>
                         </div>
                     </div>
                 </div>
@@ -77,7 +75,7 @@ $caminho = 'http://localhost/BicoJobs/';
 
                 <div class="descricao">
                     <h3>Descrição</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt placeat molestias ab dicta velit possimus alias, um eveniet explicabo aperiam odio voluptates, quam reiciendis corporis doloremque. A labore non vero! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi, numquam earum eum laborum voluptatem consectetur rerum fugiat quod officia quam corporis et odit, necessitatibus autem, fugit velit! Exercitationem, debitis quibusdam.</p>
+                    <?php echo $_SESSION['descricao']; ?>
                 </div>
 
                 <a href="#" class="edit">Editar</a>

@@ -20,8 +20,11 @@
     </div>
 
     <div class="opçoes op_none">
-        <a href="<?php echo $caminho."templates/perfil.php"?>" >Perfil</a>
-        <div></div>
+        <?php 
+            if($_SESSION['tipo_user'] != 0){
+                echo '<a href="'.$caminho.'templates/perfil.php">Perfil</a><div></div>';
+            }
+        ?>
         <a href="<?php echo $caminho."conection/logout.php"?>">Sair</a>
     </div>
 </header>

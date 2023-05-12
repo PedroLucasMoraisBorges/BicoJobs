@@ -10,6 +10,7 @@ $descricao = $_POST['descricao'];
 $habilidade = $_POST['habilidade'];
 $idioma = $_POST['idioma'];
 $telefone = $_POST['telefone'];
+$nome_comp = $_POST['nome_comp'];
 
 $usuario = new User(
     $mysqli,
@@ -26,4 +27,4 @@ $usuario = new User(
 $sql = "UPDATE usuario SET tipo_usuario= 1 WHERE id = '$id'";
 $sql_query = $mysqli->query($sql);
 
-$usuario->alterar_tipo($id,$mysqli,$img_perfil,$descricao,$habilidade,$idioma,$telefone);
+$usuario->alterar_tipo($id,$mysqli,$img_perfil,$descricao,$habilidade,$idioma,$telefone,$nome_comp);

@@ -345,6 +345,7 @@ label:hover{
 .modal_mudar_tipo .div_inp{
     display: flex;
     align-items: flex-start;
+    flex-wrap: wrap;
 }
 
 .modal_mudar_tipo .div_inp div{
@@ -377,6 +378,7 @@ label:hover{
     border: 2px solid #90909075;
     border-radius: 10px;
     resize: none;
+    width: 100%;
 }
 
 .modal_mudar_tipo .modal_footer{
