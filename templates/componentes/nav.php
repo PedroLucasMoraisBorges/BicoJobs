@@ -15,7 +15,7 @@
     </nav>
 
     <div class="perfil" onclick="abrir_options()">
-        <p class="nome_perfil"><?php echo $_SESSION['nome']; ?> </p>
+        <p class="nome_perfil"><?php echo $_SESSION["nome"]; ?> </p>
         <div class="img"><img src="../media/svg's/perfil.svg" alt="perfil"></div>
     </div>
 

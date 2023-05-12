@@ -1,12 +1,11 @@
 <?php
 include("../conection/conection.php");
-include("../templates/logcad.php");
+require_once ("../class/user.php");
 
 //require_once("../class/user.php");
 
 $email = $_POST['user_log'];
 $senha = $_POST['password_log'];
-
 
 
 $sql_code_contato = "SELECT id FROM contato WHERE email = '$email'";
@@ -35,18 +34,24 @@ if($sql_query->num_rows == 1){
         }, 3250);
         </script>";
     } else{
+
         if(!isset($_SESSION)){
             session_start();
         }
 
         //Criado a sessao do USER
 
+        
+
         $_SESSION["id"] = $user["id"];
         $_SESSION["nome"] = $user["nome"];
+        $_SESSION["cpf"] = $user["cpf"];
         $_SESSION["cep"] = $user['id_cidade'];
+        $_SESSION["dt_nascimento"] = $user["dt_nascimento"];
         $_SESSION['id_contato'] = $user['id_contato'];
         $_SESSION['tipo_user'] = $user['tipo_usuario'];
         $_SESSION['senha'] = $user['senha'];
+        $_SESSION['user'] = $usuario;
 
         //redicionando o user
         header("Location: http://localhost/BicoJobs/templates/servicos.php");

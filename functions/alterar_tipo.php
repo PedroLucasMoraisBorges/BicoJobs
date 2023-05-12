@@ -1,21 +1,29 @@
 <?php
+session_start();
 include("../conection/conection.php");
-require_once("../templates/servicos.php");
-//require_once("../class/user.php");
+require_once("../class/user.php");
+
 
 $id = $_SESSION['id'];
+$img_perfil = $_POST['img_perfil'];
+$descricao = $_POST['descricao'];
+$habilidade = $_POST['habilidade'];
+$idioma = $_POST['idioma'];
+$telefone = $_POST['telefone'];
 
-$sql = "UPDATE usuario SET tipo_usuario= 1 WHERE nome = '$id'";
+$usuario = new User(
+    $mysqli,
+    $_SESSION["nome"],
+    $_SESSION["dt_nascimento"],
+    $_SESSION["cpf"],
+    $_SESSION["cep"],
+    $_SESSION['senha'],
+    $_SESSION['tipo_user'],
+    $_SESSION['id_contato'],
+    1
+);
+
+$sql = "UPDATE usuario SET tipo_usuario= 1 WHERE id = '$id'";
 $sql_query = $mysqli->query($sql);
 
-$sql = "SELECT tipo_usuario FROM usuario WHERE nome = '$id'";
-$sql_query = $mysqli->query($sql);
-$user = $sql_query->fetch_assoc();
-
-if(!isset($_SESSION)){
-    session_reset();
-}
-
-$_SESSION['tipo_user'] = 1;
-
-header("Location: http://localhost/BicoJobs/templates/seus_bicos.php");
+$usuario->alterar_tipo($id,$mysqli,$img_perfil,$descricao,$habilidade,$idioma,$telefone);
