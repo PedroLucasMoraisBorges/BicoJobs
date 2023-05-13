@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 11/05/2023 às 15:38
+-- Tempo de geração: 13/05/2023 às 20:26
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.2.4
 
@@ -105,7 +105,9 @@ CREATE TABLE `usuario` (
   `avaliacao` decimal(2,1) DEFAULT NULL,
   `nome` varchar(50) DEFAULT NULL,
   `senha` varchar(20) DEFAULT NULL,
-  `img_perfil` varchar(50) DEFAULT NULL
+  `img_perfil` varchar(100) DEFAULT NULL,
+  `nome_comp` varchar(75) DEFAULT NULL,
+  `quant_servicos` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -158,12 +160,6 @@ ALTER TABLE `usuario`
 --
 -- Restrições para tabelas despejadas
 --
-
---
--- Restrições para tabelas `contato`
---
-ALTER TABLE `contato`
-  ADD CONSTRAINT `contato_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`);
 
 --
 -- Restrições para tabelas `servico`
