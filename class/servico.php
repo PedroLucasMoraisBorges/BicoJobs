@@ -81,7 +81,7 @@ class servico {
         $this -> id_categoria = $id_categoria;
         $this -> id_cidade = $id_cidade;
         $this -> nome = $nome;
-        $this -> nome = $valor;
+        $this -> valor = $valor;
         $this -> valor_descricao = $valor_descricao;
         $this -> estado = $estado;
         $this -> horario = $horario;

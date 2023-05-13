@@ -34,7 +34,7 @@ $caminho = 'http://localhost/BicoJobs/';
 
         <div class="meio">
             <div class="left">
-                <img src="https://pbs.twimg.com/profile_images/1380598069528510466/rlqqyNbd_400x400.jpg" alt="">
+                <img src="<?php echo $caminho."media/img_perfis/".$_SESSION['img_perfil'];?>" alt="">
                 <div class="habilidades">
                     <h3>Proeficiência:</h3>
                     <p><?php echo $_SESSION['habilidades']?></p>

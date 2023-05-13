@@ -56,6 +56,7 @@ if($sql_query->num_rows == 1){
         $_SESSION['nome_comp'] = $user['nome_comp'];
         $_SESSION['descricao'] = $user['descricao'];
         $_SESSION['habilidades'] = $user['habilidades'];
+        $_SESSION['img_perfil'] = $user['img_perfil'];
 
         //redicionando o user
         header("Location: http://localhost/BicoJobs/templates/servicos.php");

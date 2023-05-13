@@ -5,7 +5,7 @@
 
     
 
-    <form action="<?php echo $caminho."functions/alterar_tipo.php"?>" method="POST" >
+    <form action="<?php echo $caminho."functions/alterar_tipo.php"?>" method="POST" enctype="multipart/form-data">
 
 
         <div class="forms">
@@ -13,7 +13,7 @@
                 <label for="img_perfil">
                     <img src="<?php echo $caminho."media/svg's/add_foto.svg"?>" alt="">
                 </label>
-                <input type="file" name="img_perfil" id="img_perfil" style="display: none;">
+                <input type="file" require name="img_perfil" id="img_perfil" style="display: none;">
             </div>
             
             <div class="inputs">

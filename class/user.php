@@ -76,7 +76,7 @@ class User{
 
         // Verifica se é possível efetuar o código ou da erro;
         $sql_query = $mysqli->query($sql_code_mesmo_cep) or die("Falha na execuça do código SQL" .$mysqli->error);
-        // Verifica a qauntidade de lihas afetadas;
+        // Retorna a chave do array
         $row = $sql_query->fetch_assoc();
 
         // Verifica se é possível efetuar o código ou da erro;
@@ -97,6 +97,7 @@ class User{
             return [$this->cep , $sql_codes];
         }
     }
+
 
 
     public function getEmail($mysqli){
@@ -229,17 +230,22 @@ class User{
             $id_idioma = $id_idioma['id'];
         }
 
+        // IDIOMA 
         $sql_code = "SELECT id FROM idioma";
         $sql_query = $mysqli->query($sql_code);
 
         $sql = "INSERT INTO idioma (id, idioma) VALUES ($sql_query->num_rows , '$idioma')";
         $sql_query = $mysqli->query($sql);
+        // IDIOMA
 
+
+        // INCREMENTO NO PERFIL DE USUARIO
         $sql = "UPDATE usuario SET tipo_usuario= 1, img_perfil= '$img_perfil',descricao= '$descricao', habilidades= '$habilidade' , id_idioma= $id_idioma,  avaliacao= 5.0, nome_comp= '$nome_comp' WHERE id = $id";
         $sql_query = $mysqli->query($sql);
 
         $sql = "UPDATE contato SET telefone='$telefone' WHERE id = $id";
         $sql_query = $mysqli->query($sql);
+        // INCREMENTO NO PERFIL DE USUARIO
 
 
         $sql = "SELECT * FROM usuario WHERE id = '$id'";
@@ -257,5 +263,7 @@ class User{
         $_SESSION['img_perfil'] = $user['img_perfil'];
         $_SESSION['habilidades'] = $user['habilidades'];
         $_SESSION['nome_comp'] = $user['nome_comp'];
+
+        header("Location: http://localhost/BicoJobs/templates/servicos.php");
     }
 }

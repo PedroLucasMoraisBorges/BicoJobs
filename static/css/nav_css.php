@@ -79,8 +79,8 @@ nav a{
 .perfil .img{
     background-color: white;
     
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     border-radius: 100%;
 
     display: flex;
@@ -89,9 +89,12 @@ nav a{
 }
 
 .perfil div img{
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
     position: relative;
     display: block;
-    height: 35px;
 }
 
 .cor_nav{
