@@ -278,4 +278,30 @@ class User{
 
         header("Location: http://localhost/BicoJobs/templates/servicos.php");
     }
+
+
+    public function retornar_info($mysqli,$id_idioma, $id_contato){
+        $sql_code = "SELECT idioma FROM idioma WHERE id = $id_idioma";
+        $sql_query = $mysqli->query($sql_code);
+        $idioma = $sql_query->fetch_assoc();
+
+        if(!isset($_SESSION)){
+            session_start();
+        }
+
+        if($sql_query->num_rows == 0){
+            $_SESSION['idioma'] = "Você não cadastrou nenhum idioma";
+        }
+        else{
+            $_SESSION['idioma'] = $idioma['idioma'];
+        }
+
+        $sql_code = "SELECT email, telefone FROM contato WHERE id = $id_contato";
+        $sql_query = $mysqli->query($sql_code);
+        $contatos = $sql_query->fetch_assoc();
+
+        $_SESSION['email'] = $contatos['email'];
+        $_SESSION['telefone'] = $contatos['telefone'];
+
+    }
 }

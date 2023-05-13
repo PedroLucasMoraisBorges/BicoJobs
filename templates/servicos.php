@@ -1,5 +1,6 @@
 <?php 
 session_start();
+require_once("../functions/retornar_idioma_contato.php");
 $caminho = 'http://localhost/BicoJobs/';
 ?>
 
@@ -7,11 +8,6 @@ $caminho = 'http://localhost/BicoJobs/';
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--
-    <link rel="stylesheet" href="/static/css/serviços.css">
-    <link rel="stylesheet" href="/static/css/nav.css">
-    <link rel="stylesheet" href="../static/css/card.css">
-    -->
     
     <style>
     <?php 

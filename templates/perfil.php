@@ -56,7 +56,7 @@ $caminho = 'http://localhost/BicoJobs/';
                     <div class="linguas">
                         <h3>Fluente em:</h3>
                         <div>
-                            <p><?php echo $_SESSION['id_idioma']?></p>
+                            <p><?php echo $_SESSION['idioma']?></p>
                         </div>
                     </div>
                 </div>
@@ -64,12 +64,12 @@ $caminho = 'http://localhost/BicoJobs/';
                 <div class="contatos">
                     <div class="tel">
                         <h3>Telefone:</h3>
-                        <p>(88) 99999-9999</p>
+                        <p><?php echo $_SESSION['telefone']?></p>
                     </div>
 
                     <div class="email">
                         <h3>Email:</h3>
-                        <p>ExampleEmail@gmail.com.br</p>
+                        <p><?php echo $_SESSION['email']?></p>
                     </div>
                 </div>
 
