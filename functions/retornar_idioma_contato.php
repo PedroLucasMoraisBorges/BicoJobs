@@ -1,6 +1,7 @@
 <?php
 include("../conection/conection.php");
 require_once ("../class/user.php");
+require_once("../templates/servicos.php");
 
 $id_idioma = $_SESSION['id_idioma'];
 $id_contato = $_SESSION['id_contato'];

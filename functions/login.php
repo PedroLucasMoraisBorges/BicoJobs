@@ -10,7 +10,6 @@ $senha = $_POST['password_log'];
 
 
 $sql_code_contato = "SELECT id FROM contato WHERE email = '$email'";
-$sql_code_last_id = "SELECT id FROM contato";
 
 
 $sql_query = $mysqli->query($sql_code_contato) or die("Falha na execução do código SQL" .$mysqli->error);
@@ -64,18 +63,19 @@ if($sql_query->num_rows == 1){
     }
 }
 else{
+
     echo "<script> 
 
-    let error = document.getElementById('error-msg-login');
-    error.innerHTML = 'Email não encontrado!';
-    setTimeout(() => {
-        error.classList.add('slide');
-    }, 250);
-    setTimeout(() => {
-        error.classList.remove('slide');
-    }, 3250);
-    
+        let error = document.getElementById('error-msg-login');
+        error.textContent = 'Email não encontrado!';
+        setTimeout(() => {
+            error.classList.add('slide');
+        }, 250);
+        setTimeout(() => {
+            error.classList.remove('slide');
+        }, 3250);
     
     </script>";
+
+
 }
-?>
