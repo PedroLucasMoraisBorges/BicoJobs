@@ -17,7 +17,12 @@
     <div class="perfil" onclick="abrir_options()">
         <p class="nome_perfil"><?php echo $_SESSION["nome"]; ?> </p>
         <div class="img">
-            <img src="<?php echo $caminho."media/img_perfis/".$_SESSION['img_perfil'];?>" alt="perfil">
+            <img src="<?php if($_SESSION['img_perfil'] == ""){
+                echo "../media/svg's/perfil.svg";
+            } else{
+                echo $caminho."media/img_perfis/".$_SESSION['img_perfil'];
+            }
+            ?>" alt="perfil">
         </div>
     </div>
 
