@@ -1,6 +1,7 @@
 <?php
 include("../conection/conection.php");
 require_once ("../class/user.php");
+require_once("../templates/logcad.php");
 
 //require_once("../class/user.php");
 
