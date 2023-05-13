@@ -296,7 +296,7 @@ class User{
             $_SESSION['idioma'] = $idioma['idioma'];
         }
 
-        $sql_code = "SELECT email, telefone FROM contato WHERE id = $id_contato";
+        $sql_code = "SELECT email, telefone FROM contato WHERE id = '$id_contato'";
         $sql_query = $mysqli->query($sql_code);
         $contatos = $sql_query->fetch_assoc();
 
