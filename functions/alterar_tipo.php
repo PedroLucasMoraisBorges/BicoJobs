@@ -35,7 +35,7 @@ $usuario = new User(
     1
 );
 
-$sql = "UPDATE usuario SET tipo_usuario= 1 WHERE id = '$id'";
+$sql = "UPDATE usuario SET tipo_usuario= 1 WHERE id = $id";
 $sql_query = $mysqli->query($sql);
 
 $usuario->alterar_tipo($id,$mysqli,$img_perfil,$descricao,$habilidade,$idioma,$telefone,$nome_comp);
