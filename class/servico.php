@@ -1,7 +1,11 @@
 <?php
 
+
+include("../conection/conection.php");
+
 class servico {
     private $id;
+    private $id_usuario;
     private $id_categoria;
     private $id_cidade;
     private $nome;
@@ -45,11 +49,24 @@ class servico {
         $this -> id = $id;
     }
 
-    public function setId_catagoria($id_categoria){
+    public function setId_usuario($mysqli,$id){
+        $this->id_usuario = $id;
+        $sql = "UPDATE servico SET id_usuario = '$id' WHERE id = '$this->id'";
+        if($mysqli->query($sql) === FALSE){
+            echo "Conection Failed!";
+        }
+    }
+
+    public function setId_categoria($id_categoria){
         $this -> id_categoria = $id_categoria;
     }
-    public function setId_cidade($id_cidade){
-        $this -> id_cidade = $id_cidade;
+    public function setId_cidade($mysqli, $id){
+        $this -> id_cidade = $id;
+        $sql = "UPDATE servico SET id_cidade = '$id' WHERE id = '$this->id'";
+        if($mysqli->query($sql) === FALSE){
+            echo "Conection Failed!";
+        }
+        echo "oi";
     }
 
     public function setNome($nome){
@@ -75,18 +92,30 @@ class servico {
 
 
     //construct
-    public function __construct($id, $id_categoria, $id_cidade, $nome, $valor, $valor_descricao, $estado, $horario, $img_servico){
-        
-        $this -> id = $id;
-        $this -> id_categoria = $id_categoria;
-        $this -> id_cidade = $id_cidade;
+    public function __construct($nome, $valor, $valor_descricao, $estado, $horario, $img_servico){
         $this -> nome = $nome;
         $this -> valor = $valor;
         $this -> valor_descricao = $valor_descricao;
         $this -> estado = $estado;
         $this -> horario = $horario;
         $this -> img_servico = $img_servico;
+    }
 
+    public function inserirNoDB($mysqli){
+        $sql = "INSERT INTO servico (nome, valor, descricao, estado, horario, img_servico) VALUES ('$this->nome', '$this->valor', '$this->valor_descricao', '$this->estado', '$this->horario', '$this->img_servico')";
+        if($mysqli->query($sql) === FALSE){
+            echo "Failed Insertion!";
+        }
+
+        $result = $mysqli->query("SELECT max(id) FROM servico");
+
+        if($result->num_rows > 0){
+            $row = $result->fetch_assoc();
+            $id = $row['max(id)'];   
+        }
+
+        $this->id = $id;
+        
     }
 
 }

@@ -100,7 +100,7 @@ $caminho = 'http://localhost/BicoJobs/';
                                     <!--Deixei assim pq vou ter que abrir o php para mudar o nome do arquivo-->
                                     <img src="<?php echo $caminho."media/area-atuação/limpeza.svg"?>" alt="">
                                 </div>
-                                <h3>Willian Rodrigues</h3>
+                                <h3><?php echo $_SESSION['nome_comp'];?></h3>
                                 <p>4.0</p>
                             </div>
                             <div class="oferta">
