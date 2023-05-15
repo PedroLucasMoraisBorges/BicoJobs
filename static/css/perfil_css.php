@@ -147,6 +147,17 @@ form{
     align-self: end;
 }
 
+label:hover{
+    cursor: pointer;
+}
+label img{
+    transition: .3s;
+}
+
+label img:hover{
+    transition: .3s;
+    filter: brightness(40%);
+}
 
 input{
     display: block;

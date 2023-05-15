@@ -34,10 +34,10 @@ $caminho = 'http://localhost/BicoJobs/';
 
         <div class="meio">
             <div class="left">
-                <label for="img_perfil">
+                <label for="img_perfil" class="label_img">
                     <img src="<?php echo $caminho."media/img_perfis/".$_SESSION['img_perfil'];?>" alt="">
                 </label>
-                <input type="file" require name="img_perfil" id="img_perfil" style="display:none">
+                <input type="file" require name="img_perfil" id="img_perfil" style="display:none" value="">
                 <div class="habilidades">
                     <h3>Proeficiência:</h3>
                     <input type="text" value="<?php echo $_SESSION['habilidades']?>" name="habilidade" placeholder="Habilidades">

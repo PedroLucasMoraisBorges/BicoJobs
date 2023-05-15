@@ -4,7 +4,7 @@ require_once ("../class/user.php");
 require_once("../templates/editar_perfil.php");
 
 
-if(isset($_FILES['img_perfil'])){
+if(isset($_FILES['img_perfil']) && !empty($_FILES["img_perfil"]["name"])){
     // Altera o nome do arquivo para não haver diferença entre os formatos de imagem .png etc...
     $arquivo = strtolower(substr($_FILES['img_perfil']['name'], -4));
     // O time retorna o horário do input e o md5 criptografa isso, servindo para não haver nomes d earquivos duplicados
@@ -13,11 +13,15 @@ if(isset($_FILES['img_perfil'])){
     // O php recebe os arquivos e aloca em um diretório temporário e cria um nome temporário, com o tmp_name;
     // O move_uploaded_file pega o arquivo desse diretório temporário, e aloca ele em um novo diretório e com o novo nome;
     move_uploaded_file($_FILES['img_perfil']['tmp_name'] , $diretorio.$novo_nome);
+    $img_perfil = $novo_nome;
+}
+else{
+    $img_perfil = $_SESSION['img_perfil'];
 }
 
+   
 
 $id = $_SESSION['id'];
-$img_perfil = $novo_nome;
 $descricao = $_POST['descricao'];
 $habilidade = $_POST['habilidade'];
 $idioma = $_POST['idioma'];

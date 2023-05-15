@@ -176,7 +176,7 @@ class User{
                 $_SESSION["id"] = $user["id"];
                 $_SESSION["nome"] = $user["nome"];
                 $_SESSION["cpf"] = $user["cpf"];
-                $_SESSION["cep"] = $user['id_cidade'];
+                $_SESSION["id_cidade"] = $user['id_cidade'];
                 $_SESSION["dt_nascimento"] = $user["dt_nascimento"];
                 $_SESSION['id_contato'] = $user['id_contato'];
                 $_SESSION['tipo_user'] = $user['tipo_usuario'];
@@ -219,7 +219,7 @@ class User{
                 $_SESSION["id"] = $user["id"];
                 $_SESSION["nome"] = $user["nome"];
                 $_SESSION["cpf"] = $user["cpf"];
-                $_SESSION["cep"] = $user['id_cidade'];
+                $_SESSION["id_cidade"] = $user['id_cidade'];
                 $_SESSION["dt_nascimento"] = $user["dt_nascimento"];
                 $_SESSION['id_contato'] = $user['id_contato'];
                 $_SESSION['tipo_user'] = $user['tipo_usuario'];
@@ -459,6 +459,10 @@ class User{
         $_SESSION['descricao'] = $user['descricao'];
         $_SESSION['habilidades'] = $user['habilidades'];
         $_SESSION['img_perfil'] = $user['img_perfil'];
+
+
+
+        echo "<meta HTTP-EQUIV='refresh' CONTENT='0;URL=http://localhost/BicoJobs/templates/servicos.php'>";
 
     }
 }
