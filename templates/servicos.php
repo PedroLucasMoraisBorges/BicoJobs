@@ -4,6 +4,7 @@ session_start();
 if($_SESSION['tipo_user'] == 1){
     require_once("../functions/retornar_idioma_contato.php");
 }
+
 $caminho = 'http://localhost/BicoJobs/';
 ?>
 

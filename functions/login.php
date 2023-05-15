@@ -46,7 +46,7 @@ if($sql_query->num_rows == 1){
         $_SESSION["id"] = $user["id"];
         $_SESSION["nome"] = $user["nome"];
         $_SESSION["cpf"] = $user["cpf"];
-        $_SESSION["cep"] = $user['id_cidade'];
+        $_SESSION["id_cidade"] = $user['id_cidade'];
         $_SESSION["dt_nascimento"] = $user["dt_nascimento"];
         $_SESSION['id_contato'] = $user['id_contato'];
         $_SESSION['tipo_user'] = $user['tipo_usuario'];

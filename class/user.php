@@ -71,7 +71,7 @@ class User{
     }
     public function setIdCidade($sql_codes, $mysqli){
         // Verifica se tem a cidade no banco
-        $sql_code_mesmo_cep = "SELECT id FROM cidade WHERE cep = $this->cep";
+        $sql_code_mesmo_cep = "SELECT id FROM cidade WHERE cep = '$this->cep'";
         $sql_code_last_id = "SELECT id FROM cidade";
 
         // Verifica se é possível efetuar o código ou da erro;
@@ -133,7 +133,16 @@ class User{
             return [$this->email , $sql_codes];
         }
         else{
-            die("O email já está cadastrado");
+            echo "<script> 
+            let error = document.getElementById('error-msg-login');
+            error.innerHTML = 'Email Já cadastrado';
+            setTimeout(() => {
+                error.classList.add('slide');
+            }, 250);
+            setTimeout(() => {
+            error.classList.remove('slide');
+            }, 3250);
+            </script>";
         }
     }
 
@@ -280,7 +289,7 @@ class User{
     }
 
 
-    public function retornar_info($mysqli,$id_idioma, $id_contato){
+    public function retornar_info($mysqli,$id_idioma, $id_contato, $id_cep){
         $sql_code = "SELECT idioma FROM idioma WHERE id = $id_idioma";
         $sql_query = $mysqli->query($sql_code);
         $idioma = $sql_query->fetch_assoc();
@@ -300,8 +309,156 @@ class User{
         $sql_query = $mysqli->query($sql_code);
         $contatos = $sql_query->fetch_assoc();
 
+        $sql_code = "SELECT cep FROM cidade WHERE id = '$id_cep'";
+        $sql_query = $mysqli->query($sql_code);
+        $cep = $sql_query->fetch_assoc();
+
         $_SESSION['email'] = $contatos['email'];
         $_SESSION['telefone'] = $contatos['telefone'];
+
+        $_SESSION['cep'] = $cep['cep'];
+
+    }
+
+
+    public function editar_perfil($mysqli, $id, $img_perfil, $descricao, $habilidade, $idioma, $telefone, $nome_comp, $nome, $email, $cep){
+        // Pegar as chaves estrangeiras para efetuar edição
+        $sql_code = "SELECT id_cidade, id_contato, id_idioma FROM usuario WHERE id = $id";
+        $sql_query = $mysqli->query($sql_code);
+        $sql_query = $sql_query->fetch_assoc();
+
+        //$id_cidade = $sql_query['id_cidade'];
+        $id_contato = $sql_query['id_contato'];
+        $id_idioma = $sql_query['id_idioma'];
+        // Pegar as chaves estrangeiras para efetuar edição
+
+
+        // Alteração ou adição de cidade
+        $sql_code = "SELECT id FROM cidade WHERE cep = '$cep'";
+        $sql_query = $mysqli->query($sql_code);
+
+        $sql_code = "SELECT id FROM cidade";
+        $sql_query_id = $mysqli->query($sql_code);
+
+        if($sql_query->num_rows == 0){
+            $sql_code = "INSERT INTO cidade (id,cep) VALUES ($sql_query_id->num_rows, '$cep')";
+            $sql_query = $mysqli->query($sql_code);
+            $id_cidade = $sql_query_id->num_rows;
+        }
+        else{
+            $id_cidade = ($sql_query->fetch_assoc())['id'];
+        }
+        // Alteração ou adição de cidade
+
+
+
+
+        // Alteração ou adição de idioma
+        $sql_code = "SELECT id FROM idioma WHERE idioma = '$idioma'";
+        $sql_query = $mysqli->query($sql_code);
+
+        $sql_code = "SELECT id FROM idioma";
+        $sql_query_id = $mysqli->query($sql_code);
+
+        if($sql_query->num_rows == 0){
+            $sql_code = "INSERT INTO idioma (id,idioma) VALUES ($sql_query_id->num_rows, '$idioma')";
+            $sql_query = $mysqli->query($sql_code);
+            $id_idioma = $sql_query_id->num_rows;
+        }
+        else{
+            $id_idioma = ($sql_query->fetch_assoc())['id'];
+        }
+        // Alteração ou adição de idioma
+
+
+
+        // Alteração ou cancelamento de email
+        $sql_code = "SELECT id FROM contato WHERE email = '$email'";
+        $sql_query = $mysqli->query($sql_code);
+
+        // Verifica se o email já é cadastrado no BD
+        if($sql_query->num_rows == 0){
+            // Altera o valor da coluna
+            $sql_code = "UPDATE contato SET email= '$email' WHERE id = '$id_contato'";
+            $sql_query = $mysqli->query($sql_code);
+        }
+        else{
+            $sql_code = "SELECT email FROM contato WHERE email = '$email'";
+            $sql_query = $mysqli->query($sql_code);
+            $sql_query = $sql_query->fetch_assoc();
+
+            // Verifica se o email cadastrado no banco já pertence ao usuário
+            if($sql_query['email'] != $email){
+                echo "<script> 
+                let error = document.getElementById('error-msg-login');
+                error.innerHTML = 'Email Já cadastrado';
+                setTimeout(() => {
+                    error.classList.add('slide');
+                }, 250);
+                setTimeout(() => {
+                error.classList.remove('slide');
+                }, 3250);
+                </script>";
+            }
+        }
+        // Alteração ou cancelamento de email
+
+
+        // Alteração ou cancelamento de telefone
+        $sql_code = "SELECT id FROM contato WHERE telefone = '$telefone'";
+        $sql_query = $mysqli->query($sql_code);
+
+        // Verifica se o email já é cadastrado no BD
+        if($sql_query->num_rows == 0){
+            // Altera o valor da coluna
+            $sql_code = "UPDATE contato SET telefone= '$telefone' WHERE id = '$id_contato'";
+            $sql_query = $mysqli->query($sql_code);
+        }
+        else{
+            $sql_code = "SELECT telefone FROM contato WHERE telefone = '$telefone'";
+            $sql_query = $mysqli->query($sql_code);
+            $sql_query = $sql_query->fetch_assoc();
+
+            // Verifica se o email cadastrado no banco já pertence ao usuário
+            if($sql_query['telefone'] != $telefone){
+                echo "<script> 
+                let error = document.getElementById('error-msg-login');
+                error.innerHTML = 'Telefone Já cadastrado';
+                setTimeout(() => {
+                    error.classList.add('slide');
+                }, 250);
+                setTimeout(() => {
+                error.classList.remove('slide');
+                }, 3250);
+                </script>";
+            }
+        }
+
+
+        $sql_code = "UPDATE usuario SET nome= '$nome', id_cidade= $id_cidade , nome_comp= '$nome_comp' , habilidades= '$habilidade', descricao= '$descricao', id_idioma= $id_idioma , img_perfil= '$img_perfil' WHERE id = $id";
+
+        $sql_query = $mysqli->query($sql_code);
+
+        session_reset();
+
+        $sql_code = "SELECT * FROM usuario WHERE id = $id";
+        $sql_query = $mysqli->query($sql_code);
+        $user = $sql_query->fetch_assoc();
+
+        $_SESSION["id"] = $user["id"];
+        $_SESSION["nome"] = $user["nome"];
+        $_SESSION["cpf"] = $user["cpf"];
+        $_SESSION["id_cidade"] = $user['id_cidade'];
+        $_SESSION["dt_nascimento"] = $user["dt_nascimento"];
+        $_SESSION['id_contato'] = $user['id_contato'];
+        $_SESSION['tipo_user'] = $user['tipo_usuario'];
+        $_SESSION['senha'] = $user['senha'];
+        $_SESSION['id_idioma'] = $user['id_idioma'];
+        $_SESSION['avaliacao'] = $user['avaliacao'];
+        $_SESSION['nome_comp'] = $user['nome_comp'];
+        $_SESSION['descricao'] = $user['descricao'];
+        $_SESSION['habilidades'] = $user['habilidades'];
+        $_SESSION['img_perfil'] = $user['img_perfil'];
 
     }
 }
