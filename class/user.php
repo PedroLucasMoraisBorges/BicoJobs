@@ -133,16 +133,7 @@ class User{
             return [$this->email , $sql_codes];
         }
         else{
-            echo "<script> 
-            let error = document.getElementById('error-msg-login');
-            error.innerHTML = 'Email Já cadastrado';
-            setTimeout(() => {
-                error.classList.add('slide');
-            }, 250);
-            setTimeout(() => {
-            error.classList.remove('slide');
-            }, 3250);
-            </script>";
+            die("Email já cadastrado");
         }
     }
 
@@ -264,8 +255,16 @@ class User{
         $sql = "UPDATE usuario SET tipo_usuario= 1, img_perfil= '$img_perfil',descricao= '$descricao', habilidades= '$habilidade' , id_idioma= $id_idioma,  avaliacao= 5.0, nome_comp= '$nome_comp' WHERE id = $id";
         $sql_query = $mysqli->query($sql);
 
-        $sql = "UPDATE contato SET telefone='$telefone' WHERE id = $id";
-        $sql_query = $mysqli->query($sql);
+        $sql_code = "SELECT telefone FROM contato WHERE telefone = '$telefone'";
+        $sql_query = $mysqli->query($sql_code);
+
+        if($sql_query->num_rows <= 0){
+            $sql = "UPDATE contato SET telefone='$telefone' WHERE id = $id";
+            $sql_query = $mysqli->query($sql);
+        }
+        else{
+            die("Telefone já cadastrado");
+        }
         // INCREMENTO NO PERFIL DE USUARIO
 
 
@@ -383,7 +382,7 @@ class User{
             $sql_query = $mysqli->query($sql_code);
         }
         else{
-            $sql_code = "SELECT email FROM contato WHERE email = '$email'";
+            $sql_code = "SELECT email FROM contato WHERE id = '$id_contato'";
             $sql_query = $mysqli->query($sql_code);
             $sql_query = $sql_query->fetch_assoc();
 
@@ -415,7 +414,7 @@ class User{
             $sql_query = $mysqli->query($sql_code);
         }
         else{
-            $sql_code = "SELECT telefone FROM contato WHERE telefone = '$telefone'";
+            $sql_code = "SELECT telefone FROM contato WHERE id = $id_contato";
             $sql_query = $mysqli->query($sql_code);
             $sql_query = $sql_query->fetch_assoc();
 
@@ -460,9 +459,6 @@ class User{
         $_SESSION['habilidades'] = $user['habilidades'];
         $_SESSION['img_perfil'] = $user['img_perfil'];
 
-
-
-        echo "<meta HTTP-EQUIV='refresh' CONTENT='0;URL=http://localhost/BicoJobs/templates/servicos.php'>";
 
     }
 }

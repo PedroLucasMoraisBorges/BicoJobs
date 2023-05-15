@@ -31,6 +31,8 @@ $caminho = 'http://localhost/BicoJobs/';
 
     <?php include 'componentes/nav.php';?>
 
+    <div class="error-msg" id="error-msg-login"></div>
+
 
     <main onclick="fechar_op()">
         <div class="pesquisa">

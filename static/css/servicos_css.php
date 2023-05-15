@@ -516,3 +516,41 @@ label:hover{
 .none{
     display: none;
 }
+
+
+/* error */
+.erro{
+    color: red;
+    border: solid 2px red;
+}
+
+.erro::placeholder{
+    color: red;
+}
+
+.error-msg{
+    position: absolute;
+    z-index: 20;
+    top: 10%;
+    transform: translateX(-100%);
+    left: 0;
+    background-color: red;
+    color: white;
+    padding: 10px;
+    transition: 1s;
+}
+
+.error-camp{
+    border: solid 2px red !important; 
+    color: red;
+}
+
+.error-camp::placeholder{
+    color: red !important;
+}
+
+.slide{
+    transform: translateX(0);
+}
+
+/* error */
