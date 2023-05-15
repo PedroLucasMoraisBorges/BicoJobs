@@ -32,12 +32,12 @@
                 <div class="div_inp">
                     <div>
                         <label for="habilidade">Habilidades:</label>
-                        <input type="text" name="habilidade" id="habilidade" placeholder="Motorista">
+                        <input type="text" name="habilidade" id="habilidade" autocomplete="off" placeholder="Motorista">
                     </div>
                 
                     <div>
                         <label for="idioma">Idiomas:</label>
-                        <input type="text" id="idioma" name="idioma" placeholder="Português">
+                        <input type="text" id="idioma" name="idioma" autocomplete="off" placeholder="Português">
                     </div>
 
                     <div>
