@@ -4,13 +4,13 @@
         <h2>Detalhes da oferta</h2>
     </div>
 
-    <form action="#" method="POST">
+    <form action="../functions/adicionar_servico.php" method="POST" enctype="multipart/form-data">
         <div class="oferta_detalhes">
 
             <div class="pessoais">
                 <label for="input_img"><img src="../media/svg's/add_foto.svg" alt=""></label>
-                <input type="file" id="input_img" name="input">
-                <h3>Willian Rodrigues</h3>
+                <input type="file" require id="input_img" name="img_input">
+                <h3><?php echo $_SESSION['nome_comp']; ?></h3>
                 <p>4.0</p>
             </div>
 
@@ -74,7 +74,14 @@
                 Fechar
             </p>
 
-            <button class="ofertar">Ofertar</button>
+            <button class="ofertar" id="ofertButton">Ofertar</button>
         </div>
     </form>
+    <script>
+        let button = document.getElementById("ofertButton");
+        button.addEventListener("click", addService);
+
+        function addService(e){
+        }
+    </script>
 </div>
