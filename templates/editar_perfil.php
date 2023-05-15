@@ -24,7 +24,6 @@ $caminho = 'http://localhost/BicoJobs/';
     <?php include 'componentes/nav.php';?>
     <div class="error-msg" id="error-msg-login"></div>
 
-
     <form onclick="fechar_op()" action="../functions/editar_perfil.php" method="POST" enctype="multipart/form-data">
         <div class="pesquisa">
             <div class="titulo">
