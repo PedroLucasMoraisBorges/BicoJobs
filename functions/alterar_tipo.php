@@ -28,7 +28,7 @@ $usuario = new User(
     $_SESSION["nome"],
     $_SESSION["dt_nascimento"],
     $_SESSION["cpf"],
-    $_SESSION["cep"],
+    $_SESSION["id_cidade"],
     $_SESSION['senha'],
     $_SESSION['tipo_user'],
     $_SESSION['id_contato'],

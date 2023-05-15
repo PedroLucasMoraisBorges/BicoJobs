@@ -17,49 +17,56 @@ $caminho = 'http://localhost/BicoJobs/';
         include '../static/css/perfil_css.php';
     ?>
     </style>
-    <title>BicoJobs | Seus Bicos</title>
+    <title>BicoJobs | Editar Perfil</title>
 </head>
 <body>
     
     <?php include 'componentes/nav.php';?>
+    <div class="error-msg" id="error-msg-login"></div>
 
 
-    <form onclick="fechar_op()" action="#" method="POST" enctype="multipart/form-data">
+    <form onclick="fechar_op()" action="../functions/editar_perfil.php" method="POST" enctype="multipart/form-data">
         <div class="pesquisa">
             <div class="titulo">
-                <input type="text" value="<?php echo $_SESSION['cep'];?>">
-                <h1>Perfil</h1>
+                <h1>Editar Perfil</h1>
             </div>
         </div>
 
         <div class="meio">
             <div class="left">
-                <label for="img_perfil">
+                <label for="img_perfil" class="label_img">
                     <img src="<?php echo $caminho."media/img_perfis/".$_SESSION['img_perfil'];?>" alt="">
                 </label>
-                <input type="file" require name="img_perfil" id="img_perfil">
+                <input type="file" require name="img_perfil" id="img_perfil" style="display:none" value="">
                 <div class="habilidades">
                     <h3>Proeficiência:</h3>
-                    <input type="text" value="<?php echo $_SESSION['habilidades']?>" placeholder="Habilidades">
+                    <input type="text" value="<?php echo $_SESSION['habilidades']?>" name="habilidade" placeholder="Habilidades">
                 </div>
             </div>
 
             <div class="right">
-                <div class="nome">
-                    <p><?php echo $_SESSION['avaliacao']?></p>
-                    <h2><?php echo $_SESSION['nome']?></h2>
+                <div class="nome-cep">
+                    <div>
+                        <h3>Nome de usuario</h3>
+                        <h2><input type="text" value="<?php echo $_SESSION['nome']?>" name="nome" placeholder="nome"></h2>
+                    </div>
+
+                    <div>
+                        <h3>CEP</h3>
+                        <input type="text" value="<?php echo $_SESSION['cep'];?>" name="cep" placeholder="CEP">
+                    </div>
                 </div>
 
                 <div class="info_pessoais">
                     <div class="nome_comp">
                         <h3>Nome completo:</h3>
-                        <input type="text" value="<?php echo $_SESSION['nome_comp']?>" placeholder="Nome completo">
+                        <input type="text" value="<?php echo $_SESSION['nome_comp']?>" name="nome_comp" placeholder="Nome completo">
                     </div>
 
                     <div class="linguas">
                         <h3>Fluente em:</h3>
                         <div>
-                            <input type="text" value="<?php echo $_SESSION['idioma']?>" placeholder="Idioma">
+                            <input type="text" value="<?php echo $_SESSION['idioma']?>" name="idioma" placeholder="Idioma">
                         </div>
                     </div>
                 </div>
@@ -67,21 +74,24 @@ $caminho = 'http://localhost/BicoJobs/';
                 <div class="contatos">
                     <div class="tel">
                         <h3>Telefone:</h3>
-                        <input type="text" value="<?php echo $_SESSION['telefone']?>" placeholder="Telefone">
+                        <input type="text" value="<?php echo $_SESSION['telefone']?>" name="telefone" placeholder="Telefone">
                     </div>
 
                     <div class="email">
                         <h3>Email:</h3>
-                        <p><?php echo $_SESSION['email']?></p>
+                        <input type="text" value="<?php echo $_SESSION['email']?>" name="email" placeholder="Email">
                     </div>
                 </div>
 
-                <div class="descricao">
+                <div class="descricao_edit">
                     <h3>Descrição</h3>
-                    <textarea name="descricao" id="descricao" cols="30" placeholder="<?php echo $_SESSION['descricao'];?>" rows="10"></textarea>
+                    <textarea name="descricao" id="descricao" cols="30" rows="10"  placeholder="Descrição"><?php echo $_SESSION['descricao'];?></textarea>
                 </div>
 
-                <button>Salvar</button>
+                <div class="buttons">
+                    <a href="<?php echo $caminho."templates/perfil.php";?>">Cancelar</a>
+                    <button>Salvar</button>
+                </div>
             </div>
         </div>
     </form>

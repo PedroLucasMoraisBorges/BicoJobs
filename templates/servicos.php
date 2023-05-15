@@ -4,6 +4,7 @@ session_start();
 if($_SESSION['tipo_user'] == 1){
     require_once("../functions/retornar_idioma_contato.php");
 }
+
 $caminho = 'http://localhost/BicoJobs/';
 ?>
 
@@ -29,6 +30,8 @@ $caminho = 'http://localhost/BicoJobs/';
 
 
     <?php include 'componentes/nav.php';?>
+
+    <div class="error-msg" id="error-msg-login"></div>
 
 
     <main onclick="fechar_op()">
