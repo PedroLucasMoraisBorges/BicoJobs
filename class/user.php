@@ -86,7 +86,7 @@ class User{
 
 
         if($sql_query->num_rows <= 0){
-            $sql = "INSERT INTO cidade (id, cep) VALUES ($last_id, $this->cep)";
+            $sql = "INSERT INTO cidade (id, cep) VALUES ($last_id, '$this->cep')";
             $sql_codes[] = $sql;
             //(mysqli_query($mysqli, $sql));
             $this->cep = $last_id;
@@ -138,7 +138,7 @@ class User{
     }
 
 
-    public function sign_in($sql_codes,$last_id ,$nome, $cpf, $pass, $cep, $email,$mysqli,$dt_nasci){
+    public function sign_in($sql_codes ,$nome, $cpf, $pass, $cep, $email,$mysqli,$dt_nasci){
         $sql_code = "SELECT id, nome FROM usuario";
         $sql_query = $mysqli->query($sql_code) or die("Falha na execuça do código SQL" .$mysqli->error);
 

@@ -95,10 +95,10 @@ include("../conection/conection.php");
                 <label for="ver_senhaCad" class="rad">Ver senha</label>
             </div>
 
-            <input type="text" name="cep" class="text cep" placeholder="CEP" id="cep">
+            <input type="numer" name="cep" class="text cep" placeholder="CEP" id="cep">
 
             
-            <button id="buttonCadastro" class="cadastroButton">Cadastrar</button>
+            <button id="buttonCadastro" class="cadastroButton" onclick="consultaEndereço()">Cadastrar</button>
             <a href="<?php echo $caminho."templates/servicos.php"; ?>" class="cadastro">
             </a>
 

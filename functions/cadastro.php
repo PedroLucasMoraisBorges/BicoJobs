@@ -17,12 +17,19 @@ $sql_codes = [];
 
 
 
+$url =  "https://viacep.com.br/ws/$cep/json/";
+
+$address = json_decode(file_get_contents($url),true);
+$cep = $address['localidade'];
+
+
+
 $usuario = new User(
     $mysqli,
     $_POST['user_cad'],
     $_POST['dtNasci'],
     $_POST['cpf'],
-    $_POST['cep'],
+    $cep,
     $_POST['password_cad'],
     0,
     $_POST['email_cad'],
@@ -37,4 +44,4 @@ $teste = $usuario->setIdEmail($sql_codes, $mysqli);
 $email = $teste[0];
 $sql_codes = $teste[1];
 
-$usuario->sign_in($sql_codes,$last_id ,$nome, $cpf, $pass, $cep, $email,$mysqli,$dt_nasci);
+$usuario->sign_in($sql_codes, $nome, $cpf, $pass, $cep, $email,$mysqli,$dt_nasci);
