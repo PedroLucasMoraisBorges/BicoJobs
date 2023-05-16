@@ -40,6 +40,10 @@ if($sql_query->num_rows == 1){
         }
 
         //Criado a sessao do USER
+        $cep = $user['id_cidade'];
+        $sql = "SELECT cep FROM cidade WHERE id = $cep";
+        $sql_query = $mysqli->query($sql);
+        $nome_cidade = $sql_query->fetch_assoc();
 
         
 
@@ -57,6 +61,7 @@ if($sql_query->num_rows == 1){
         $_SESSION['descricao'] = $user['descricao'];
         $_SESSION['habilidades'] = $user['habilidades'];
         $_SESSION['img_perfil'] = $user['img_perfil'];
+        $_SESSION['cidade'] = $nome_cidade['cep'];
 
         //redicionando o user
         header("Location: http://localhost/BicoJobs/templates/servicos.php");
