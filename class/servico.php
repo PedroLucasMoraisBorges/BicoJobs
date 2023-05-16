@@ -14,6 +14,7 @@ class servico {
     private $estado;
     private $horario;
     private $img_servico;
+    private $contato;
 
     // GETs
     public function getId(){
@@ -66,7 +67,6 @@ class servico {
         if($mysqli->query($sql) === FALSE){
             echo "Conection Failed!";
         }
-        echo "oi";
     }
 
     public function setNome($nome){
@@ -92,13 +92,14 @@ class servico {
 
 
     //construct
-    public function __construct($nome, $valor, $valor_descricao, $estado, $horario, $img_servico){
+    public function __construct($nome, $valor, $valor_descricao, $estado, $horario, $img_servico, $contato){
         $this -> nome = $nome;
         $this -> valor = $valor;
         $this -> valor_descricao = $valor_descricao;
         $this -> estado = $estado;
         $this -> horario = $horario;
         $this -> img_servico = $img_servico;
+        $this -> contato = $contato;
     }
 
     public function inserirNoDB($mysqli){

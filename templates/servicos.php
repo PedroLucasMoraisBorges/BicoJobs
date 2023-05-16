@@ -67,7 +67,7 @@ $caminho = 'http://localhost/BicoJobs/';
             <div class="geral">
                     <?php
                     $id_cidade = $_SESSION['id_cidade'];
-                    $sql = "SELECT * FROM servico WHERE id_cidade = $id_cidade";
+                    $sql = "SELECT * FROM servico WHERE id_cidade = '$id_cidade'";
                     $sql_query = $mysqli->query($sql);
 
                     if($sql_query->num_rows > 0){
@@ -148,7 +148,11 @@ $caminho = 'http://localhost/BicoJobs/';
                             </div>
                         </div>";
                         }
-                    }?>
+                    }
+                    else{
+                        echo "Não há serviços locais na sua região, tente verificar se o seu CEP está correto";
+                    }
+                    ?>
             </div>
         </div>
         
