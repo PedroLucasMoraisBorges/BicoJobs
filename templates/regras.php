@@ -22,7 +22,7 @@ $caminho = 'http://localhost/BicoJobs/';
 
         <main>
             <section class="info">
-                <span class="local">Juazeiro Do Norte - CE</span>
+                <span class="local"><?php echo $_SESSION['cidade'];?></span>
                 <h1>Regras</h1>
                 <div class="accordion">
                     <div class="accordion-component is_closed">

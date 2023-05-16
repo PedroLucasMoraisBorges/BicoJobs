@@ -33,7 +33,8 @@ $cep = $_POST['cep'];
 $sql_codes = [];
 
 
-if($descricao == "" || $habilidade == "" || $idioma == "" || $telefone == "" || $nome_comp == "" || $nome == "" || $email == "" || $cep == ""){
+
+if($descricao == "" || $habilidade == "" || $idioma == "" || $telefone == "" || $nome_comp == "" || $nome == "" || $email == ""){
     echo "<script> 
         let error = document.getElementById('error-msg-login');
         error.innerHTML = 'Campos obrigatórios não preenchidos';
@@ -87,7 +88,7 @@ else{
         $_SESSION["nome"],
         $_SESSION["dt_nascimento"],
         $_SESSION["cpf"],
-        $_SESSION["cep"],
+        $cep,
         $_SESSION['senha'],
         $_SESSION['tipo_user'],
         $_POST['email'],

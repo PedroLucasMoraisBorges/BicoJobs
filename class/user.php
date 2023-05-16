@@ -138,7 +138,8 @@ class User{
     }
 
 
-    public function sign_in($sql_codes ,$nome, $cpf, $pass, $cep, $email,$mysqli,$dt_nasci){
+    public function sign_in($sql_codes ,$nome, $cpf, $pass, $email,$mysqli,$dt_nasci){
+    
         $sql_code = "SELECT id, nome FROM usuario";
         $sql_query = $mysqli->query($sql_code) or die("Falha na execuça do código SQL" .$mysqli->error);
 
@@ -149,11 +150,14 @@ class User{
                 for($i=0 ; $i<count($sql_codes) ; $i++){
                     (mysqli_query($mysqli, $sql_codes[$i]));
                 }
+
+                $sql = "SELECT cep FROM cidade WHERE id = $this->cep";
+                $sql_query = $mysqli->query($sql);
+                $nome_cidade = $sql_query->fetch_assoc();
             
-                $sql = "INSERT INTO usuario (id ,nome, cpf, senha, id_cidade, id_contato,tipo_usuario,dt_nascimento ) VALUES (0 ,'$nome', '$cpf', '$pass', $cep, $email, 0,'$dt_nasci' )";
+                $sql = "INSERT INTO usuario (id ,nome, cpf, senha, id_cidade, id_contato,tipo_usuario,dt_nascimento ) VALUES (0 ,'$nome', '$cpf', '$pass', $this->cep, $email, 0,'$dt_nasci' )";
             
                 $mysqli->query($sql);
-
 
                 $sql_code = "SELECT id, nome FROM usuario";
                 $sql_query = $mysqli->query($sql_code) or die("Falha na execuça do código SQL" .$mysqli->error);
@@ -178,7 +182,7 @@ class User{
                 $_SESSION['descricao'] = $user['descricao'];
                 $_SESSION['habilidades'] = $user['habilidades'];
                 $_SESSION['img_perfil'] = $user['img_perfil'];
-
+                $_SESSION['cidade'] = $nome_cidade['cep'];
                 //redicionando o user
                 header("Location: http://localhost/BicoJobs/templates/servicos.php");
             }
@@ -190,7 +194,11 @@ class User{
                     (mysqli_query($mysqli, $sql_codes[$i]));
                 }
             
-                $sql = "INSERT INTO usuario (id ,nome, cpf, senha, id_cidade, id_contato,tipo_usuario,dt_nascimento) VALUES ($last_id ,'$nome', '$cpf', '$pass', $cep, $email, 0,'$dt_nasci')";
+                $sql = "SELECT cep FROM cidade WHERE id = $this->cep";
+                $sql_query = $mysqli->query($sql);
+                $nome_cidade = $sql_query->fetch_assoc();
+
+                $sql = "INSERT INTO usuario (id ,nome, cpf, senha, id_cidade, id_contato,tipo_usuario,dt_nascimento) VALUES ($last_id ,'$nome', '$cpf', '$pass', $this->cep, $email, 0,'$dt_nasci')";
             
                 ($mysqli->query($sql));
 
@@ -221,6 +229,7 @@ class User{
                 $_SESSION['descricao'] = $user['descricao'];
                 $_SESSION['habilidades'] = $user['habilidades'];
                 $_SESSION['img_perfil'] = $user['img_perfil'];
+                $_SESSION['cidade'] = $nome_cidade['cep'];
 
                 //redicionando o user
                 header("Location: http://localhost/BicoJobs/templates/servicos.php");
@@ -315,7 +324,7 @@ class User{
         $_SESSION['email'] = $contatos['email'];
         $_SESSION['telefone'] = $contatos['telefone'];
 
-        $_SESSION['cep'] = $cep['cep'];
+        $_SESSION['cidade'] = $cep['cep'];
 
     }
 
@@ -333,6 +342,20 @@ class User{
 
 
         // Alteração ou adição de cidade
+        if($cep == ""){
+            $sql = "SELECT id_cidade FROM usuario WHERE id = $id";
+            $result = $mysqli->query($sql);
+            $id_cidade = ($result->fetch_assoc())['id_cidade'];
+
+            $sql = "SELECT cep FROM cidade WHERE id = '$id_cidade";
+            $result = $mysqli->query($sql);
+            $cep = ($result->fetch_assoc())['cep'];
+        }
+        else{
+            $url =  "https://viacep.com.br/ws/$cep/json/";
+            $address = json_decode(file_get_contents($url),true);
+            $cep = $address['localidade'];
+        }
         $sql_code = "SELECT id FROM cidade WHERE cep = '$cep'";
         $sql_query = $mysqli->query($sql_code);
 
@@ -458,6 +481,7 @@ class User{
         $_SESSION['descricao'] = $user['descricao'];
         $_SESSION['habilidades'] = $user['habilidades'];
         $_SESSION['img_perfil'] = $user['img_perfil'];
+        $_SESSION['cidade'] = $cep;
 
 
     }

@@ -99,8 +99,6 @@ include("../conection/conection.php");
 
             
             <button id="buttonCadastro" class="cadastroButton" onclick="consultaEndereço()">Cadastrar</button>
-            <a href="<?php echo $caminho."templates/servicos.php"; ?>" class="cadastro">
-            </a>
 
             <p class="interacao">Já possui conta? <a href="#" onclick="slide_img()">Faça login</a></p>
         </form>
