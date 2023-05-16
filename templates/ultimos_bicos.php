@@ -33,7 +33,7 @@ $caminho = 'http://localhost/BicoJobs/';
         <div class="pesquisa">
 
             <div class="titulo">
-                <p>Juzaeiro do Norte - CE</p>
+                <p><?php echo $_SESSION['cidade'];?></p>
                 <h1>Últimos serviços</h1>
             </div>
 

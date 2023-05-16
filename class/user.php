@@ -138,7 +138,11 @@ class User{
     }
 
 
-    public function sign_in($sql_codes ,$nome, $cpf, $pass, $cep, $email,$mysqli,$dt_nasci){
+    public function sign_in($sql_codes ,$nome, $cpf, $pass, $email,$mysqli,$dt_nasci){
+        $sql = "SELECT cep FROM cidade WHERE id = $this->cep";
+        $sql_query = $mysqli->query($sql);
+        $nome_cidade = $sql_query->fetch_assoc();
+
         $sql_code = "SELECT id, nome FROM usuario";
         $sql_query = $mysqli->query($sql_code) or die("Falha na execuça do código SQL" .$mysqli->error);
 
@@ -150,10 +154,9 @@ class User{
                     (mysqli_query($mysqli, $sql_codes[$i]));
                 }
             
-                $sql = "INSERT INTO usuario (id ,nome, cpf, senha, id_cidade, id_contato,tipo_usuario,dt_nascimento ) VALUES (0 ,'$nome', '$cpf', '$pass', $cep, $email, 0,'$dt_nasci' )";
+                $sql = "INSERT INTO usuario (id ,nome, cpf, senha, id_cidade, id_contato,tipo_usuario,dt_nascimento ) VALUES (0 ,'$nome', '$cpf', '$pass', $this->cep, $email, 0,'$dt_nasci' )";
             
                 $mysqli->query($sql);
-
 
                 $sql_code = "SELECT id, nome FROM usuario";
                 $sql_query = $mysqli->query($sql_code) or die("Falha na execuça do código SQL" .$mysqli->error);
@@ -178,7 +181,7 @@ class User{
                 $_SESSION['descricao'] = $user['descricao'];
                 $_SESSION['habilidades'] = $user['habilidades'];
                 $_SESSION['img_perfil'] = $user['img_perfil'];
-
+                $_SESSION['cidade'] = $nome_cidade['cep'];
                 //redicionando o user
                 header("Location: http://localhost/BicoJobs/templates/servicos.php");
             }
@@ -190,7 +193,7 @@ class User{
                     (mysqli_query($mysqli, $sql_codes[$i]));
                 }
             
-                $sql = "INSERT INTO usuario (id ,nome, cpf, senha, id_cidade, id_contato,tipo_usuario,dt_nascimento) VALUES ($last_id ,'$nome', '$cpf', '$pass', $cep, $email, 0,'$dt_nasci')";
+                $sql = "INSERT INTO usuario (id ,nome, cpf, senha, id_cidade, id_contato,tipo_usuario,dt_nascimento) VALUES ($last_id ,'$nome', '$cpf', '$pass', $this->cep, $email, 0,'$dt_nasci')";
             
                 ($mysqli->query($sql));
 
@@ -221,6 +224,7 @@ class User{
                 $_SESSION['descricao'] = $user['descricao'];
                 $_SESSION['habilidades'] = $user['habilidades'];
                 $_SESSION['img_perfil'] = $user['img_perfil'];
+                $_SESSION['cidade'] = $nome_cidade['cep'];
 
                 //redicionando o user
                 header("Location: http://localhost/BicoJobs/templates/servicos.php");
@@ -315,7 +319,7 @@ class User{
         $_SESSION['email'] = $contatos['email'];
         $_SESSION['telefone'] = $contatos['telefone'];
 
-        $_SESSION['cep'] = $cep['cep'];
+        $_SESSION['cidade'] = $cep['cep'];
 
     }
 

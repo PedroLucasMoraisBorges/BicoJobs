@@ -27,7 +27,7 @@ $caminho = 'http://localhost/BicoJobs/';
     <main onclick="fechar_op()">
         <div class="pesquisa">
             <div class="titulo">
-                <p>Juzaeiro do Norte - CE</p>
+                <p><?php echo $_SESSION['cidade'];?></p>
                 <h1>Perfil</h1>
             </div>
         </div>

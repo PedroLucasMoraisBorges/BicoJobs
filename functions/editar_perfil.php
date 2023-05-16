@@ -33,6 +33,11 @@ $cep = $_POST['cep'];
 $sql_codes = [];
 
 
+$url =  "https://viacep.com.br/ws/$cep/json/";
+$address = json_decode(file_get_contents($url),true);
+
+
+
 if($descricao == "" || $habilidade == "" || $idioma == "" || $telefone == "" || $nome_comp == "" || $nome == "" || $email == "" || $cep == ""){
     echo "<script> 
         let error = document.getElementById('error-msg-login');
