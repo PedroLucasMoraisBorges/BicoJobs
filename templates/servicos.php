@@ -1,6 +1,6 @@
 <?php 
 session_start();
-
+require_once("../conection/conection.php");
 if($_SESSION['tipo_user'] == 1){
     require_once("../functions/retornar_idioma_contato.php");
 }
@@ -65,64 +65,90 @@ $caminho = 'http://localhost/BicoJobs/';
 
         <div class="conteudo">
             <div class="geral">
-                <div class="card">
-                    <img src="<?php echo $caminho."media/limp.svg"?>" alt="#" class="img_fundo">
+                    <?php
+                    $id_cidade = $_SESSION['id_cidade'];
+                    $sql = "SELECT * FROM servico WHERE id_cidade = $id_cidade";
+                    $sql_query = $mysqli->query($sql);
 
-                    <img src="<?php echo $caminho."media/fundo_azul.svg"?>" alt="" class="fundo_azul">
+                    if($sql_query->num_rows > 0){
+                        while($row = $sql_query->fetch_assoc()){
+                            $id_usuario = $row['id_usuario'];
+                            $nome = $row['nome'];
+                            $descricao = $row['descricao'];
+                            $horario = $row['horario'];
+                            $img_fundo = $row['img_servico'];
+                            $valor = $row['valor'];
+                            if($valor == 0.0){
+                                $valor = "A combinar";
+                            }
 
-                    <div class="card_detalhes">
+                            $sql = "SELECT * FROM usuario WHERE id = $id_usuario";
+                            $sql_result = $mysqli->query($sql);
+                            $user = $sql_result->fetch_assoc();
+                            
+                            
+                            
+                            $nome_comp_ofertante = $user['nome_comp'];
+                            $nome_user = $user['nome'];
+                            $avaliacao = $user['avaliacao'];
+
+                            echo "<div class='card'>
+                            <img src='$caminho/media/limp.svg' alt='#' class='img_fundo'>
+
+                            <img src='$caminho/media/fundo_azul.svg' alt='' class='fundo_azul'>
+
+                            <div class='card_detalhes'>
 
 
-                        <div class="info_princ">
-                            <!--Deixei assim pq vou ter que abrir o php para mudar o nome do arquivo-->
-                            <img src="<?php echo $caminho."media/area-atuação/limpeza.svg"?>" alt="">
-                            <h2>Faxina</h2>
-                        </div>
-                        
-
-                        <div class="info_sec">
-                            <p><strong>Horário:</strong> Manhã/Tarde</p>
-                            <p><strong>Valor:</strong> A combinar</p>
-                            <p><strong>Pedro</strong> 3.0</p>
-                        </div>
-                        
-                    </div>
-
-                    <div class="botao_abrir" onclick="verOferta()">
-                        <p>Abrir</p>
-                    </div>
-
-                    
-                    <div class="modal_verOferta none">
-                        <div class="modal_header">
-                            <h2>Detalhes da oferta</h2>
-                        </div>
-                        <div class="oferta_detalhes">
-                            <div class="pessoais">
-                                <div class="img">
-                                    <!--Deixei assim pq vou ter que abrir o php para mudar o nome do arquivo-->
-                                    <img src="<?php echo $caminho."media/area-atuação/limpeza.svg"?>" alt="">
+                                <div class='info_princ'>
+                                    <img src='$caminho/media/area-atuação/limpeza.svg' alt=''>
+                                    <h2>$nome</h2>
                                 </div>
-                                <h3><?php echo $_SESSION['nome_comp'];?></h3>
-                                <p>4.0</p>
+                                
+
+                                <div class='info_sec'>
+                                    <p><strong>Horário:</strong> $horario</p>
+                                    <p><strong>Valor:</strong> $valor</p>
+                                    <p><strong>$nome_user</strong>   $avaliacao</p>
+                                </div>
+                                
                             </div>
-                            <div class="oferta">
-                                <p><strong>Serviço: </strong>Encanador</p>
-                                <p><strong>Horário: </strong>Tarde</p>
-                                <p><strong>Descrição: </strong>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores inventore voluptatum eius maiores nulla nesciunt blanditiis libero similique voluptates deserunt fugit quidem explicabo architecto, dicta quo magni repellendus aspernatur cum!</p>
-                                <p><strong>Valor: </strong>A combinar</p>
-                                <p><strong>Contato: </strong>(88) 99999-9999</p>
+
+                            <div class='botao_abrir' onclick='verOferta()'>
+                                <p>Abrir</p>
                             </div>
-                        </div>
-                        <hr>
-                        <div class="modal_footer">
-                            <button class="fechar" onclick="fecharModal()">
-                                Fechar
-                            </button>
-                            <a href="#"> Contatar </a>
-                        </div>
-                    </div>
-                </div>
+
+                            
+                            <div class='modal_verOferta none'>
+                                <div class='modal_header'>
+                                    <h2>Detalhes da oferta</h2>
+                                </div>
+                                <div class='oferta_detalhes'>
+                                    <div class='pessoais'>
+                                        <div class='img'>
+                                            <img src='$caminho/media/area-atuação/limpeza.svg' alt=''>
+                                        </div>
+                                        <h3>$nome_comp_ofertante</h3>
+                                        <p>4.0</p>
+                                    </div>
+                                    <div class='oferta'>
+                                        <p><strong>Serviço: </strong>$nome</p>
+                                        <p><strong>Horário: </strong>$horario</p>
+                                        <p><strong>Descrição: </strong>$descricao</p>
+                                        <p><strong>Valor: </strong>$valor</p>
+                                        <p><strong>Contato: </strong>(88) 99999-9999</p>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class='modal_footer'>
+                                    <button class='fechar' onclick='fecharModal()'>
+                                        Fechar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>";
+                        }
+                    }?>
             </div>
         </div>
         
