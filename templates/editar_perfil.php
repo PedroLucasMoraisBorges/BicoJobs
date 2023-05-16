@@ -52,7 +52,7 @@ $caminho = 'http://localhost/BicoJobs/';
 
                     <div>
                         <h3>CEP</h3>
-                        <input type="text" value="<?php echo $_SESSION['cep'];?>" name="cep" placeholder="CEP">
+                        <input type="text" name="cep" placeholder="CEP">
                     </div>
                 </div>
 
