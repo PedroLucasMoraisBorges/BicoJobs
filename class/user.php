@@ -17,30 +17,12 @@ class User{
     private $nome;
     private $senha;
     private $img_perfil;
+    private $id_contato;
 
     public function __construct($mysqli, $nome, $dt_nascimento, $cpf, $cep, $senha, $tipo_usuario, $email,$log_cad)
     {
 
         if($log_cad == 0){
-            // Verifica se tem cpf no banco
-            $sql_code = "SELECT id FROM usuario WHERE cpf = '$cpf'";
-
-            $sql_query = $mysqli->query($sql_code) or die("Falha na execuça do código SQL" .$mysqli->error);
-
-            if($sql_query->num_rows == 1){
-                die("O cpf já está cadastrado <a href='javascript:history.back()'>Retornar</a>");
-            }
-
-
-            // Verifica se tem usuario no banco
-            $sql_code = "SELECT id FROM usuario WHERE nome = '$nome'";
-
-            $sql_query = $mysqli->query($sql_code) or die("Falha na execuça do código SQL" .$mysqli->error);
-
-            if($sql_query->num_rows == 1){
-                die("O nome de usuario já está cadastrado <a href='javascript:history.back()'>Retornar</a>");
-            }
-
             $this->nome = $nome;
             $this->dt_nascimento = $dt_nascimento;
             $this->cpf = $cpf;
@@ -94,7 +76,7 @@ class User{
         }
         else{
             $this->cep = $row["id"];
-            return [$this->cep , $sql_codes];
+            return $sql_codes;
         }
     }
 
@@ -129,8 +111,8 @@ class User{
             $sql = "INSERT INTO contato (id, email) VALUES ($last_id, '$this->email')";
             $sql_codes[] = $sql;
             //(mysqli_query($mysqli, $sql));
-            $this->email = $last_id;
-            return [$this->email , $sql_codes];
+            $this->id_contato = $last_id;
+            return $sql_codes;
         }
         else{
             die("Email já cadastrado");
@@ -138,7 +120,15 @@ class User{
     }
 
 
-    public function sign_in($sql_codes ,$nome, $cpf, $pass, $email,$mysqli,$dt_nasci){
+    public function sign_in($sql_codes, $mysqli){
+        // Verifica se tem cpf no banco
+        $sql_code = "SELECT id FROM usuario WHERE cpf = '$this->cpf'";
+
+        $sql_query = $mysqli->query($sql_code) or die("Falha na execuça do código SQL" .$mysqli->error);
+
+        if($sql_query->num_rows == 1){
+            die("O cpf já está cadastrado <a href='javascript:history.back()'>Retornar</a>");
+        }
     
         $sql_code = "SELECT id, nome FROM usuario";
         $sql_query = $mysqli->query($sql_code) or die("Falha na execuça do código SQL" .$mysqli->error);
@@ -155,7 +145,7 @@ class User{
                 $sql_query = $mysqli->query($sql);
                 $nome_cidade = $sql_query->fetch_assoc();
             
-                $sql = "INSERT INTO usuario (id ,nome, cpf, senha, id_cidade, id_contato,tipo_usuario,dt_nascimento ) VALUES (0 ,'$nome', '$cpf', '$pass', $this->cep, $email, 0,'$dt_nasci' )";
+                $sql = "INSERT INTO usuario (id ,nome, cpf, senha, id_cidade, id_contato,tipo_usuario,dt_nascimento ) VALUES (0 ,'$this->nome', '$this->cpf', '$this->senha', $this->cep, $this->id_contato), 0,'$this->dt_nascimento' )";
             
                 $mysqli->query($sql);
 
@@ -198,11 +188,11 @@ class User{
                 $sql_query = $mysqli->query($sql);
                 $nome_cidade = $sql_query->fetch_assoc();
 
-                $sql = "INSERT INTO usuario (id ,nome, cpf, senha, id_cidade, id_contato,tipo_usuario,dt_nascimento) VALUES ($last_id ,'$nome', '$cpf', '$pass', $this->cep, $email, 0,'$dt_nasci')";
+                $sql = "INSERT INTO usuario (id ,nome, cpf, senha, id_cidade, id_contato,tipo_usuario,dt_nascimento) VALUES ($last_id ,'$this->nome', '$this->cpf', '$this->senha', $this->cep, $this->id_contato , 0,'$this->dt_nascimento')";
             
                 ($mysqli->query($sql));
 
-                $sql_code = "SELECT id, nome FROM usuario WHERE nome = '$nome'";
+                $sql_code = "SELECT id, nome FROM usuario WHERE nome = '$this->nome'";
                 $sql_query = $mysqli->query($sql_code) or die("Falha na execuça do código SQL" .$mysqli->error);
 
 
