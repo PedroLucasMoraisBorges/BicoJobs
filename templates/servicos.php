@@ -45,7 +45,7 @@ $caminho = 'http://localhost/BicoJobs/';
             <div class="campo_pesquisa">
                 <input type="text" class="campo" placeholder="Buscar serviços..." onclick="ativate()">
                 
-                <button class="botao_pesquisa"><img src="../media/svg's/search.svg" alt="Lupa"></button>
+                <button class="botao_pesquisa"><img src="../media/svg/search.svg" alt="Lupa"></button>
 
 
                 <button class="adicionar" onclick="<?php 
@@ -56,7 +56,7 @@ $caminho = 'http://localhost/BicoJobs/';
                     echo "mudar_tipo()";
                 }
                 ?>">
-                    <img src="../media/svg's/plus.svg" alt="Adicionar">
+                    <img src="../media/svg/plus.svg" alt="Adicionar">
                     <p>Anunciar o seu serviço</p>
                 </button>
             </div>
@@ -150,13 +150,16 @@ $caminho = 'http://localhost/BicoJobs/';
                         }
                     }
                     else{
-                        echo "Não há serviços locais na sua região, tente verificar se o seu CEP está correto";
+                        echo '<div class="read_list"> 
+                            <img src="../media/svg/read_list.svg" alt="Read List">
+                            <p>Não há serviços locais na sua região, tente verificar se o seu CEP está correto</p>
+                            </div>';
                     }
                     ?>
             </div>
         </div>
-        
     </main>
+    
 
     <?php include 'componentes/footer.html';?>
 

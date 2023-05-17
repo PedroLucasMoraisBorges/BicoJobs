@@ -155,6 +155,7 @@ class User{
             session_start();
 
             //Criado a sessao do USER
+            //$_SESSION['user'] = $user;
             $_SESSION["id"] = $user["id"];
             $_SESSION["nome"] = $user["nome"];
             $_SESSION["cpf"] = $user["cpf"];

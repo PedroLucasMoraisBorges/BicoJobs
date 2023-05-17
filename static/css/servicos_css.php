@@ -554,3 +554,20 @@ label:hover{
 }
 
 /* error */
+
+
+
+/* Não encontra servico */
+
+.read_list{
+    height: 350px;
+    margin-bottom: 2rem;
+    width: 100%;
+    text-align: center;
+}
+
+.read_list img{
+    display: block;
+    height: 100%;
+    margin: auto;
+}

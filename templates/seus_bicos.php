@@ -40,10 +40,10 @@ $caminho = 'http://localhost/BicoJobs/';
     <div class="campo_pesquisa">
         <input type="text" class="campo" placeholder="Buscar serviços..." onclick="ativate()">
         
-        <button class="botao_pesquisa"><img src="<?php echo $caminho."media/svg's/search.svg"?>" alt="Lupa"></button>
+        <button class="botao_pesquisa"><img src="<?php echo $caminho."media/svg/search.svg"?>" alt="Lupa"></button>
 
         <button class="adicionar" onclick="adicionar()">
-            <img src="<?php echo $caminho."media/svg's/plus.svg"?>" alt="Adicionar">
+            <img src="<?php echo $caminho."media/svg/plus.svg"?>" alt="Adicionar">
             <p>Anunciar o seu serviço</p>
         </button>
     </div>
