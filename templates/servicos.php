@@ -65,7 +65,7 @@ $caminho = 'http://localhost/BicoJobs/';
 
         <div class="conteudo">
             <div class="geral">
-            <?php
+                <?php
                     $id_cidade = $_SESSION['id_cidade'];
                     $sql = "SELECT * FROM servico WHERE id_cidade = '$id_cidade'";
                     $sql_query = $mysqli->query($sql);

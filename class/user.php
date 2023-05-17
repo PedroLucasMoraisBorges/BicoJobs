@@ -19,26 +19,17 @@ class User{
     private $img_perfil;
     private $id_contato;
 
-    public function __construct($mysqli, $nome, $dt_nascimento, $cpf, $cep, $senha, $tipo_usuario, $email,$log_cad)
+    public function __construct($nome, $dt_nascimento, $cpf, $cep, $senha, $tipo_usuario, $email)
     {
 
-        if($log_cad == 0){
-            $this->nome = $nome;
-            $this->dt_nascimento = $dt_nascimento;
-            $this->cpf = $cpf;
-            $this->cep = $cep;
-            $this->senha = $senha;
-            $this->tipo_usuario = $tipo_usuario;
-            $this->email = $email;
-        }
-        else{
-            $this->nome = $nome;
-            $this->dt_nascimento = $dt_nascimento;
-            $this->cpf = $cpf;
-            $this->cep = $cep;
-            $this->senha = $senha;
-            $this->tipo_usuario = $tipo_usuario;
-        }
+        $this->nome = $nome;
+        $this->dt_nascimento = $dt_nascimento;
+        $this->cpf = $cpf;
+        $this->cep = $cep;
+        $this->senha = $senha;
+        $this->tipo_usuario = $tipo_usuario;
+        $this->email = $email;
+        
     }
 
 
@@ -49,7 +40,7 @@ class User{
 
         $id_cidade = $sql_query->fetch_assoc();
 
-        return $id_cidade['id'];
+        return $id_cidade['id_cidade'];
     }
     public function setIdCidade($sql_codes, $mysqli){
         // Verifica se tem a cidade no banco
@@ -98,7 +89,6 @@ class User{
     public function setIdEmail($sql_codes, $mysqli){
         $sql_code = "SELECT id FROM contato WHERE email = '$this->email'";
         $sql_code_last_id = "SELECT id FROM contato";
-
 
         $sql_query = $mysqli->query($sql_code) or die("Falha na execuça do código SQL" .$mysqli->error);
         $row = $sql_query->fetch_assoc();
@@ -176,7 +166,7 @@ class User{
         
             ($mysqli->query($sql));
 
-            $sql_code = "SELECT id, nome FROM usuario WHERE nome = '$this->nome'";
+            $sql_code = "SELECT * FROM usuario WHERE cpf = '$this->cpf'";
             $sql_query = $mysqli->query($sql_code) or die("Falha na execuça do código SQL" .$mysqli->error);
 
 
@@ -190,6 +180,7 @@ class User{
 
             //Criado a sessao do USER
             $_SESSION = $user;
+            
             $_SESSION['cidade'] = $nome_cidade['cep'];
 
             //redicionando o user
@@ -246,13 +237,7 @@ class User{
             session_start();
         }
 
-        $_SESSION['avaliacao'] = $user['avaliacao'];
-        $_SESSION['tipo_user'] = $user['tipo_usuario'];
-        $_SESSION['id_idioma'] = $user['id_idioma'];
-        $_SESSION['descricao'] = $user['descricao'];
-        $_SESSION['img_perfil'] = $user['img_perfil'];
-        $_SESSION['habilidades'] = $user['habilidades'];
-        $_SESSION['nome_comp'] = $user['nome_comp'];
+        $_SESSION = $user;
 
         header("Location: http://localhost/BicoJobs/templates/servicos.php");
     }
@@ -428,20 +413,7 @@ class User{
         $sql_query = $mysqli->query($sql_code);
         $user = $sql_query->fetch_assoc();
 
-        $_SESSION["id"] = $user["id"];
-        $_SESSION["nome"] = $user["nome"];
-        $_SESSION["cpf"] = $user["cpf"];
-        $_SESSION["id_cidade"] = $user['id_cidade'];
-        $_SESSION["dt_nascimento"] = $user["dt_nascimento"];
-        $_SESSION['id_contato'] = $user['id_contato'];
-        $_SESSION['tipo_user'] = $user['tipo_usuario'];
-        $_SESSION['senha'] = $user['senha'];
-        $_SESSION['id_idioma'] = $user['id_idioma'];
-        $_SESSION['avaliacao'] = $user['avaliacao'];
-        $_SESSION['nome_comp'] = $user['nome_comp'];
-        $_SESSION['descricao'] = $user['descricao'];
-        $_SESSION['habilidades'] = $user['habilidades'];
-        $_SESSION['img_perfil'] = $user['img_perfil'];
+        $_SESSION = $user;
         $_SESSION['cidade'] = $cep;
 
 

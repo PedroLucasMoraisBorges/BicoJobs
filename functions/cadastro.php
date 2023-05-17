@@ -21,7 +21,6 @@ $address = json_decode(file_get_contents($url),true);
 
 
 $usuario = new User(
-    $mysqli,
     $_POST['user_cad'],
     $_POST['dtNasci'],
     $_POST['cpf'],
@@ -29,7 +28,6 @@ $usuario = new User(
     $_POST['password_cad'],
     0,
     $_POST['email_cad'],
-    0
 );
 
 
