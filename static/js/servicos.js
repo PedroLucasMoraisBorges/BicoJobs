@@ -25,8 +25,16 @@ function verOferta(){
 function fecharModal(){
     var modal = document.querySelector(".modal_fundo");
     var modal_info = document.querySelector(".modal_verOferta");
+    
     modal_info.classList.add("none");
     modal.classList.add("none");
+}
+function fecharModal2(){
+    var modal = document.querySelector(".modal_fundo");
+    var modal_mudar_tipo = document.querySelector(".modal_mudar_tipo");
+    
+    modal.classList.add("none");
+    modal_mudar_tipo.classList.add("none");
 }
 
 

@@ -5,7 +5,7 @@
         <a href="<?php echo $caminho."templates/servicos.php"?>">Serviços</a>
 
         <?php 
-            if($_SESSION['tipo_user'] != 0){
+            if($_SESSION['tipo_usuario'] != 0){
                 echo '<a href="../templates/seus_bicos.php">Meus Bicos</a>';
             }
         ?>
@@ -28,7 +28,7 @@
 
     <div class="opçoes op_none">
         <?php 
-            if($_SESSION['tipo_user'] != 0){
+            if($_SESSION['tipo_usuario'] != 0){
                 echo '<a href="'.$caminho.'templates/perfil.php">Perfil</a><div></div>';
             }
         ?>

@@ -1,7 +1,7 @@
 <?php 
 session_start();
 require_once("../conection/conection.php");
-if($_SESSION['tipo_user'] == 1){
+if($_SESSION['tipo_usuario'] == 1){
     require_once("../functions/retornar_idioma_contato.php");
 }
 
@@ -49,7 +49,7 @@ $caminho = 'http://localhost/BicoJobs/';
 
 
                 <button class="adicionar" onclick="<?php 
-                if($_SESSION['tipo_user'] != 0){
+                if($_SESSION['tipo_usuario'] != 0){
                     echo "adicionar()";
                 }
                 else{
