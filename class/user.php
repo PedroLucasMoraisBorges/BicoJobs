@@ -91,7 +91,6 @@ class User{
         $sql_code_last_id = "SELECT id FROM contato";
 
         $sql_query = $mysqli->query($sql_code) or die("Falha na execuça do código SQL" .$mysqli->error);
-        $row = $sql_query->fetch_assoc();
 
         $sql_query_last_id = $mysqli->query($sql_code_last_id) or die("Falha na execuça do código SQL" .$mysqli->error);
         $last_id = $sql_query_last_id->num_rows;
@@ -128,10 +127,12 @@ class User{
                 $mysqli->query($sql_codes[$i]);
             }
 
+            // Recebe o nome da cidade
             $sql = "SELECT cep FROM cidade WHERE id = $this->cep";
             $sql_query = $mysqli->query($sql);
             $nome_cidade = $sql_query->fetch_assoc();
         
+            // Cria um novo usuario no banco de dados
             $sql = "INSERT INTO usuario (id ,nome, cpf, senha, id_cidade, id_contato,tipo_usuario,dt_nascimento ) VALUES (0 ,'$this->nome', '$this->cpf', '$this->senha', $this->cep, $this->id_contato, 0,'$this->dt_nascimento' )";
             
             $mysqli->query($sql);
@@ -162,6 +163,7 @@ class User{
             $sql_query = $mysqli->query($sql);
             $nome_cidade = $sql_query->fetch_assoc();
 
+            // Cria um novo usuario no banco de dados
             $sql = "INSERT INTO usuario (id ,nome, cpf, senha, id_cidade, id_contato,tipo_usuario,dt_nascimento) VALUES ($last_id ,'$this->nome', '$this->cpf', '$this->senha', $this->cep, $this->id_contato , 0,'$this->dt_nascimento')";
         
             ($mysqli->query($sql));

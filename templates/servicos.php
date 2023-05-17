@@ -22,12 +22,13 @@ $caminho = 'http://localhost/BicoJobs/';
     </style>
     <title>BicoJobs | Serviços</title>
 </head>
+
+
 <body>
     <div class="modal_fundo none">
         <?php include 'componentes/modal_mudar_tipo.php'; ?>
         <?php include 'componentes/adicionar_serv.html'; ?>
     </div>
-
 
     <?php include 'componentes/nav.php';?>
 
@@ -43,6 +44,7 @@ $caminho = 'http://localhost/BicoJobs/';
             </div>
 
             <div class="campo_pesquisa">
+                
                 <input type="text" class="campo" placeholder="Buscar serviços..." onclick="ativate()">
                 
                 <button class="botao_pesquisa"><img src="../media/svg/search.svg" alt="Lupa"></button>
