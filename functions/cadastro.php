@@ -10,7 +10,6 @@ $caminho = 'http://localhost/BicoJobs';
 //$dt_nasci = $_POST['dtNasci'];
 //$cpf = $_POST['cpf'];
 $cep = $_POST['cep'];
-$pass = $_POST['password_cad'];
 //$email = $_POST['email_cad'];
 $sql_codes = [];
 
@@ -32,6 +31,7 @@ $usuario = new User(
     $_POST['email_cad'],
     0
 );
+
 
 $teste = $usuario->setIdCidade($sql_codes, $mysqli);
 $sql_codes = $teste;
