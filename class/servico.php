@@ -16,6 +16,8 @@ class servico {
     private $img_servico;
     private $contato;
 
+    private $categoria;
+
     // GETs
     public function getId(){
         return $this -> id;
@@ -92,7 +94,7 @@ class servico {
 
 
     //construct
-    public function __construct($nome, $valor, $valor_descricao, $estado, $horario, $img_servico, $contato){
+    public function __construct($nome, $valor, $valor_descricao, $estado, $horario, $img_servico, $contato, $categoria){
         $this -> nome = $nome;
         $this -> valor = $valor;
         $this -> valor_descricao = $valor_descricao;
@@ -100,13 +102,36 @@ class servico {
         $this -> horario = $horario;
         $this -> img_servico = $img_servico;
         $this -> contato = $contato;
+        $this -> categoria = $categoria;
     }
 
     public function inserirNoDB($mysqli){
-        $sql = "INSERT INTO servico (nome, valor, descricao, estado, horario, img_servico) VALUES ('$this->nome', '$this->valor', '$this->valor_descricao', '$this->estado', '$this->horario', '$this->img_servico')";
-        if($mysqli->query($sql) === FALSE){
-            echo "Failed Insertion!";
+        $sql = "SELECT * FROM categoria";
+        $sql_query = $mysqli->query($sql);
+        $last_id = $sql_query->num_rows;
+
+        $sql = "SELECT * FROM categoria WHERE categoria = '$this->categoria'";
+        $sql_query = $mysqli->query($sql);
+
+        if($sql_query->num_rows == 0){
+            $sql_categoria = "INSERT INTO categoria (id, categoria) VALUES ($last_id, '$this->categoria')";
+            $sql = "INSERT INTO servico (nome, valor, descricao, estado, horario, img_servico, id_categoria) VALUES ('$this->nome', '$this->valor', '$this->valor_descricao', '$this->estado', '$this->horario', '$this->img_servico', $last_id)";
+
+            $mysqli->query($sql_categoria);
+            if($mysqli->query($sql) === FALSE){
+                echo "Failed Insertion!";
+            }
         }
+        else{
+            $id_categoria = ($sql_query->fetch_assoc())['id'];
+            $sql = "INSERT INTO servico (nome, valor, descricao, estado, horario, img_servico, id_categoria) VALUES ('$this->nome', '$this->valor', '$this->valor_descricao', '$this->estado', '$this->horario', '$this->img_servico', $id_categoria)";
+
+            if($mysqli->query($sql) === FALSE){
+                echo "Failed Insertion!";
+            }
+        }
+
+        
 
         $result = $mysqli->query("SELECT max(id) FROM servico");
 
