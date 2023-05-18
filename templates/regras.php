@@ -26,7 +26,7 @@ $caminho = 'http://localhost/BicoJobs/';
                 <h1>Regras</h1>
                 <div class="accordion">
                     <div class="accordion-component is_closed">
-                        <h2 class="dropdown-activer">Sobre a Plataforma <img src="../media/svg's/dropdown-arrow.svg" alt="arrow for dropdownmenu"></h2>
+                        <h2 class="dropdown-activer">Sobre a Plataforma <img src="../media/svg/dropdown-arrow.svg" alt="arrow for dropdownmenu"></h2>
                         <ul>
                             <li>
                                 1- Os usuários são responsáveis pelo conteúdo que postam e que qualquer atividade ilegal ou inadequada resultará na suspensão ou cancelamento da conta.
@@ -41,7 +41,7 @@ $caminho = 'http://localhost/BicoJobs/';
                     </div>
                     <hr>
                     <div class="accordion-component is_closed">
-                        <h2 class="dropdown-activer">Regras para os prestadores de serviço <img src="../media/svg's/dropdown-arrow.svg" alt="arrow for dropdownmenu"></h2>
+                        <h2 class="dropdown-activer">Regras para os prestadores de serviço <img src="../media/svg/dropdown-arrow.svg" alt="arrow for dropdownmenu"></h2>
                         <ul>
                             <li>
                                 1- Os usuários devem fornecer informações precisas e verdadeiras sobre si mesmos, bem como sobre os serviços oferecidos ou solicitados.
@@ -65,7 +65,7 @@ $caminho = 'http://localhost/BicoJobs/';
                     </div>
                     <hr>
                     <div class="accordion-component is_closed">
-                        <h2 class="dropdown-activer">Regras para os clientes <img src="../media/svg's/dropdown-arrow.svg" alt="arrow for dropdownmenu"></h2>
+                        <h2 class="dropdown-activer">Regras para os clientes <img src="../media/svg/dropdown-arrow.svg" alt="arrow for dropdownmenu"></h2>
                         <ul>
                             <li>
                                 1- Os usuários devem fornecer informações precisas e verdadeiras sobre si mesmos, bem como sobre os serviços oferecidos ou solicitados.
@@ -90,7 +90,7 @@ $caminho = 'http://localhost/BicoJobs/';
                 </div>
             </section>
             <div class="img-centralizer">
-                <img src="../media/svg's/cell.svg" alt="cellphone image">
+                <img src="../media/svg/cell.svg" alt="cellphone image">
             </div>
         </main>
         
