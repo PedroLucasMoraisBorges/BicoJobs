@@ -16,18 +16,31 @@ function ativate(){
 }
 
 
+
 function verOferta(){
     var modal = document.querySelector(".modal_fundo");
-    var modal_info = document.querySelector(".modal_verOferta");
+    var geral = document.querySelector(".geral");
+    geral.addEventListener("click" ,function(event){
+        click = event.target;
+        var id = click.id;
+        var modal_id = "modal_"+id;
+        
+        var modal_info = document.getElementById(modal_id);
+        console.log(modal_info)
+        modal_info.classList.remove('none');
+    })
     modal.classList.remove("none");
-    modal_info.classList.remove("none");
 }
 function fecharModal(){
-    var modal = document.querySelector(".modal_fundo");
-    var modal_info = document.querySelector(".modal_verOferta");
-    
-    modal_info.classList.add("none");
-    modal.classList.add("none");
+    var modal_fundo = document.querySelector(".modal_fundo");
+    var modal_info = document.querySelectorAll(".modal_verOferta");
+    for(modal of modal_info){
+        if(modal.classList.contains("none") == false){
+            modal.classList.add("none");
+        }
+    }
+
+    modal_fundo.classList.add("none");
 }
 function fecharModal2(){
     var modal = document.querySelector(".modal_fundo");
@@ -77,3 +90,5 @@ function mudar_tipo(){
     modal.classList.remove("none");
     modal_info.classList.remove("none");
 }
+
+var geral = document.querySelector(".geral");

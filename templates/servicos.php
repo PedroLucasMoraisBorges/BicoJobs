@@ -75,6 +75,7 @@ $caminho = 'http://localhost/BicoJobs/';
                     if($sql_query->num_rows > 0){
                         while($row = $sql_query->fetch_assoc()){
                             $id_usuario = $row['id_usuario'];
+                            $id = $row['id'];
                             $nome = $row['nome'];
                             $descricao = $row['descricao'];
                             $horario = $row['horario'];
@@ -94,7 +95,7 @@ $caminho = 'http://localhost/BicoJobs/';
                             $nome_user = $user['nome'];
                             $avaliacao = $user['avaliacao'];
 
-                            echo "<div class='card'>
+                            echo "<div class='card' id='card$id'>
                             <img src='$caminho/media/limp.svg' alt='#' class='img_fundo'>
 
                             <img src='$caminho/media/fundo_azul.svg' alt='' class='fundo_azul'>
@@ -116,12 +117,13 @@ $caminho = 'http://localhost/BicoJobs/';
                                 
                             </div>
 
-                            <div class='botao_abrir' onclick='verOferta()'>
-                                <p>Abrir</p>
-                            </div>
+            
+                            <button class='botao_abrir' id='btn$id' onclick='verOferta()'>
+                                Abrir
+                            </button>
 
                             
-                            <div class='modal_verOferta none'>
+                            <div class='modal_verOferta none' id='modal_btn$id'>
                                 <div class='modal_header'>
                                     <h2>Detalhes da oferta</h2>
                                 </div>
