@@ -1,6 +1,7 @@
 <?php 
 session_start();
 require_once("../conection/conection.php");
+
 if($_SESSION['tipo_usuario'] == 1){
     require_once("../functions/retornar_idioma_contato.php");
 }
@@ -44,10 +45,11 @@ $caminho = 'http://localhost/BicoJobs/';
             </div>
 
             <div class="campo_pesquisa">
-                
-                <input type="text" class="campo" placeholder="Buscar serviços..." onclick="ativate()">
-                
-                <button class="botao_pesquisa"><img src="../media/svg/search.svg" alt="Lupa"></button>
+                <form action="../functions/mostrar_servico.php" method="POST">
+                    <input type="text" class="campo" name="search" placeholder="Buscar serviços..." onclick="ativate()">
+                    
+                    <button class="botao_pesquisa" name="submit"><img src="../media/svg/search.svg" alt="Lupa"></button>
+                </form>
 
 
                 <button class="adicionar" onclick="<?php 
@@ -68,9 +70,7 @@ $caminho = 'http://localhost/BicoJobs/';
         <div class="conteudo">
             <div class="geral">
                 <?php
-                    $id_cidade = $_SESSION['id_cidade'];
-                    $sql = "SELECT * FROM servico WHERE id_cidade = '$id_cidade'";
-                    $sql_query = $mysqli->query($sql);
+                    include("../functions/mostrar_servico.php");
 
                     if($sql_query->num_rows > 0){
                         while($row = $sql_query->fetch_assoc()){
@@ -152,10 +152,7 @@ $caminho = 'http://localhost/BicoJobs/';
                         }
                     }
                     else{
-                        echo '<div class="read_list"> 
-                            <img src="../media/svg/read_list.svg" alt="Read List">
-                            <p>Não há serviços locais na sua região, tente verificar se o seu CEP está correto</p>
-                            </div>';
+                        echo $n_encontrado;
                     }
                     ?>
             </div>

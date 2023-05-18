@@ -11,7 +11,7 @@
         <div class="forms">
             <div>
                 <label for="img_perfil">
-                    <img src="<?php echo $caminho."media/svg's/add_foto.svg"?>" alt="">
+                    <img src="<?php echo $caminho."media/svg/add_foto.svg"?>" alt="">
                 </label>
                 <input type="file" require name="img_perfil" id="img_perfil" style="display: none;">
             </div>
