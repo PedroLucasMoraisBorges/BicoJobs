@@ -16,7 +16,6 @@ function ativate(){
 }
 
 
-
 function verOferta(){
     var modal = document.querySelector(".modal_fundo");
     var geral = document.querySelector(".geral");
@@ -31,6 +30,7 @@ function verOferta(){
     })
     modal.classList.remove("none");
 }
+
 function fecharModal(){
     var modal_fundo = document.querySelector(".modal_fundo");
     var modal_info = document.querySelectorAll(".modal_verOferta");

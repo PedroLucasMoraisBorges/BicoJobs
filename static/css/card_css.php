@@ -25,6 +25,7 @@
     color: white;
     font-size: 1rem;
     box-shadow: 1.5px 1.5px 2px #40404050;
+    background-color: #303030;
 }
 
 .card:hover{
