@@ -27,7 +27,7 @@ $caminho = 'http://localhost/BicoJobs/';
     <main onclick="fechar_op()">
         <div class="pesquisa">
             <div class="titulo">
-                <p>Juzaeiro do Norte - CE</p>
+                <p><?php echo $_SESSION['cidade'];?></p>
                 <h1>Perfil</h1>
             </div>
         </div>
@@ -78,7 +78,7 @@ $caminho = 'http://localhost/BicoJobs/';
                     <?php echo $_SESSION['descricao']; ?>
                 </div>
 
-                <a href="#" class="edit">Editar</a>
+                <a href="<?php echo $caminho."templates/editar_perfil.php";?>" class="edit">Editar</a>
             </div>
         </div>
     </main>

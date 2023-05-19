@@ -33,14 +33,14 @@ $caminho = 'http://localhost/BicoJobs/';
         <div class="pesquisa">
 
             <div class="titulo">
-                <p>Juzaeiro do Norte - CE</p>
+                <p><?php echo $_SESSION['cidade'];?></p>
                 <h1>Últimos serviços</h1>
             </div>
 
             <div class="campo_pesquisa">
                 <input type="text" class="campo" placeholder="Buscar seus serviços..." onclick="ativate()">
                 
-                <button class="botao_pesquisa"><img src="../media/svg's/search.svg" alt="Lupa"></button>
+                <button class="botao_pesquisa"><img src="../media/svg/search.svg" alt="Lupa"></button>
             </div>
 
         </div>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 13/05/2023 às 20:26
+-- Tempo de geração: 16/05/2023 às 13:52
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.2.4
 
@@ -83,7 +83,8 @@ CREATE TABLE `servico` (
   `descricao` varchar(350) DEFAULT NULL,
   `estado` int(11) DEFAULT NULL,
   `horario` varchar(20) DEFAULT NULL,
-  `img_servico` varchar(50) DEFAULT NULL
+  `img_servico` varchar(50) DEFAULT NULL,
+  `contato` varchar(55) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -156,6 +157,16 @@ ALTER TABLE `usuario`
   ADD KEY `id_contato` (`id_contato`),
   ADD KEY `id_idioma` (`id_idioma`),
   ADD KEY `id_cidade` (`id_cidade`);
+
+--
+-- AUTO_INCREMENT para tabelas despejadas
+--
+
+--
+-- AUTO_INCREMENT de tabela `servico`
+--
+ALTER TABLE `servico`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Restrições para tabelas despejadas

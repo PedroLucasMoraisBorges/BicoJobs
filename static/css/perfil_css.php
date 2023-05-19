@@ -21,6 +21,13 @@ main{
     height: fit-content;
 }
 
+form{
+    width: 100%;
+    padding: 3% 2% 2% 2%;
+    box-sizing: border-box;
+    height: fit-content;
+}
+
 .img{
     width: 75px;
     height: 75px;
@@ -139,3 +146,116 @@ main{
     border-radius: 10px;
     align-self: end;
 }
+
+label:hover{
+    cursor: pointer;
+}
+label img{
+    transition: .3s;
+}
+
+label img:hover{
+    transition: .3s;
+    filter: brightness(40%);
+}
+
+input{
+    display: block;
+    font-size: 1rem;
+    padding: 5px;
+    border: 2px solid #90909075;
+    border-radius: 10px;
+}
+
+textarea{
+    display: block;
+    font-size: 1rem;
+    padding: 5px;
+    border: 2px solid #90909075;
+    border-radius: 10px;
+    resize: none;
+    height: 50%;
+    width: 100%;
+}
+
+.buttons{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+button{
+    border: 0;
+    width: 15%;
+    background-color: #1237A6;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    border-radius: 10px;
+    align-self: end;
+    font-size: 1.1rem;
+    margin-left: .5rem;
+}
+
+button:hover{
+    cursor: pointer;
+}
+
+.buttons a{
+    border: 1px solid #303030;
+    border-radius: 10px;
+    padding: 10px 20px;
+}
+
+.descricao_edit{
+    height: 40%;
+}
+
+.nome-cep{
+    display: grid;
+    grid-template-columns: 55% 35%;
+    margin-bottom: 2rem;
+}
+
+.nome-cep div{
+    margin-right: 7.5%;
+}
+
+
+/* error */
+.erro{
+    color: red;
+    border: solid 2px red;
+}
+
+.erro::placeholder{
+    color: red;
+}
+
+.error-msg{
+    position: absolute;
+    z-index: 20;
+    top: 10%;
+    transform: translateX(-100%);
+    left: 0;
+    background-color: red;
+    color: white;
+    padding: 10px;
+    transition: 1s;
+}
+
+.error-camp{
+    border: solid 2px red !important; 
+    color: red;
+}
+
+.error-camp::placeholder{
+    color: red !important;
+}
+
+.slide{
+    transform: translateX(0);
+}
+
+/* error */

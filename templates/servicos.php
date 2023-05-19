@@ -1,9 +1,11 @@
 <?php 
 session_start();
+require_once("../conection/conection.php");
 
-if($_SESSION['tipo_user'] == 1){
+if($_SESSION['tipo_usuario'] == 1){
     require_once("../functions/retornar_idioma_contato.php");
 }
+
 $caminho = 'http://localhost/BicoJobs/';
 ?>
 
@@ -21,39 +23,44 @@ $caminho = 'http://localhost/BicoJobs/';
     </style>
     <title>BicoJobs | Serviços</title>
 </head>
+
+
 <body>
     <div class="modal_fundo none">
         <?php include 'componentes/modal_mudar_tipo.php'; ?>
         <?php include 'componentes/adicionar_serv.html'; ?>
     </div>
 
-
     <?php include 'componentes/nav.php';?>
+
+    <div class="error-msg" id="error-msg-login"></div>
 
 
     <main onclick="fechar_op()">
         <div class="pesquisa">
 
             <div class="titulo">
-                <p>Juzaeiro do Norte - CE</p>
+                <p><?php echo $_SESSION['cidade'];?></p>
                 <h1>Serviços</h1>
             </div>
 
             <div class="campo_pesquisa">
-                <input type="text" class="campo" placeholder="Buscar serviços..." onclick="ativate()">
-                
-                <button class="botao_pesquisa"><img src="../media/svg's/search.svg" alt="Lupa"></button>
+                <form action="../functions/mostrar_servico.php" method="POST">
+                    <input type="text" class="campo" name="search" placeholder="Buscar serviços..." onclick="ativate()">
+                    
+                    <button class="botao_pesquisa" name="submit"><img src="../media/svg/search.svg" alt="Lupa"></button>
+                </form>
 
 
                 <button class="adicionar" onclick="<?php 
-                if($_SESSION['tipo_user'] != 0){
+                if($_SESSION['tipo_usuario'] != 0){
                     echo "adicionar()";
                 }
                 else{
                     echo "mudar_tipo()";
                 }
                 ?>">
-                    <img src="../media/svg's/plus.svg" alt="Adicionar">
+                    <img src="../media/svg/plus.svg" alt="Adicionar">
                     <p>Anunciar o seu serviço</p>
                 </button>
             </div>
@@ -62,68 +69,13 @@ $caminho = 'http://localhost/BicoJobs/';
 
         <div class="conteudo">
             <div class="geral">
-                <div class="card">
-                    <img src="<?php echo $caminho."media/limp.svg"?>" alt="#" class="img_fundo">
-
-                    <img src="<?php echo $caminho."media/fundo_azul.svg"?>" alt="" class="fundo_azul">
-
-                    <div class="card_detalhes">
-
-
-                        <div class="info_princ">
-                            <!--Deixei assim pq vou ter que abrir o php para mudar o nome do arquivo-->
-                            <img src="<?php echo $caminho."media/area-atuação/limpeza.svg"?>" alt="">
-                            <h2>Faxina</h2>
-                        </div>
-                        
-
-                        <div class="info_sec">
-                            <p><strong>Horário:</strong> Manhã/Tarde</p>
-                            <p><strong>Valor:</strong> A combinar</p>
-                            <p><strong>Pedro</strong> 3.0</p>
-                        </div>
-                        
-                    </div>
-
-                    <div class="botao_abrir" onclick="verOferta()">
-                        <p>Abrir</p>
-                    </div>
-
-                    
-                    <div class="modal_verOferta none">
-                        <div class="modal_header">
-                            <h2>Detalhes da oferta</h2>
-                        </div>
-                        <div class="oferta_detalhes">
-                            <div class="pessoais">
-                                <div class="img">
-                                    <!--Deixei assim pq vou ter que abrir o php para mudar o nome do arquivo-->
-                                    <img src="<?php echo $caminho."media/area-atuação/limpeza.svg"?>" alt="">
-                                </div>
-                                <h3><?php echo $_SESSION['nome_comp'];?></h3>
-                                <p>4.0</p>
-                            </div>
-                            <div class="oferta">
-                                <p><strong>Serviço: </strong>Encanador</p>
-                                <p><strong>Horário: </strong>Tarde</p>
-                                <p><strong>Descrição: </strong>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores inventore voluptatum eius maiores nulla nesciunt blanditiis libero similique voluptates deserunt fugit quidem explicabo architecto, dicta quo magni repellendus aspernatur cum!</p>
-                                <p><strong>Valor: </strong>A combinar</p>
-                                <p><strong>Contato: </strong>(88) 99999-9999</p>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="modal_footer">
-                            <button class="fechar" onclick="fecharModal()">
-                                Fechar
-                            </button>
-                            <a href="#"> Contatar </a>
-                        </div>
-                    </div>
-                </div>
+                <?php
+                    include("../functions/mostrar_servico.php");
+                ?>
             </div>
         </div>
-        
     </main>
+    
 
     <?php include 'componentes/footer.html';?>
 

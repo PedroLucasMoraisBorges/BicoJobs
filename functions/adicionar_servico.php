@@ -23,7 +23,7 @@ $area_atuacao = $_POST['area-atuacao'];
 $descricao = $_POST['descricao'];
 $valor = $_POST['valor'];
 $contato = $_POST['contato'];
-$servico = new servico($nome_servico, $valor, $descricao, 0, $horario, $novo_nome);
+$servico = new servico($nome_servico, $valor, $descricao, 0, $horario, $novo_nome, $contato, $area_atuacao);
 
 $servico->inserirNoDB($mysqli);
 $servico->setId_usuario($mysqli, $_SESSION['id']);
