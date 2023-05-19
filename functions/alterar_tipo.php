@@ -30,7 +30,7 @@ $usuario = new User(
     $_SESSION["cpf"],
     $_SESSION["id_cidade"],
     $_SESSION['senha'],
-    $_SESSION['tipo_user'],
+    $_SESSION['tipo_usuario'],
     $_SESSION['id_contato'],
     1
 );

@@ -21,14 +21,14 @@ class User{
 
     public function __construct($nome, $dt_nascimento, $cpf, $cep, $senha, $tipo_usuario, $email)
     {
-
-        $this->nome = $nome;
-        $this->dt_nascimento = $dt_nascimento;
-        $this->cpf = $cpf;
-        $this->cep = $cep;
-        $this->senha = $senha;
-        $this->tipo_usuario = $tipo_usuario;
-        $this->email = $email;
+ 
+        $this -> nome = $nome;
+        $this -> dt_nascimento = $dt_nascimento;
+        $this -> cpf = $cpf;
+        $this -> cep = $cep;
+        $this -> senha = $senha;
+        $this -> tipo_usuario = $tipo_usuario;
+        $this -> email = $email;
         
     }
 
@@ -215,7 +215,7 @@ class User{
 
 
         // INCREMENTO NO PERFIL DE USUARIO
-        $sql = "UPDATE usuario SET tipo_usuario= 1, img_perfil= '$img_perfil',descricao= '$descricao', habilidades= '$habilidade' , id_idioma= $id_idioma,  avaliacao= 5.0, nome_comp= '$nome_comp' WHERE id = $id";
+        $sql = "UPDATE usuario SET tipo_usuario= 1, img_perfil= '$img_perfil',descricao= '$descricao', habilidades= '$habilidade' , id_idioma= $id_idioma, nome_comp= '$nome_comp' WHERE id = $id";
         $sql_query = $mysqli->query($sql);
 
         $sql_code = "SELECT telefone FROM contato WHERE telefone = '$telefone'";

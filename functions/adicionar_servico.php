@@ -36,3 +36,8 @@ $row = $result->fetch_assoc();
 $id_cidade = $row['id_cidade'];
 
 $servico->setId_cidade($mysqli, $id_cidade);
+
+session_start();
+
+header("Location: http://localhost/BicoJobs/templates/servicos.php");
+

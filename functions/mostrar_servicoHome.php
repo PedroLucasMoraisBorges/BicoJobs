@@ -6,9 +6,9 @@ require_once("../templates/servicos.php");
 $nome_cliente = $_SESSION['nome'];
 $cidade = $_SESSION['cidade'];
 
-if(isset($_POST['submit'])){
+if(isset($_GET['submit'])){
     
-    $search = $_POST['search'];
+    $search = $_GET['search'];
     $id_cidade = $_SESSION['id_cidade'];
 
     $sql = "SELECT * FROM categoria WHERE categoria = '$search'";
@@ -22,7 +22,6 @@ if(isset($_POST['submit'])){
             <img src="../media/svg/read_list.svg" alt="Read List">
             <p>Não foi encontrado nenhum serviço que atenda a sua pesquisa</p>
             </div>';
-        
     }
 
     else{
@@ -33,7 +32,7 @@ if(isset($_POST['submit'])){
             <p>Não foi encontrado nenhum serviço que atenda a sua pesquisa</p>
             </div>';
     }
-      
+    
 }
 else{           
     $id_cidade = $_SESSION['id_cidade'];
@@ -45,6 +44,7 @@ else{
             </div>';
 
 }
+
 
 if($sql_query->num_rows > 0){
     while($row = $sql_query->fetch_assoc()){
@@ -61,13 +61,15 @@ if($sql_query->num_rows > 0){
         );
 
 
-        $servico->mostrarServicos(
+        $servico->mostrarServicosHome(
             $mysqli, 
             $row['id'], 
             $row['id_usuario'], 
             $_SESSION['nome'], 
             $_SESSION['cidade']
         );
+
+
     }
 }
 else{

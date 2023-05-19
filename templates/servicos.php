@@ -45,7 +45,7 @@ $caminho = 'http://localhost/BicoJobs/';
             </div>
 
             <div class="campo_pesquisa">
-                <form action="../functions/mostrar_servico.php" method="POST">
+                <form action="#" method="GET">
                     <input type="text" class="campo" name="search" placeholder="Buscar serviços..." onclick="ativate()">
                     
                     <button class="botao_pesquisa" name="submit"><img src="../media/svg/search.svg" alt="Lupa"></button>
@@ -70,7 +70,7 @@ $caminho = 'http://localhost/BicoJobs/';
         <div class="conteudo">
             <div class="geral">
                 <?php
-                    include("../functions/mostrar_servico.php");
+                    include("../functions/mostrar_servicoHome.php");
                 ?>
             </div>
         </div>
