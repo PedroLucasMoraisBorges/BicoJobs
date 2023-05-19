@@ -1,6 +1,6 @@
 <header>
     <img src="<?php echo $caminho.'/media/Logo.svg'?>" alt="Logo BicoJobs" class="logo">
-
+    <h1>Bico Jobs</h1>
     <nav>
         <a href="<?php echo $caminho."templates/servicos.php"?>">Serviços</a>
 
@@ -35,3 +35,4 @@
         <a href="<?php echo $caminho."conection/logout.php"?>">Sair</a>
     </div>
 </header>
+<hr>
