@@ -17,6 +17,8 @@ main{
 
 body{
     margin: 0;
+    color: #4a4e57;
+    background-color: #F9F9F9;
 }
 
 /*Pesquisa*/
@@ -101,7 +103,7 @@ button:hover{
 .adicionar{
     display: flex;
     align-items: center;
-    background-color: #109B6D;
+    background-color: #0B2060;
     border: 0;
     height: 3rem;
     padding: 10px 15px 10px 15px;

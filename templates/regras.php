@@ -9,10 +9,10 @@ $caminho = 'http://localhost/BicoJobs/';
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BicoJobs | Regras</title>
-    <link rel="stylesheet" href="../static/css/regras_css.css">
 
     <style>
         <?php include '../static/css/nav_css.php'; ?>
+        <?php include '../static/css/regras_css.php'; ?>
     </style>
 </head>
 <body>
@@ -26,7 +26,7 @@ $caminho = 'http://localhost/BicoJobs/';
                 <h1>Regras</h1>
                 <div class="accordion">
                     <div class="accordion-component is_closed">
-                        <h2 class="dropdown-activer">Sobre a Plataforma <img src="../media/svg's/dropdown-arrow.svg" alt="arrow for dropdownmenu"></h2>
+                        <h2 class="dropdown-activer">Sobre a Plataforma</h2>
                         <ul>
                             <li>
                                 1- Os usuários são responsáveis pelo conteúdo que postam e que qualquer atividade ilegal ou inadequada resultará na suspensão ou cancelamento da conta.
@@ -41,7 +41,7 @@ $caminho = 'http://localhost/BicoJobs/';
                     </div>
                     <hr>
                     <div class="accordion-component is_closed">
-                        <h2 class="dropdown-activer">Regras para os prestadores de serviço <img src="../media/svg's/dropdown-arrow.svg" alt="arrow for dropdownmenu"></h2>
+                        <h2 class="dropdown-activer">Regras para os prestadores de serviço</h2>
                         <ul>
                             <li>
                                 1- Os usuários devem fornecer informações precisas e verdadeiras sobre si mesmos, bem como sobre os serviços oferecidos ou solicitados.
@@ -65,7 +65,7 @@ $caminho = 'http://localhost/BicoJobs/';
                     </div>
                     <hr>
                     <div class="accordion-component is_closed">
-                        <h2 class="dropdown-activer">Regras para os clientes <img src="../media/svg's/dropdown-arrow.svg" alt="arrow for dropdownmenu"></h2>
+                        <h2 class="dropdown-activer">Regras para os clientes</h2>
                         <ul>
                             <li>
                                 1- Os usuários devem fornecer informações precisas e verdadeiras sobre si mesmos, bem como sobre os serviços oferecidos ou solicitados.
