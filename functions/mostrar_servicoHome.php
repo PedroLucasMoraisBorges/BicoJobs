@@ -14,8 +14,8 @@ if(isset($_GET['submit'])){
     $sql = "SELECT * FROM categoria WHERE categoria = '$search'";
     $sql_query = $mysqli->query($sql);
 
-    if($sql_query->num_rows > 0){
-        $id_categoria = ($sql_query->fetch_assoc())['id'];
+    if($sql_query->rowCount() > 0){
+        $id_categoria = ($sql_query->fetch(PDO::FETCH_ASSOC))['id'];
         $sql = "SELECT * FROM servico WHERE id_cidade = '$id_cidade' AND nome = '$search'  OR id_categoria = '$id_categoria' AND estado = 0";
         $sql_query = $mysqli->query($sql);
         $n_encontrado =  '<div class="read_list"> 
@@ -46,8 +46,9 @@ else{
 }
 
 
-if($sql_query->num_rows > 0){
-    while($row = $sql_query->fetch_assoc()){
+if($sql_query->rowCount() > 0){
+
+    while($row = $sql_query->fetch(PDO::FETCH_ASSOC)){
 
         $servico = new servico(
             $row['nome'],

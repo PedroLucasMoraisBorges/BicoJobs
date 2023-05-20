@@ -90,7 +90,7 @@ $caminho = 'http://localhost/BicoJobs/';
                 </div>
             </section>
             <div class="img-centralizer">
-                <img src="../media/svg's/cell.svg" alt="cellphone image">
+                <img src="../media/svg/cell.svg" alt="cellphone image">
             </div>
         </main>
         

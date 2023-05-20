@@ -12,17 +12,17 @@ $senha = $_POST['password_log'];
 $sql_code_contato = "SELECT id FROM contato WHERE email = '$email'";
 
 
-$sql_query = $mysqli->query($sql_code_contato) or die("Falha na execução do código SQL" .$mysqli->error);
-$row = $sql_query->fetch_assoc();
+$sql_query = $mysqli->query($sql_code_contato);
+$row = $sql_query->fetch(PDO::FETCH_ASSOC);
 
-if($sql_query->num_rows == 1){
+if($sql_query->rowCount() == 1){
     $email = $row["id"];
     $sql = "SELECT * FROM usuario WHERE id_contato = '$email' AND senha = '$senha'";
     $sql_qery = $mysqli->query($sql);
 
-    $user = $sql_qery->fetch_assoc();
+    $user = $sql_qery->fetch(PDO::FETCH_ASSOC)();
 
-    if($sql_qery -> num_rows == 0){
+    if($sql_qery -> rowCount() == 0){
         echo "<script> 
         let error = document.getElementById('error-msg-login');
         error.innerHTML = 'Senha não corresponde!';
@@ -43,7 +43,7 @@ if($sql_query->num_rows == 1){
         $cep = $user['id_cidade'];
         $sql = "SELECT cep FROM cidade WHERE id = $cep";
         $sql_query = $mysqli->query($sql);
-        $nome_cidade = $sql_query->fetch_assoc();
+        $nome_cidade = $sql_query->fetch(PDO::FETCH_ASSOC);
 
         $_SESSION = $user;
         $_SESSION['cidade'] = $nome_cidade['cep'];

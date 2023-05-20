@@ -32,7 +32,7 @@ $id_user = $_SESSION['id'];
 
 $sql = "SELECT id_cidade FROM usuario WHERE id = '$id_user'";
 $result = $mysqli->query($sql);
-$row = $result->fetch_assoc();
+$row = $result->fetch(PDO::FETCH_ASSOC);
 $id_cidade = $row['id_cidade'];
 
 $servico->setId_cidade($mysqli, $id_cidade);

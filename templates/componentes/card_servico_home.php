@@ -56,12 +56,12 @@ echo "
                 </button>
                 
                 
-                <a href='$contatar' target = '_blank' onclick='fecharModal()'>
-                    <form action='#' method = 'GET'>
-                        <label for'mudar_estado'>Fazer Contato</label>
-                        <input type'submit' class = 'none' name = 'mudar_estado_1'>
-                    </form>
-                </a>
+                <form action='../functions/servico_mudar_estado.php' method = 'POST'>
+                    <input type='text' name='id' class = 'none' value='$id'>
+                    <input type='text' name='contatar' class = 'none' id = 'contatar' value='$contatar'>
+
+                    <button>tetete</button>
+                </form>
                 
                 
             </div>

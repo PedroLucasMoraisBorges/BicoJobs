@@ -38,7 +38,7 @@ class User{
         $sql_code = "SELECT id_cidade FROM usuario WHERE id = $this->id";
         $sql_query = $mysqli->query($sql_code) or die("Falha na execuça do código SQL" .$mysqli->error);
 
-        $id_cidade = $sql_query->fetch_assoc();
+        $id_cidade = $sql_query->fetch(PDO::FETCH_ASSOC);
 
         return $id_cidade['id_cidade'];
     }
@@ -50,15 +50,15 @@ class User{
         // Verifica se é possível efetuar o código ou da erro;
         $sql_query = $mysqli->query($sql_code_mesmo_cep) or die("Falha na execuça do código SQL" .$mysqli->error);
         // Retorna a chave do array
-        $row = $sql_query->fetch_assoc();
+        $row = $sql_query->fetch(PDO::FETCH_ASSOC);
 
         // Verifica se é possível efetuar o código ou da erro;
         $sql_query_last_id = $mysqli->query($sql_code_last_id) or die("Falha na execuça do código SQL" .$mysqli->error);
         // Verifica a qauntidade de lihas afetadas;
-        $last_id = $sql_query_last_id->num_rows;
+        $last_id = $sql_query_last_id->rowCount();
 
 
-        if($sql_query->num_rows <= 0){
+        if($sql_query->rowCount() <= 0){
             $sql = "INSERT INTO cidade (id, cep) VALUES ($last_id, '$this->cep')";
             $sql_codes[] = $sql;
             //(mysqli_query($mysqli, $sql));
@@ -77,12 +77,12 @@ class User{
         $sql_code = "SELECT id_contato FROM usuario WHERE id = $this->id";
         $sql_query = $mysqli->query($sql_code) or die("Falha na execuça do código SQL" .$mysqli->error);
 
-        $id_contato = $sql_query->fetch_assoc();
+        $id_contato = $sql_query->fetch(PDO::FETCH_ASSOC);
         $id_contato = $id_contato['id'];
 
         $sql_code = "SELECT email FROM contato WHERE id = $id_contato";
         $sql_query = $mysqli->qery($sql_code) or die("Falha na execuça do código SQL" .$mysqli->error);
-        $email = $sql_query->fetch_assoc();
+        $email = $sql_query->fetch(PDO::FETCH_ASSOC);
 
         return $email['email'];
     }
@@ -93,10 +93,10 @@ class User{
         $sql_query = $mysqli->query($sql_code) or die("Falha na execuça do código SQL" .$mysqli->error);
 
         $sql_query_last_id = $mysqli->query($sql_code_last_id) or die("Falha na execuça do código SQL" .$mysqli->error);
-        $last_id = $sql_query_last_id->num_rows;
+        $last_id = $sql_query_last_id->rowCount();
 
 
-        if($sql_query->num_rows <= 0){
+        if($sql_query->rowCount() <= 0){
             $sql = "INSERT INTO contato (id, email) VALUES ($last_id, '$this->email')";
             $sql_codes[] = $sql;
             //(mysqli_query($mysqli, $sql));
@@ -122,7 +122,7 @@ class User{
         $sql_code = "SELECT * FROM usuario";
         $sql_query = $mysqli->query($sql_code) or die("Falha na execuça do código SQL" .$mysqli->error);
 
-        if($sql_query->num_rows <= 0){
+        if($sql_query->rowCount() <= 0){
             for($i=0 ; $i<count($sql_codes) ; $i++){
                 $mysqli->query($sql_codes[$i]);
             }
@@ -130,7 +130,7 @@ class User{
             // Recebe o nome da cidade
             $sql = "SELECT cep FROM cidade WHERE id = $this->cep";
             $sql_query = $mysqli->query($sql);
-            $nome_cidade = $sql_query->fetch_assoc();
+            $nome_cidade = $sql_query->fetch(PDO::FETCH_ASSOC);
         
             // Cria um novo usuario no banco de dados
             $sql = "INSERT INTO usuario (id ,nome, cpf, senha, id_cidade, id_contato,tipo_usuario,dt_nascimento ) VALUES (0 ,'$this->nome', '$this->cpf', '$this->senha', $this->cep, $this->id_contato, 0,'$this->dt_nascimento' )";
@@ -141,7 +141,7 @@ class User{
             $sql_query = $mysqli->query($sql_code) or die("Falha na execuça do código SQL" .$mysqli->error);
 
             //fazendo login
-            $user = $sql_query->fetch_assoc();
+            $user = $sql_query->fetch(PDO::FETCH_ASSOC);
             // start da sessao
             session_start();
 
@@ -154,14 +154,14 @@ class User{
             
         }
         else{
-            $last_id = $sql_query->num_rows;
+            $last_id = $sql_query->rowCount();
             for($i=0 ; $i<count($sql_codes) ; $i++){
                 (mysqli_query($mysqli, $sql_codes[$i]));
             }
         
             $sql = "SELECT cep FROM cidade WHERE id = $this->cep";
             $sql_query = $mysqli->query($sql);
-            $nome_cidade = $sql_query->fetch_assoc();
+            $nome_cidade = $sql_query->fetch(PDO::FETCH_ASSOC);
 
             // Cria um novo usuario no banco de dados
             $sql = "INSERT INTO usuario (id ,nome, cpf, senha, id_cidade, id_contato,tipo_usuario,dt_nascimento) VALUES ($last_id ,'$this->nome', '$this->cpf', '$this->senha', $this->cep, $this->id_contato , 0,'$this->dt_nascimento')";
@@ -173,7 +173,7 @@ class User{
 
 
             //fazendo login
-            $user = $sql_query->fetch_assoc();
+            $user = $sql_query->fetch(PDO::FETCH_ASSOC);
             // start da sessao
             
             if(!isset($_SESSION)){
@@ -197,11 +197,11 @@ class User{
 
         $sql = "SELECT id FROM idioma WHERE id = $id";
         $sql_query = $mysqli->query($sql);
-        if($sql_query->num_rows <=0){
+        if($sql_query->rowCount() <=0){
             $id_idioma = 0;
         }
         else{
-            $id_idioma = $sql_query->fetch_assoc();
+            $id_idioma = $sql_query->fetch(PDO::FETCH_ASSOC);
             $id_idioma = $id_idioma['id'];
         }
 
@@ -221,7 +221,7 @@ class User{
         $sql_code = "SELECT telefone FROM contato WHERE telefone = '$telefone'";
         $sql_query = $mysqli->query($sql_code);
 
-        if($sql_query->num_rows <= 0){
+        if($sql_query->rowCount() <= 0){
             $sql = "UPDATE contato SET telefone='$telefone' WHERE id = $id";
             $sql_query = $mysqli->query($sql);
         }
@@ -233,7 +233,7 @@ class User{
 
         $sql = "SELECT * FROM usuario WHERE id = '$id'";
         $sql_query = $mysqli->query($sql);
-        $user = $sql_query->fetch_assoc();
+        $user = $sql_query->fetch(PDO::FETCH_ASSOC);
 
         if(!isset($_SESSION)){
             session_start();
@@ -248,13 +248,14 @@ class User{
     public function retornar_info($mysqli,$id_idioma, $id_contato, $id_cep){
         $sql_code = "SELECT idioma FROM idioma WHERE id = $id_idioma";
         $sql_query = $mysqli->query($sql_code);
-        $idioma = $sql_query->fetch_assoc();
+
+        $idioma = $sql_query->fetch(PDO::FETCH_ASSOC);
 
         if(!isset($_SESSION)){
             session_start();
         }
 
-        if($sql_query->num_rows == 0){
+        if($sql_query->rowCount() == 0){
             $_SESSION['idioma'] = "Você não cadastrou nenhum idioma";
         }
         else{
@@ -263,11 +264,11 @@ class User{
 
         $sql_code = "SELECT email, telefone FROM contato WHERE id = '$id_contato'";
         $sql_query = $mysqli->query($sql_code);
-        $contatos = $sql_query->fetch_assoc();
+        $contatos = $sql_query->fetch(PDO::FETCH_ASSOC);
 
         $sql_code = "SELECT cep FROM cidade WHERE id = '$id_cep'";
         $sql_query = $mysqli->query($sql_code);
-        $cep = $sql_query->fetch_assoc();
+        $cep = $sql_query->fetch(PDO::FETCH_ASSOC);
 
         $_SESSION['email'] = $contatos['email'];
         $_SESSION['telefone'] = $contatos['telefone'];
@@ -281,7 +282,7 @@ class User{
         // Pegar as chaves estrangeiras para efetuar edição
         $sql_code = "SELECT id_cidade, id_contato, id_idioma FROM usuario WHERE id = $id";
         $sql_query = $mysqli->query($sql_code);
-        $sql_query = $sql_query->fetch_assoc();
+        $sql_query = $sql_query->fetch(PDO::FETCH_ASSOC);
 
         //$id_cidade = $sql_query['id_cidade'];
         $id_contato = $sql_query['id_contato'];
@@ -293,11 +294,11 @@ class User{
         if($cep == ""){
             $sql = "SELECT id_cidade FROM usuario WHERE id = $id";
             $result = $mysqli->query($sql);
-            $id_cidade = ($result->fetch_assoc())['id_cidade'];
+            $id_cidade = ($result->fetch(PDO::FETCH_ASSOC))['id_cidade'];
 
             $sql = "SELECT cep FROM cidade WHERE id = '$id_cidade";
             $result = $mysqli->query($sql);
-            $cep = ($result->fetch_assoc())['cep'];
+            $cep = ($result->fetch(PDO::FETCH_ASSOC))['cep'];
         }
         else{
             $url =  "https://viacep.com.br/ws/$cep/json/";
@@ -310,13 +311,13 @@ class User{
         $sql_code = "SELECT id FROM cidade";
         $sql_query_id = $mysqli->query($sql_code);
 
-        if($sql_query->num_rows == 0){
-            $sql_code = "INSERT INTO cidade (id,cep) VALUES ($sql_query_id->num_rows, '$cep')";
+        if($sql_query->rowCount() == 0){
+            $sql_code = "INSERT INTO cidade (id,cep) VALUES ($sql_query_id->rowCount(), '$cep')";
             $sql_query = $mysqli->query($sql_code);
-            $id_cidade = $sql_query_id->num_rows;
+            $id_cidade = $sql_query_id->rowCount();
         }
         else{
-            $id_cidade = ($sql_query->fetch_assoc())['id'];
+            $id_cidade = ($sql_query->fetch(PDO::FETCH_ASSOC))['id'];
         }
         // Alteração ou adição de cidade
 
@@ -330,13 +331,13 @@ class User{
         $sql_code = "SELECT id FROM idioma";
         $sql_query_id = $mysqli->query($sql_code);
 
-        if($sql_query->num_rows == 0){
-            $sql_code = "INSERT INTO idioma (id,idioma) VALUES ($sql_query_id->num_rows, '$idioma')";
+        if($sql_query->rowCount() == 0){
+            $sql_code = "INSERT INTO idioma (id,idioma) VALUES ($sql_query_id->rowCount(), '$idioma')";
             $sql_query = $mysqli->query($sql_code);
-            $id_idioma = $sql_query_id->num_rows;
+            $id_idioma = $sql_query_id->rowCount();
         }
         else{
-            $id_idioma = ($sql_query->fetch_assoc())['id'];
+            $id_idioma = ($sql_query->fetch(PDO::FETCH_ASSOC))['id'];
         }
         // Alteração ou adição de idioma
 
@@ -347,7 +348,7 @@ class User{
         $sql_query = $mysqli->query($sql_code);
 
         // Verifica se o email já é cadastrado no BD
-        if($sql_query->num_rows == 0){
+        if($sql_query->rowCount() == 0){
             // Altera o valor da coluna
             $sql_code = "UPDATE contato SET email= '$email' WHERE id = '$id_contato'";
             $sql_query = $mysqli->query($sql_code);
@@ -355,7 +356,7 @@ class User{
         else{
             $sql_code = "SELECT email FROM contato WHERE id = '$id_contato'";
             $sql_query = $mysqli->query($sql_code);
-            $sql_query = $sql_query->fetch_assoc();
+            $sql_query = $sql_query->fetch(PDO::FETCH_ASSOC);
 
             // Verifica se o email cadastrado no banco já pertence ao usuário
             if($sql_query['email'] != $email){
@@ -379,7 +380,7 @@ class User{
         $sql_query = $mysqli->query($sql_code);
 
         // Verifica se o email já é cadastrado no BD
-        if($sql_query->num_rows == 0){
+        if($sql_query->rowCount() == 0){
             // Altera o valor da coluna
             $sql_code = "UPDATE contato SET telefone= '$telefone' WHERE id = '$id_contato'";
             $sql_query = $mysqli->query($sql_code);
@@ -387,7 +388,7 @@ class User{
         else{
             $sql_code = "SELECT telefone FROM contato WHERE id = $id_contato";
             $sql_query = $mysqli->query($sql_code);
-            $sql_query = $sql_query->fetch_assoc();
+            $sql_query = $sql_query->fetch(PDO::FETCH_ASSOC);
 
             // Verifica se o email cadastrado no banco já pertence ao usuário
             if($sql_query['telefone'] != $telefone){
@@ -413,7 +414,7 @@ class User{
 
         $sql_code = "SELECT * FROM usuario WHERE id = $id";
         $sql_query = $mysqli->query($sql_code);
-        $user = $sql_query->fetch_assoc();
+        $user = $sql_query->fetch(PDO::FETCH_ASSOC);
 
         $_SESSION = $user;
         $_SESSION['cidade'] = $cep;

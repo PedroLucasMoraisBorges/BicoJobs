@@ -79,7 +79,11 @@ $caminho = 'http://localhost/BicoJobs/';
 
     <?php include 'componentes/footer.html';?>
 
+
+
     <script src="<?php echo $caminho."static/js/servicos.js"?>"></script>
     <script src="<?php echo $caminho."static/js/nav.js"?>"></script>
 </body>
+
+
 </html>

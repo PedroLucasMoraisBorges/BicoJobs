@@ -57,8 +57,8 @@ $caminho = 'http://localhost/BicoJobs/';
 
         $result = $mysqli->query($sql);
 
-        if($result->num_rows > 0){
-            while($row = $result->fetch_assoc()){
+        if($result->rowCount() > 0){
+            while($row = $result->fetch(PDO::FETCH_ASSOC)){
                 $nome_comp_ofertante = $_SESSION['nome_comp'];
                 $avaliacao = $_SESSION['avaliacao'];
                 $nome_user_ofertante = $_SESSION['nome'];

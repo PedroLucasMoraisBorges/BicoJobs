@@ -47,6 +47,11 @@ body{
     margin-bottom: 5rem;
 }
 
+.campo_pesquisa form{
+    display: flex;
+    width: 80%;
+}
+
 .campo{
     background-color: #EBEBEB75;
     border: 0;

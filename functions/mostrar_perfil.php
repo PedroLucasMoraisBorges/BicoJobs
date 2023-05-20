@@ -10,12 +10,12 @@ $id_contato = $_SESSION['id_contato'];
 $sql_code = "SELECT idioma FROM idioma WHERE id = $id_idioma";
 $sql_query = $mysqli->query($sql_code);
 
-$idioma = $sql_query->fetch_assoc();
+$idioma = $sql_query->fetch(PDO::FETCH_ASSOC);
 
 $sql_code = "SELECT email,telefone FROM contato WHERE id = $id_contato";
 $sql_query = $mysqli->query($sql_code);
 
-$contatos = $sql_query->fetch_assoc();
+$contatos = $sql_query->fetch(PDO::FETCH_ASSOC);
 
 
 session_start();

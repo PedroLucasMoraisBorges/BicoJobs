@@ -6,13 +6,10 @@ $senha = '';
 $host = 'localhost';
 $database = 'bicojobs';
 
-// DEVE SEGUIR ESSA ORDEM
-// Você instacia o banco de dados
-// Essa variável vai servir sempre que for acessar o banco, pois deverá ser verificada antes;
-$mysqli = new mysqli($host, $user, $senha, $database);
-
-// MSG DE ERRO
-if(!$mysqli){
-    die('Falha ao concetar com a database:' .$mysqli->error);
+try {
+    $mysqli = new PDO('mysql:host=localhost;dbname=BicoJobs', $user, $senha);
+    $mysqli->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch(PDOException $e) {
+    echo 'ERROR: ' . $e->getMessage();
 }
 ?>

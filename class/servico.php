@@ -108,12 +108,12 @@ class servico {
     public function inserirNoDB($mysqli){
         $sql = "SELECT * FROM categoria";
         $sql_query = $mysqli->query($sql);
-        $last_id = $sql_query->num_rows;
+        $last_id = $sql_query->rowCount();
 
         $sql = "SELECT * FROM categoria WHERE categoria = '$this->categoria'";
         $sql_query = $mysqli->query($sql);
 
-        if($sql_query->num_rows == 0){
+        if($sql_query->rowCount() == 0){
             $sql_categoria = "INSERT INTO categoria (id, categoria) VALUES ($last_id, '$this->categoria')";
             $sql = "INSERT INTO servico (nome, valor, descricao, estado, horario, img_servico, id_categoria, contato) VALUES ('$this->nome', '$this->valor', '$this->valor_descricao', '$this->estado', '$this->horario', '$this->img_servico', $last_id, '$this->contato')";
 
@@ -123,7 +123,7 @@ class servico {
             }
         }
         else{
-            $id_categoria = ($sql_query->fetch_assoc())['id'];
+            $id_categoria = ($sql_query->fetch(PDO::FETCH_ASSOC))['id'];
             $sql = "INSERT INTO servico (nome, valor, descricao, estado, horario, img_servico, id_categoria, contato) VALUES ('$this->nome', '$this->valor', '$this->valor_descricao', '$this->estado', '$this->horario', '$this->img_servico', $id_categoria, '$this->contato')";
 
             if($mysqli->query($sql) === FALSE){
@@ -135,8 +135,8 @@ class servico {
 
         $result = $mysqli->query("SELECT max(id) FROM servico");
 
-        if($result->num_rows > 0){
-            $row = $result->fetch_assoc();
+        if($result->rowCount() > 0){
+            $row = $result->fetch(PDO::FETCH_ASSOC);
             $id = $row['max(id)'];   
         }
 
@@ -164,7 +164,8 @@ class servico {
 
         $sql = "SELECT * FROM usuario WHERE id = $id_usuario";
         $sql_result = $mysqli->query($sql);
-        $user = $sql_result->fetch_assoc();
+        
+        $user = $sql_result->fetch(PDO::FETCH_ASSOC);
 
         $id_user = $user['id'];
         $nome_comp_ofertante = $user['nome_comp'];
@@ -174,11 +175,11 @@ class servico {
         $sql = "SELECT notas FROM notas WHERE id_usuario = '$id_user'";
         $result = $mysqli->query($sql);
         $n = 0;
-        if($result->num_rows == 0){
+        if($result->rowCount() == 0){
             $avaliacao = "Novo";
         }
         else{
-            while($row = $result->feth_assoc()){
+            while($row = $result->feth(PDO::FETCH_ASSOC)){
                 $n += 1;
                 $avaliacao += $row['nota'];
             }
