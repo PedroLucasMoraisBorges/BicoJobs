@@ -13,7 +13,7 @@ $caminho = 'http://localhost/BicoJobs/';
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <style>
     <?php 
         include '../static/css/servicos_css.php';
@@ -21,6 +21,7 @@ $caminho = 'http://localhost/BicoJobs/';
         include '../static/css/card_css.php';
     ?>
     </style>
+    
     <title>BicoJobs | Serviços</title>
 </head>
 
