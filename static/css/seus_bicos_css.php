@@ -98,89 +98,6 @@ button:hover{
 }
 
 
-/*
-.campo_filtro{
-    position: absolute;
-    width: max-content;
-    right: 0;
-    z-index: 2;
-    background-color: white;
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 2px 2px 2px #40404050;
-    display: flex;
-    flex-direction: column;
-}
-
-.campo_filtro button{
-    align-self: flex-end;
-    margin-right: 1em;
-    margin-bottom: .5em;
-}
-
-.fechar{
-    background-color: white;
-    border: 0;
-}
-
-.fechar img{
-    width: 25px;
-    display: inline-block;
-}
-
-.aplicar{
-    background-color: #143dba;
-    color: white;
-    border: 0;
-    padding: 10px 20px;
-    font-size: 1.1rem;
-    font-weight: 500;
-    border-radius: 10px;
-    font-family: 'Roboto',sans-serif;
-}
-
-.aplicar:hover{
-    transition: .3s;
-    background-color: #2954d4;
-}
-
-.options{
-   display: flex;
-   padding: 0em 1em 0em 1em;
-}
-
-.campo_filtro .options h3{
-    margin-bottom: .5em
-}
-
-.campo_filtro .options input{
-    margin-right: 10px;
-}
-
-.campo_filtro .options label{
-    font-weight: 500;
-}
-
-.campo_filtro .options .area{
-    display: flex;
-    flex-direction: column;
-    margin-right: 3em;
-}
-
-.area div{
-    margin-bottom: 10px;
-}
-
-.campo_filtro .options .valor{
-    display: flex;
-    flex-direction: column;
-}
-
-.valor div{
-    margin-bottom: 10px;
-}
-*/
-
 .adicionar{
     display: flex;
     align-items: center;
@@ -218,6 +135,7 @@ button:hover{
 
 .conteudo{
     width: 100%;
+    overflow-x: hidden;
 }
 
 .conteudo h2{
@@ -357,7 +275,7 @@ label:hover{
     width: 100vw;
     height: 100vh;
     background-color: #00000075;
-    z-index: 1;
+    z-index: 3;
     position: fixed;
 }
 

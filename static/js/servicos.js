@@ -18,7 +18,7 @@ function ativate(){
 
 function verOferta(){
     var modal = document.querySelector(".modal_fundo");
-    var geral = document.querySelector(".geral");
+    var geral = document.querySelector(".conteudo");
     geral.addEventListener("click" ,function(event){
         click = event.target;
         var id = click.id;
@@ -27,6 +27,7 @@ function verOferta(){
         var modal_info = document.getElementById(modal_id);
         console.log(modal_info)
         modal_info.classList.remove('none');
+        console.log(id);
     })
     modal.classList.remove("none");
 }

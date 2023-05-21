@@ -20,7 +20,7 @@ if($sql_query->rowCount() == 1){
     $sql = "SELECT * FROM usuario WHERE id_contato = '$email' AND senha = '$senha'";
     $sql_qery = $mysqli->query($sql);
 
-    $user = $sql_qery->fetch(PDO::FETCH_ASSOC)();
+    $user = $sql_qery->fetch(PDO::FETCH_ASSOC);
 
     if($sql_qery -> rowCount() == 0){
         echo "<script> 
