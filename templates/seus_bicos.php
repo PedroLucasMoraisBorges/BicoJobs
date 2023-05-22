@@ -3,6 +3,9 @@ session_start();
 @include("../conection/conection.php");
 $caminho = 'http://localhost/BicoJobs/';
 require_once("../functions/mostrar_meus_servico.php");
+
+require_once "../autoload.php";
+use Pi\Bicojobs\Model\Servico;
 ?>
 
 <!DOCTYPE html>
@@ -56,6 +59,7 @@ require_once("../functions/mostrar_meus_servico.php");
         
 
         <div class="conteudo">
+            <!-- SERVIÇOS ATIVOS -->
             <h3>Servços ativos</h3>
             <div class="geral ativos">
                 <?php
@@ -64,6 +68,7 @@ require_once("../functions/mostrar_meus_servico.php");
                         while($row = $sql_query->fetch(PDO::FETCH_ASSOC)){
 
                             $servico = new servico(
+                                $_SESSION['id_cidade'],
                                 $row['nome'],
                                 $row['valor'],
                                 $row['descricao'],
@@ -71,11 +76,12 @@ require_once("../functions/mostrar_meus_servico.php");
                                 $row['horario'],
                                 $row['img_servico'],
                                 $row['contato'],
-                                $row['id_categoria']
+                                $row['id_categoria'],
+                                $row['id_usuario']
                             );
 
                             
-                            $servico->mostrarServicosHome(
+                            $servico->mostrarServicos(
                                 $mysqli, 
                                 $row['id'], 
                                 $row['id_usuario'], 
@@ -93,6 +99,7 @@ require_once("../functions/mostrar_meus_servico.php");
             </div>
 
 
+            <!-- SERVIÇOS AGUARDANDO CONFIRMAÇÃO -->
             <h3>Serviços aguardando confirmação</h3>
             <div class="geral aguardo">
                 <?php
@@ -101,6 +108,7 @@ require_once("../functions/mostrar_meus_servico.php");
                     while($row = $sql_query->fetch(PDO::FETCH_ASSOC)){
 
                         $servico = new servico(
+                            $_SESSION['id_cidade'],
                             $row['nome'],
                             $row['valor'],
                             $row['descricao'],
@@ -108,11 +116,12 @@ require_once("../functions/mostrar_meus_servico.php");
                             $row['horario'],
                             $row['img_servico'],
                             $row['contato'],
-                            $row['id_categoria']
+                            $row['id_categoria'],
+                            $row['id_usuario']
                         );
 
                         
-                        $servico->mostrarServicosHome(
+                        $servico->mostrarServicos(
                             $mysqli, 
                             $row['id'], 
                             $row['id_usuario'], 
@@ -128,6 +137,10 @@ require_once("../functions/mostrar_meus_servico.php");
                 }
                 ?>
             </div>
+
+
+
+            <!-- SERVIÇOS EM ANDAMENTO -->
             <h3>Serviços em andamento</h3>
             <div class="geral andamento">
                 <?php
@@ -136,6 +149,7 @@ require_once("../functions/mostrar_meus_servico.php");
                         while($row = $sql_query->fetch(PDO::FETCH_ASSOC)){
 
                             $servico = new servico(
+                                $_SESSION['id_cidade'],
                                 $row['nome'],
                                 $row['valor'],
                                 $row['descricao'],
@@ -143,11 +157,12 @@ require_once("../functions/mostrar_meus_servico.php");
                                 $row['horario'],
                                 $row['img_servico'],
                                 $row['contato'],
-                                $row['id_categoria']
+                                $row['id_categoria'],
+                                $row['id_usuario']
                             );
 
                             
-                            $servico->mostrarServicosHome(
+                            $servico->mostrarServicos(
                                 $mysqli, 
                                 $row['id'], 
                                 $row['id_usuario'], 

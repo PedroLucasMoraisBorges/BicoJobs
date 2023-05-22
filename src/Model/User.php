@@ -1,27 +1,31 @@
 <?php
-require_once ("../conection/conection.php");
+namespace Pi\Bicojobs\Model;
+require "../autoload.php";
 
+use PDO;
+class User implements AutenticarUser{
+    private  int     $id;
+    private  string  $email;
+    private  string  $telefone;
+    private  string  $idioma;
+    private  int     $cep;
+    private  string  $dt_nascimento;
+    private  string  $habilidades;
+    private  $cpf;
+    private  $tipo_usuario;
+    private  string  $descricao;
+    private  float   $avaliacao;
+    private  $nome;
+    private  string  $senha;
+    private  string  $img_perfil;
+    private  int     $id_contato;
+    private  static  int $numUsuarios = 0;
 
-class User{
-    private $id;
-    private $email;
-    private $telefone;
-    private $idioma;
-    private $cep;
-    private $dt_nascimento;
-    private $habilidades;
-    private $cpf;
-    private $tipo_usuario;
-    private $descricao;
-    private $avaliacao;
-    private $nome;
-    private $senha;
-    private $img_perfil;
-    private $id_contato;
+    // COMPORTAMENTOS(CONSTRUTOR , GET/SET , MÉTODOS EXPECÍFICOS)
 
+    // CONSTRUTOR 
     public function __construct($nome, $dt_nascimento, $cpf, $cep, $senha, $tipo_usuario, $email)
     {
- 
         $this -> nome = $nome;
         $this -> dt_nascimento = $dt_nascimento;
         $this -> cpf = $cpf;
@@ -29,12 +33,20 @@ class User{
         $this -> senha = $senha;
         $this -> tipo_usuario = $tipo_usuario;
         $this -> email = $email;
-        
+        self::$numUsuarios++;
+    }
+
+    // DESTRUTOR (SERVE PARA, QUANDO UM OBJETO FOR APAGADO, EFETUAR ALTERAÇÕES NA CLASE) 
+    public function __destruct()
+    {
+        self::$numUsuarios--;
     }
 
 
 
-    public function getIdCidade($mysqli){
+    // GET E SET
+    public function getIdCidade($mysqli) : int
+    {
         $sql_code = "SELECT id_cidade FROM usuario WHERE id = $this->id";
         $sql_query = $mysqli->query($sql_code) or die("Falha na execuça do código SQL" .$mysqli->error);
 
@@ -42,7 +54,8 @@ class User{
 
         return $id_cidade['id_cidade'];
     }
-    public function setIdCidade($sql_codes, $mysqli){
+    public function setIdCidade($sql_codes, $mysqli) : string
+    {
         // Verifica se tem a cidade no banco
         $sql_code_mesmo_cep = "SELECT id FROM cidade WHERE cep = '$this->cep'";
         $sql_code_last_id = "SELECT id FROM cidade";
@@ -73,7 +86,8 @@ class User{
 
 
 
-    public function getEmail($mysqli){
+    public function getEmail($mysqli) : string
+    {
         $sql_code = "SELECT id_contato FROM usuario WHERE id = $this->id";
         $sql_query = $mysqli->query($sql_code) or die("Falha na execuça do código SQL" .$mysqli->error);
 
@@ -86,7 +100,8 @@ class User{
 
         return $email['email'];
     }
-    public function setIdEmail($sql_codes, $mysqli){
+    public function setIdEmail($sql_codes, $mysqli) : string
+    {
         $sql_code = "SELECT id FROM contato WHERE email = '$this->email'";
         $sql_code_last_id = "SELECT id FROM contato";
 
@@ -108,8 +123,80 @@ class User{
         }
     }
 
+    public static function getNumUsuarios() : int 
+    {
+        return self::$numUsuarios;
+    }
 
-    public function sign_in($sql_codes, $mysqli){
+    // MÉTODOS ESPECÍFICOS
+
+    public function login($mysqli,$email, $senha) : void
+    {
+        $sql_code_contato = "SELECT id FROM contato WHERE email = '$email'";
+
+
+        $sql_query = $mysqli->query($sql_code_contato);
+        $row = $sql_query->fetch(PDO::FETCH_ASSOC);
+
+        if($sql_query->rowCount() == 1){
+            $email = $row["id"];
+            $sql = "SELECT * FROM usuario WHERE id_contato = '$email' AND senha = '$senha'";
+            $sql_qery = $mysqli->query($sql);
+
+            $user = $sql_qery->fetch(PDO::FETCH_ASSOC);
+
+            if($sql_qery -> rowCount() == 0){
+                echo "<script> 
+                let error = document.getElementById('error-msg-login');
+                error.innerHTML = 'Senha não corresponde!';
+                setTimeout(() => {
+                    error.classList.add('slide');
+                }, 250);
+                setTimeout(() => {
+                error.classList.remove('slide');
+                }, 3250);
+                </script>";
+            } else{
+
+                if(!isset($_SESSION)){
+                    session_start();
+                }
+
+                //Criado a sessao do USER
+                $cep = $user['id_cidade'];
+                $sql = "SELECT cep FROM cidade WHERE id = $cep";
+                $sql_query = $mysqli->query($sql);
+                $nome_cidade = $sql_query->fetch(PDO::FETCH_ASSOC);
+
+                $_SESSION = $user;
+                $_SESSION['cidade'] = $nome_cidade['cep'];
+
+                //redicionando o user
+                header("Location: http://localhost/BicoJobs/templates/servicos.php");
+            }
+        }
+        else{
+
+            echo "<script> 
+
+                let error = document.getElementById('error-msg-login');
+                error.textContent = 'Email não encontrado!';
+                setTimeout(() => {
+                    error.classList.add('slide');
+                }, 250);
+                setTimeout(() => {
+                    error.classList.remove('slide');
+                }, 3250);
+            
+            </script>";
+
+
+        }
+    }
+
+
+    public function sign_in($sql_codes, $mysqli) : void
+    {
         // Verifica se tem cpf no banco
         $sql_code = "SELECT id FROM usuario WHERE cpf = '$this->cpf'";
 
@@ -193,7 +280,8 @@ class User{
 
 
 
-    public function alterar_tipo($id,$mysqli,$img_perfil,$descricao,$habilidade,$idioma,$telefone,$nome_comp){
+    public function alterar_tipo($id,$mysqli,$img_perfil,$descricao,$habilidade,$idioma,$telefone,$nome_comp) : void
+    {
 
         $sql = "SELECT id FROM idioma WHERE id = $id";
         $sql_query = $mysqli->query($sql);
@@ -245,40 +333,58 @@ class User{
     }
 
 
-    public function retornar_info($mysqli,$id_idioma, $id_contato, $id_cep){
-        $sql_code = "SELECT idioma FROM idioma WHERE id = $id_idioma";
-        $sql_query = $mysqli->query($sql_code);
+    public function retornar_info($mysqli,$id_idioma, $id_contato, $id_cep, $id) : void
+    {
+        if($this -> tipo_usuario == 1){
+            $sql_code = "SELECT idioma FROM idioma WHERE id = $id_idioma";
+            $sql_query = $mysqli->query($sql_code);
 
-        $idioma = $sql_query->fetch(PDO::FETCH_ASSOC);
+            $idioma = $sql_query->fetch(PDO::FETCH_ASSOC);
 
-        if(!isset($_SESSION)){
-            session_start();
-        }
+            if(!isset($_SESSION)){
+                session_start();
+            }
 
-        if($sql_query->rowCount() == 0){
-            $_SESSION['idioma'] = "Você não cadastrou nenhum idioma";
-        }
-        else{
-            $_SESSION['idioma'] = $idioma['idioma'];
-        }
+            if($sql_query->rowCount() == 0){
+                $_SESSION['idioma'] = "Você não cadastrou nenhum idioma";
+            }
+            else{
+                $_SESSION['idioma'] = $idioma['idioma'];
+            }
 
-        $sql_code = "SELECT email, telefone FROM contato WHERE id = '$id_contato'";
-        $sql_query = $mysqli->query($sql_code);
-        $contatos = $sql_query->fetch(PDO::FETCH_ASSOC);
+            $sql_code = "SELECT email, telefone FROM contato WHERE id = '$id_contato'";
+            $sql_query = $mysqli->query($sql_code);
+            $contatos = $sql_query->fetch(PDO::FETCH_ASSOC);
 
-        $sql_code = "SELECT cep FROM cidade WHERE id = '$id_cep'";
-        $sql_query = $mysqli->query($sql_code);
-        $cep = $sql_query->fetch(PDO::FETCH_ASSOC);
+            $sql_code = "SELECT cep FROM cidade WHERE id = '$id_cep'";
+            $sql_query = $mysqli->query($sql_code);
+            $cep = $sql_query->fetch(PDO::FETCH_ASSOC);
 
-        $_SESSION['email'] = $contatos['email'];
-        $_SESSION['telefone'] = $contatos['telefone'];
 
-        $_SESSION['cidade'] = $cep['cep'];
-
+            $sql = "SELECT notas FROM notas WHERE id_usuario = '$id'";
+            $result = $mysqli->query($sql);
+            $avaliacao = 0;
+            $n = 0;
+            if($result->rowCount() == 0){
+                $avaliacao = "Novo";
+            }
+            else{
+                while($row = $result->feth(PDO::FETCH_ASSOC)){
+                    $n += 1;
+                    $avaliacao += $row['nota'];
+                }
+                $avaliacao = $avaliacao/=$n;
+            }
+                $_SESSION['email'] = $contatos['email'];
+                $_SESSION['telefone'] = $contatos['telefone'];
+                $_SESSION['avaliacao'] = $avaliacao;
+                $_SESSION['cidade'] = $cep['cep'];
+            }
     }
 
 
-    public function editar_perfil($mysqli, $id, $img_perfil, $descricao, $habilidade, $idioma, $telefone, $nome_comp, $nome, $email, $cep){
+    public function editar_perfil($mysqli, $id, $img_perfil, $descricao, $habilidade, $idioma, $telefone, $nome_comp, $nome, $email, $cep) : void
+    {
         // Pegar as chaves estrangeiras para efetuar edição
         $sql_code = "SELECT id_cidade, id_contato, id_idioma FROM usuario WHERE id = $id";
         $sql_query = $mysqli->query($sql_code);
@@ -286,16 +392,13 @@ class User{
 
         //$id_cidade = $sql_query['id_cidade'];
         $id_contato = $sql_query['id_contato'];
+        $id_cidade = $sql_query['id_cidade'];
         $id_idioma = $sql_query['id_idioma'];
         // Pegar as chaves estrangeiras para efetuar edição
 
 
-        // Alteração ou adição de cidade
+        // VERIFICA SE O CEP FOI ALTERADO, SE NÃO, PERMANECERÁ O MESMO;
         if($cep == ""){
-            $sql = "SELECT id_cidade FROM usuario WHERE id = $id";
-            $result = $mysqli->query($sql);
-            $id_cidade = ($result->fetch(PDO::FETCH_ASSOC))['id_cidade'];
-
             $sql = "SELECT cep FROM cidade WHERE id = '$id_cidade";
             $result = $mysqli->query($sql);
             $cep = ($result->fetch(PDO::FETCH_ASSOC))['cep'];
@@ -307,14 +410,17 @@ class User{
         }
         $sql_code = "SELECT id FROM cidade WHERE cep = '$cep'";
         $sql_query = $mysqli->query($sql_code);
+        $rows = $sql_query -> rowCount();
+
 
         $sql_code = "SELECT id FROM cidade";
         $sql_query_id = $mysqli->query($sql_code);
+        $row_id = $sql_query_id -> rowCount();
 
-        if($sql_query->rowCount() == 0){
-            $sql_code = "INSERT INTO cidade (id,cep) VALUES ($sql_query_id->rowCount(), '$cep')";
+        if($rows == 0){
+            $sql_code = "INSERT INTO cidade (id,cep) VALUES ($row_id, '$cep')";
             $sql_query = $mysqli->query($sql_code);
-            $id_cidade = $sql_query_id->rowCount();
+            $id_cidade = $row_id;
         }
         else{
             $id_cidade = ($sql_query->fetch(PDO::FETCH_ASSOC))['id'];
@@ -405,7 +511,7 @@ class User{
             }
         }
 
-
+        die("teste");
         $sql_code = "UPDATE usuario SET nome= '$nome', id_cidade= $id_cidade , nome_comp= '$nome_comp' , habilidades= '$habilidade', descricao= '$descricao', id_idioma= $id_idioma , img_perfil= '$img_perfil' WHERE id = $id";
 
         $sql_query = $mysqli->query($sql_code);

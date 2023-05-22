@@ -1,4 +1,5 @@
 <?php
+$user_id = $_SESSION['id'];
 echo "
     <div class='card' id='card$id'>
 
@@ -57,6 +58,7 @@ echo "
                 
                 
                 <form action='../functions/servico_mudar_estado.php' method = 'POST'>
+                    <input type='text' name='user_id' class = 'none' value='$user_id'>
                     <input type='text' name='id' class = 'none' value='$id'>
                     <input type='text' name='contatar' class = 'none' id = 'contatar' value='$contatar'>
 

@@ -1,41 +1,50 @@
 <?php
-
 session_start();
 
-include("../conection/conection.php");
-require_once("../class/servico.php");
+// AUTOLOAD DOS ARQUIVOS COM AS CLASSES;
 
-if(isset($_FILES['img_input'])){
+require_once "../autoload.php";
+use Pi\Bicojobs\Model\Servico;
+use Pi\Bicojobs\Infraestrutura\Persistencia\CriadorConexao;
+$pdo = CriadorConexao::criarConexao();
+
+// AUTOLOAD DOS ARQUIVOS COM AS CLASSES;
 
 
+
+// CODIFICAÇÃO DA IMAGEM E ARMAZENAMENTO NA PASTA;
+
+if(isset($_FILES['img_input']))
+{
     $extensao = strtolower(substr($_FILES['img_input']['name'], -4));
     $novo_nome = md5(time()) . $extensao;
     $diretorio = "../media/img_services/";
     move_uploaded_file($_FILES['img_input']['tmp_name'], $diretorio.$novo_nome);
-
 }
 
-$id_usuario = $_SESSION['id'];
-$input_img = $novo_nome;
-$nome_servico = $_POST['servico'];
-$horario = $_POST['horario'];
-$area_atuacao = $_POST['area-atuacao'];
-$descricao = $_POST['descricao'];
-$valor = $_POST['valor'];
-$contato = $_POST['contato'];
-$servico = new servico($nome_servico, $valor, $descricao, 0, $horario, $novo_nome, $contato, $area_atuacao);
+// CODIFICAÇÃO DA IMAGEM E ARMAZENAMENTO NA PASTA;
 
-$servico->inserirNoDB($mysqli);
-$servico->setId_usuario($mysqli, $_SESSION['id']);
 
-$id_user = $_SESSION['id'];
 
-$sql = "SELECT id_cidade FROM usuario WHERE id = '$id_user'";
-$result = $mysqli->query($sql);
-$row = $result->fetch(PDO::FETCH_ASSOC);
-$id_cidade = $row['id_cidade'];
+// INSTANCIÂNDO A CLASSE COM AS INFORMAÇÕES INPUTADAS E DO USUARIO;  
 
-$servico->setId_cidade($mysqli, $id_cidade);
+$servico = new servico(
+    $_SESSION['id_cidade'],
+    $_POST['servico'],
+    $_POST['valor'],
+    $_POST['descricao'],
+    0, 
+    $_POST['horario'],
+    $novo_nome, 
+    $_POST['contato'], 
+    $_POST['area-atuacao'],
+    $_SESSION['id']
+);
+
+$servico->inserirNoDB($pdo);
+
+// INSTANCIÂNDO A CLASSE COM AS INFORMAÇÕES INPUTADAS E DO USUARIO;  
+
 
 session_start();
 

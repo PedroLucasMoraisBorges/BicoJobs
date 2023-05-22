@@ -1,9 +1,9 @@
 <?php 
 session_start();
-require_once("../conection/conection.php");
+require_once("../autoload.php");
 
 if($_SESSION['tipo_usuario'] == 1){
-    require_once("../functions/retornar_idioma_contato.php");
+    require_once("../functions/return_personal_info.php");
 }
 
 $caminho = 'http://localhost/BicoJobs/';

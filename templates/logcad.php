@@ -5,7 +5,6 @@ if(!isset($_SESSION)){
 }
 
 $caminho = 'http://localhost/BicoJobs/';
-include("../conection/conection.php");
 ?>
 
 <!DOCTYPE html>

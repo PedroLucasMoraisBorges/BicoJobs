@@ -1,25 +1,34 @@
 <?php
-include("../conection/conection.php");
-require_once ("../class/user.php");
 require_once("../templates/editar_perfil.php");
 
+// AUTOLOAD DOS ARQUIVOS COM AS CLASSES;
+
+require_once("../autoload.php");
+use Pi\Bicojobs\Model\User;
+use Pi\Bicojobs\Infraestrutura\Persistencia\CriadorConexao;
+$pdo = CriadorConexao::criarConexao();
+
+// AUTOLOAD DOS ARQUIVOS COM AS CLASSES;
+
+
+
+// CODIFICAÇÃO DA IMAGEM E ARMAZENAMENTO NA PASTA;
 
 if(isset($_FILES['img_perfil']) && !empty($_FILES["img_perfil"]["name"])){
-    // Altera o nome do arquivo para não haver diferença entre os formatos de imagem .png etc...
     $arquivo = strtolower(substr($_FILES['img_perfil']['name'], -4));
-    // O time retorna o horário do input e o md5 criptografa isso, servindo para não haver nomes d earquivos duplicados
     $novo_nome = md5(time()) . $arquivo;
     $diretorio = "../media/img_perfis/";
-    // O php recebe os arquivos e aloca em um diretório temporário e cria um nome temporário, com o tmp_name;
-    // O move_uploaded_file pega o arquivo desse diretório temporário, e aloca ele em um novo diretório e com o novo nome;
     move_uploaded_file($_FILES['img_perfil']['tmp_name'] , $diretorio.$novo_nome);
-    $img_perfil = $novo_nome;
 }
 else{
     $img_perfil = $_SESSION['img_perfil'];
 }
 
+// CODIFICAÇÃO DA IMAGEM E ARMAZENAMENTO NA PASTA;
+
    
+
+// DANDO VALOR ÀS VARIÁVEIS PARA O USO;
 
 $id = $_SESSION['id'];
 $descricao = $_POST['descricao'];
@@ -32,7 +41,12 @@ $email = $_POST['email'];
 $cep = $_POST['cep'];
 $sql_codes = [];
 
+// DANDO VALOR ÀS VARIÁVEIS PARA O USO;
 
+
+
+
+// VERIFICA SE OS CAMPOS FORAM PREENCHIDOS;
 
 if($descricao == "" || $habilidade == "" || $idioma == "" || $telefone == "" || $nome_comp == "" || $nome == "" || $email == ""){
     echo "<script> 
@@ -46,6 +60,9 @@ if($descricao == "" || $habilidade == "" || $idioma == "" || $telefone == "" || 
         }, 3250);
         </script>";
 }
+
+// VERIFICA A VALIDADE DO CEP;
+
 else if($cep == "00000000" || strlen($cep) != 8){
     echo "<script> 
         let error = document.getElementById('error-msg-login');
@@ -58,6 +75,9 @@ else if($cep == "00000000" || strlen($cep) != 8){
         }, 3250);
         </script>";
 }
+
+// VERIFICA A VALIDADE DO EMAIL;
+
 else if(str_contains($email, "@") === false || str_contains($email, ".") === false){
     echo "<script> 
         let error = document.getElementById('error-msg-login');
@@ -70,6 +90,9 @@ else if(str_contains($email, "@") === false || str_contains($email, ".") === fal
         }, 3250);
         </script>";
 }
+
+// VERIFICA A VALIDADE DO TELEFONE;
+
 else if(strlen($telefone) < 11){
     echo "<script> 
         let error = document.getElementById('error-msg-login');
@@ -83,17 +106,22 @@ else if(strlen($telefone) < 11){
         </script>";
 }
 else{
+
+    // INSTANCIÂNDO A CLASSE COM AS INFORMAÇÕES DO USUÁRIO E EXECUTANDO A FUNÇÃO; 
+
     $usuario = new User(
-        $mysqli,
+        $pdo,
         $_SESSION["nome"],
         $_SESSION["dt_nascimento"],
         $_SESSION["cpf"],
         $cep,
         $_SESSION['senha'],
-        $_SESSION['tipo_user'],
+        $_SESSION['tipo_usuario'],
         $_POST['email'],
         1
     );
     
-    $usuario->editar_perfil($mysqli, $id, $img_perfil, $descricao, $habilidade, $idioma, $telefone, $nome_comp, $nome, $email, $cep);
+    $usuario->editar_perfil($pdo, $id, $img_perfil, $descricao, $habilidade, $idioma, $telefone, $nome_comp, $nome, $email, $cep);
+
+    // INSTANCIÂNDO A CLASSE COM AS INFORMAÇÕES DO USUÁRIO E EXECUTANDO A FUNÇÃO;
 }

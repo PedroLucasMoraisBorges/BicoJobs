@@ -26,10 +26,14 @@
 
 * [MySql](https://www.mysql.com/) (Durante o desenvolvimento está sendo usado o SQL)
 
+* [Composer](https://getcomposer.org/download/) (Para fazer a instalação do ORM)
+
+* [Doctrine](https://www.doctrine-project.org/projects/orm.html) (ORM escolhido)
+
 # Instalação:
 
 
-### 1. Repositório:
+## 1. Repositório:
 
 Clone o repositório através do comando:
 ```
@@ -37,9 +41,49 @@ git clone https://github.com/SrTorpedro/BicoJobs
 ```
 OU você pode usar a extensão do VSCode para clonar.
 
+## 2. Composer:
+
+Efetue o download do compose segindo link oferecido:
+
+Para testar se foi instalado corretamente tecle windows + R e digite cmg:
+
+No terminar verifice o comando 
+```
+composer -v
+```
+
+## 3.Doctrine:
+
+Após instalar o Composer, no terminal do VSCode, com o projeto aberto user o comando:
+```
+composer require doctrine/orm
+```
+Logo após fazer todas as inslações use o comando:
+```
+composer suggest
+```
+Depois disso use o comando:
+```
+composer require symfony/cache
+```
+E pronto, o Doctrine foi instalado corretamente
+
+
 # Guia do Projeto
 
 ## Pastas:
+
+### model:
+
+Guarda as classes utilizadas na aplicação.
+
+### Conection:
+
+Dedicada aos arquivos que envolva conexão, como o logout.
+
+### Functions:
+
+Pasta para separar as funções que irão receber os POSTs e GETs utilizadas no formulários e utilizar os dados para instanciar as classes.
 
 ### Media:
 
@@ -52,3 +96,7 @@ Essa é a pasta responsável por armazenar os arquivos estáticos do projeto, co
 ### Templates:
 
 Essa é a pasta responsável por armazenar os arquivos HTML do projeto, independente de qual aplicativo esse template será usado.
+
+### Url's:
+
+Pasta para guardar os caminhos da plataforma.
