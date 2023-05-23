@@ -1,5 +1,6 @@
 <?php
-require_once("../functions/mostrar_servico_avaliar.php");
+session_start();
+//require_once("../functions/mostrar_servico_avaliar.php");
 
 require_once("../autoload.php");
 use Pi\Bicojobs\Model\Servico;
@@ -55,41 +56,8 @@ $caminho = 'http://localhost/BicoJobs/';
         <div class="conteudo">
             <div class="geral">
             <?php
-                $sql_query = $pdo->query($sql);
-                if($sql_query->rowCount() > 0){
-                    while($row = $sql_query->fetch(PDO::FETCH_ASSOC)){
-
-                        $servico = new servico(
-                            $_SESSION['id_cidade'],
-                            $row['nome'],
-                            $row['valor'],
-                            $row['descricao'],
-                            $row['estado'],
-                            $row['horario'],
-                            $row['img_servico'],
-                            $row['contato'],
-                            $row['id_categoria'],
-                            $row['id_usuario']
-                        );
-
-                        
-                        $servico->mostrarServicos(
-                            $pdo, 
-                            $row['id'], 
-                            $row['id_usuario'], 
-                            $_SESSION['nome'], 
-                            $_SESSION['cidade'],
-                            1,
-                            $_SESSION['id']
-                        );
-
-
-                    }
-                }
-                else{
-                    echo $n_encontrado;
-                }
-                ?>
+                include("../functions/mostrar_servico_avaliar.php");
+            ?>
             </div>
         </div>
     </main>

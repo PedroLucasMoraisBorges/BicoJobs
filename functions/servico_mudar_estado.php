@@ -33,7 +33,7 @@ else if(isset($_POST['confirmar']) == true){
     $servico -> alterarEstado($user_id, $pdo, 2, $id, $contatar);
 }
 else if(isset($_POST['finalizar']) == true){
-    $servico -> deletarServicoAvaliacao($pdo, $id);
+    //$servico -> deletarServicoAvaliacao($pdo, $id);
     $servico -> alterarEstado($user_id, $pdo, 0 , $id, $contatar);
 }
 else if(isset($_POST['deletar']) == true){
