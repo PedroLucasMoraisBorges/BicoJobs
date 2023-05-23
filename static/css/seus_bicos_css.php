@@ -378,3 +378,42 @@ label:hover{
 .none{
     display: none;
 }
+
+.container{
+    margin-bottom: 3rem;
+    height: 400px;
+    width: 100%;
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+
+.your-bics{
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    height: 100%;
+    min-width: 100%;
+    width: fit-content;
+}
+
+.container::-webkit-scrollbar {
+    position: relative;
+    bottom: 20px;
+    height: 10px;
+}
+
+.container::-webkit-scrollbar-track {
+  /*background-color: grey;*/
+  border-radius: 15px;
+}
+
+.container::-webkit-scrollbar-thumb {
+  background-color: #0B2060; 
+  border-radius: 15px;
+  /*border: 1px solid red;*/
+}
+
+.container::-webkit-scrollbar-thumb:hover {
+  background: #000033; 
+}
+
