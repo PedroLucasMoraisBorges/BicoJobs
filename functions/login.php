@@ -22,7 +22,7 @@ $senha = $_POST['password_log'];
 
 // INSTANCIÂNDO A CLASSE COM AS INFORMAÇÕES DO USUÁRIO E EXECUTANDO A FUNÇÃO; 
 
-$usuario = new User("", "", 0, 0, $senha, 0, $email);
+$usuario = new User(0, "", "", 0, 0, $senha, 0, $email);
 $usuario->login($pdo,$email, $senha);
 
 // INSTANCIÂNDO A CLASSE COM AS INFORMAÇÕES DO USUÁRIO E EXECUTANDO A FUNÇÃO; 

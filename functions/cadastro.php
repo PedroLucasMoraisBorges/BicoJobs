@@ -22,6 +22,7 @@ $address = json_decode(file_get_contents($url),true);
 // INSTANCIÂNDO A CLASSE COM AS INFORMAÇÕES DO USUÁRIO E EXECUTANDO A FUNÇÃO; 
 
 $usuario = new User(
+    0,
     $_POST['user_cad'],
     $_POST['dtNasci'],
     $_POST['cpf'],

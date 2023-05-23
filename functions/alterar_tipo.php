@@ -28,7 +28,7 @@ if(isset($_FILES['img_perfil'])){
 // INSTANCIÂNDO A CLASSE COM AS INFORMAÇÕES DO USUÁRIO E EXECUTANDO A FUNÇÃO; 
 
 $usuario = new User(
-    $pdo,
+    $_SESSION['id'],
     $_SESSION["nome"],
     $_SESSION["dt_nascimento"],
     $_SESSION["cpf"],
@@ -47,7 +47,8 @@ $usuario->alterar_tipo(
     $_POST['habilidade'],
     $_POST['idioma'],
     $_POST['telefone'],
-    $_POST['nome_comp']
+    $_POST['nome_comp'],
+    $usuario
 );
 
 // INSTANCIÂNDO A CLASSE COM AS INFORMAÇÕES DO USUÁRIO E EXECUTANDO A FUNÇÃO; 

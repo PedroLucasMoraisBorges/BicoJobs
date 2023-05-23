@@ -1,4 +1,5 @@
 <?php
+/*
 //namespace Mercado\Classes;
 //require "autoload.php";
 
@@ -16,3 +17,4 @@ try {
     echo 'ERROR: ' . $e->getMessage();
 }
 ?>
+*/

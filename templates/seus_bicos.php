@@ -1,11 +1,12 @@
 <?php 
 session_start();
-@include("../conection/conection.php");
 $caminho = 'http://localhost/BicoJobs/';
-require_once("../functions/mostrar_meus_servico.php");
 
+require_once("../functions/mostrar_meus_servico.php");
 require_once "../autoload.php";
 use Pi\Bicojobs\Model\Servico;
+use Pi\Bicojobs\Infraestrutura\Persistencia\CriadorConexao;
+$pdo = CriadorConexao::criarConexao();
 ?>
 
 <!DOCTYPE html>
@@ -59,11 +60,14 @@ use Pi\Bicojobs\Model\Servico;
         
 
         <div class="conteudo">
+
+        
             <!-- SERVIÇOS ATIVOS -->
+
             <h3>Servços ativos</h3>
             <div class="geral ativos">
                 <?php
-                    $sql_query = $mysqli->query($sql." AND estado = 0");
+                    $sql_query = $pdo->query($sql." AND estado = 0");
                     if($sql_query->rowCount() > 0){
                         while($row = $sql_query->fetch(PDO::FETCH_ASSOC)){
 
@@ -82,7 +86,7 @@ use Pi\Bicojobs\Model\Servico;
 
                             
                             $servico->mostrarServicos(
-                                $mysqli, 
+                                $pdo, 
                                 $row['id'], 
                                 $row['id_usuario'], 
                                 $_SESSION['nome'], 
@@ -100,10 +104,11 @@ use Pi\Bicojobs\Model\Servico;
 
 
             <!-- SERVIÇOS AGUARDANDO CONFIRMAÇÃO -->
+
             <h3>Serviços aguardando confirmação</h3>
             <div class="geral aguardo">
                 <?php
-                $sql_query = $mysqli->query($sql." AND estado = 1");
+                $sql_query = $pdo->query($sql." AND estado = 1");
                 if($sql_query->rowCount() > 0){
                     while($row = $sql_query->fetch(PDO::FETCH_ASSOC)){
 
@@ -122,7 +127,7 @@ use Pi\Bicojobs\Model\Servico;
 
                         
                         $servico->mostrarServicos(
-                            $mysqli, 
+                            $pdo, 
                             $row['id'], 
                             $row['id_usuario'], 
                             $_SESSION['nome'], 
@@ -139,12 +144,12 @@ use Pi\Bicojobs\Model\Servico;
             </div>
 
 
-
             <!-- SERVIÇOS EM ANDAMENTO -->
+
             <h3>Serviços em andamento</h3>
             <div class="geral andamento">
                 <?php
-                    $sql_query = $mysqli->query($sql." AND estado = 2");
+                    $sql_query = $pdo->query($sql." AND estado = 2");
                     if($sql_query->rowCount() > 0){
                         while($row = $sql_query->fetch(PDO::FETCH_ASSOC)){
 
@@ -163,7 +168,7 @@ use Pi\Bicojobs\Model\Servico;
 
                             
                             $servico->mostrarServicos(
-                                $mysqli, 
+                                $pdo, 
                                 $row['id'], 
                                 $row['id_usuario'], 
                                 $_SESSION['nome'], 

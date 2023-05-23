@@ -110,7 +110,7 @@ else{
     // INSTANCIÂNDO A CLASSE COM AS INFORMAÇÕES DO USUÁRIO E EXECUTANDO A FUNÇÃO; 
 
     $usuario = new User(
-        $pdo,
+        $_SESSION['id'],
         $_SESSION["nome"],
         $_SESSION["dt_nascimento"],
         $_SESSION["cpf"],
@@ -121,7 +121,7 @@ else{
         1
     );
     
-    $usuario->editar_perfil($pdo, $id, $img_perfil, $descricao, $habilidade, $idioma, $telefone, $nome_comp, $nome, $email, $cep);
+    $usuario->editar_perfil($pdo, $id, $img_perfil, $descricao, $habilidade, $idioma, $telefone, $nome_comp, $nome, $email, $cep, $usuario);
 
     // INSTANCIÂNDO A CLASSE COM AS INFORMAÇÕES DO USUÁRIO E EXECUTANDO A FUNÇÃO;
 }
