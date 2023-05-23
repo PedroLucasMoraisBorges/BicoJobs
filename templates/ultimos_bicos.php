@@ -1,5 +1,12 @@
 <?php
-session_start();
+require_once("../functions/mostrar_servico_avaliar.php");
+
+require_once("../autoload.php");
+use Pi\Bicojobs\Model\Servico;
+use Pi\Bicojobs\Infraestrutura\Persistencia\CriadorConexao;
+$pdo = CriadorConexao::criarConexao();
+
+
 $caminho = 'http://localhost/BicoJobs/';
 ?>
 
@@ -18,7 +25,7 @@ $caminho = 'http://localhost/BicoJobs/';
     ?>
     </style>
 
-    <title>BicoJobs | Seus Bicos</title>
+    <title>BicoJobs | Últimos Serviços</title>
 </head>
 <body>
 
@@ -47,61 +54,42 @@ $caminho = 'http://localhost/BicoJobs/';
 
         <div class="conteudo">
             <div class="geral">
-                <div class="card">
-                    <img src="../media/limp.svg" alt="#" class="img_fundo">
+            <?php
+                $sql_query = $pdo->query($sql);
+                if($sql_query->rowCount() > 0){
+                    while($row = $sql_query->fetch(PDO::FETCH_ASSOC)){
 
-                    <img src="../media/fundo_azul.svg" alt="" class="fundo_azul">
+                        $servico = new servico(
+                            $_SESSION['id_cidade'],
+                            $row['nome'],
+                            $row['valor'],
+                            $row['descricao'],
+                            $row['estado'],
+                            $row['horario'],
+                            $row['img_servico'],
+                            $row['contato'],
+                            $row['id_categoria'],
+                            $row['id_usuario']
+                        );
 
-                    <div class="card_detalhes">
-
-
-                        <div class="info_princ">
-                            <img src="../media/area-atuação/limpeza.svg" alt="">
-                            <h2>Faxina</h2>
-                        </div>
                         
+                        $servico->mostrarServicos(
+                            $pdo, 
+                            $row['id'], 
+                            $row['id_usuario'], 
+                            $_SESSION['nome'], 
+                            $_SESSION['cidade'],
+                            1,
+                            $_SESSION['id']
+                        );
 
-                        <div class="info_sec">
-                            <p><strong>Horário:</strong> Manhã/Tarde</p>
-                            <p><strong>Valor:</strong> A combinar</p>
-                            <p><strong>Pedro</strong> 3.0</p>
-                        </div>
-                        
-                    </div>
 
-                    <div class="botao_abrir" onclick="verOferta()">
-                        <p>Abrir</p>
-                    </div>
-
-                    
-                    <div class="modal_verOferta none">
-                        <div class="modal_header">
-                            <h2>Detalhes da oferta</h2>
-                        </div>
-                        <div class="oferta_detalhes">
-                            <div class="pessoais">
-                                <div class="img">
-                                    <img src="../media/area-atuação/limpeza.svg" alt="">
-                                </div>
-                                <h3>Willian Rodrigues</h3>
-                                <p>4.0</p>
-                            </div>
-                            <div class="oferta">
-                                <p><strong>Serviço: </strong>Encanador</p>
-                                <p><strong>Horário: </strong>Tarde</p>
-                                <p><strong>Descrição: </strong>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores inventore voluptatum eius maiores nulla nesciunt blanditiis libero similique voluptates deserunt fugit quidem explicabo architecto, dicta quo magni repellendus aspernatur cum!</p>
-                                <p><strong>Valor: </strong>A combinar</p>
-                                <p><strong>Contato: </strong>(88) 99999-9999</p>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="modal_footer">
-                            <button class="fechar" onclick="fecharModal()">
-                                Fechar
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                    }
+                }
+                else{
+                    echo $n_encontrado;
+                }
+                ?>
             </div>
         </div>
     </main>

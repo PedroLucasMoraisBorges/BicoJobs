@@ -1,10 +1,10 @@
 <?php 
 session_start();
-require_once("../autoload.php");
 
 if($_SESSION['tipo_usuario'] == 1){
     require_once("../functions/return_personal_info.php");
 }
+
 
 $caminho = 'http://localhost/BicoJobs/';
 ?>

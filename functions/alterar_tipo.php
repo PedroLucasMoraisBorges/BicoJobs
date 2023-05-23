@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 // AUTOLOAD DOS ARQUIVOS COM AS CLASSES;
 
 require_once "../autoload.php";
@@ -28,7 +27,7 @@ if(isset($_FILES['img_perfil'])){
 // INSTANCIÂNDO A CLASSE COM AS INFORMAÇÕES DO USUÁRIO E EXECUTANDO A FUNÇÃO; 
 
 $usuario = new User(
-    $_SESSION['id'],
+    $_SESSION["id"],
     $_SESSION["nome"],
     $_SESSION["dt_nascimento"],
     $_SESSION["cpf"],
@@ -39,8 +38,9 @@ $usuario = new User(
     1
 );
 
+
 $usuario->alterar_tipo(
-    $_SESSION['id'],
+    $_SESSION["id"],
     $pdo,
     $novo_nome,
     $_POST['descricao'],

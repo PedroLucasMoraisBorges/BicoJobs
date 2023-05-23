@@ -1,5 +1,4 @@
 <?php
-
 // AUTOLOAD DOS ARQUIVOS COM AS CLASSES;
 
 require_once "../autoload.php";
@@ -22,18 +21,17 @@ $id_cep = $_SESSION['id_cidade'];
 
 
 // INSTANCIÂNDO A CLASSE COM AS INFORMAÇÕES DO USUÁRIO E EXECUTANDO A FUNÇÃO;
-
 $usuario = new User(
+    $_SESSION["id"],
     $_SESSION["nome"],
     $_SESSION["dt_nascimento"],
+    $_SESSION['id_cidade'],
     $_SESSION["cpf"],
-    $_SESSION["id_cidade"],
     $_SESSION['senha'],
-    $_SESSION['tipo_usuario'],
-    $_SESSION['id_contato'],
-    1
+    1,
+    $_SESSION['id_contato']
 );
 
-$usuario->retornar_info($pdo, $id_idioma, $id_contato, $id_cep, $_SESSION['id']);
+$usuario->retornar_info($pdo, $id_idioma, $id_contato, $id_cep, $_SESSION["id"]);
 
 // INSTANCIÂNDO A CLASSE COM AS INFORMAÇÕES DO USUÁRIO E EXECUTANDO A FUNÇÃO;

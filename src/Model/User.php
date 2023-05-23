@@ -73,12 +73,14 @@ class User implements AutenticarUser{
         // Alteração ou adição de idioma
         $sql_code = "SELECT id FROM idioma WHERE idioma = '$idioma'";
         $sql_query = $pdo->query($sql_code);
+        $count = $sql_query->rowCount();
 
         $sql_code = "SELECT id FROM idioma";
         $sql_query_id = $pdo->query($sql_code);
+        $countid = $sql_query_id->rowCount();
 
-        if($sql_query->rowCount() == 0){
-            $sql_code = "INSERT INTO idioma (id,idioma) VALUES ($sql_query_id->rowCount(), '$idioma')";
+        if($count == 0){
+            $sql_code = "INSERT INTO idioma (id,idioma) VALUES ($countid, '$idioma')";
             $sql_query = $pdo->query($sql_code);
             $id_idioma = $sql_query_id->rowCount();
         }
@@ -168,7 +170,7 @@ class User implements AutenticarUser{
         // Verifica se o email já é cadastrado no BD
         if($sql_query->rowCount() == 0){
             // Altera o valor da coluna
-            $id_contato = $sql_query['id'];
+            $id_contato = ($sql_query->fetch(PDO::FETCH_ASSOC))['id'];
             $sql_query = $pdo->query("UPDATE contato SET telefone= '$telefone' WHERE id = '$id_contato'");
         }
         else{
@@ -429,7 +431,9 @@ class User implements AutenticarUser{
 
     public function alterar_tipo($id,$pdo,$img_perfil,$descricao,$habilidade,$idioma,$telefone,$nome_comp, $usuario) : void
     {
-        $id_contato = ($pdo->query("SELECT id FROM usuario WHERE id = $id"))['id'];
+        $id_contato = $pdo->query("SELECT id_contato FROM usuario WHERE id = $this->id");
+        $id_contato = $id_contato->fetch(PDO::FETCH_ASSOC);
+        $id_contato = $id_contato['id_contato'];
         // IDIOMA 
         $usuario -> setIdioma($pdo, $idioma);
         // IDIOMA
@@ -455,7 +459,7 @@ class User implements AutenticarUser{
         $user = $sql_query->fetch(PDO::FETCH_ASSOC);
 
         if(!isset($_SESSION)){
-            session_start();
+            session_reset();
         }
 
         $_SESSION = $user;
@@ -506,10 +510,10 @@ class User implements AutenticarUser{
                 }
                 $avaliacao = $avaliacao/=$n;
             }
-                $_SESSION['email'] = $contatos['email'];
-                $_SESSION['telefone'] = $contatos['telefone'];
-                $_SESSION['avaliacao'] = $avaliacao;
-                $_SESSION['cidade'] = $cep['cep'];
+            $_SESSION['email'] = $contatos['email'];
+            $_SESSION['telefone'] = $contatos['telefone'];
+            $_SESSION['avaliacao'] = $avaliacao;
+            $_SESSION['cidade'] = $cep['cep'];
             }
     }
 
