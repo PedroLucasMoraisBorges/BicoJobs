@@ -387,7 +387,7 @@ label:hover{
     overflow-y: hidden;
 }
 
-.your-bics{
+.container .your-bics{
     display: flex;
     align-items: center;
     flex-wrap: nowrap;
