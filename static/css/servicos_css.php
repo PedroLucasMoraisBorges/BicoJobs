@@ -571,10 +571,12 @@ label:hover{
     margin-bottom: 2rem;
     width: 100%;
     text-align: center;
+    margin: auto;
 }
 
 .read_list img{
     display: block;
     height: 100%;
     margin: auto;
+    
 }

@@ -5,8 +5,6 @@
 }
 
 .geral{
-    width: 100%;
-    width: 100%;
     display: flex;
     flex-wrap: wrap;
     border-radius: 10px;

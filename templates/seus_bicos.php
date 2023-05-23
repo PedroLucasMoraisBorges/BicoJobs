@@ -65,98 +65,53 @@ $pdo = CriadorConexao::criarConexao();
             <!-- SERVIÇOS ATIVOS -->
 
             <h3>Serviços ativos</h3>
-            <div class="geral ativos">
-                <?php
-                    $sql_query = $pdo->query($sql." AND estado = 0");
-                    if($sql_query->rowCount() > 0){
-                        while($row = $sql_query->fetch(PDO::FETCH_ASSOC)){
-
-                            $servico = new servico(
-                                $_SESSION['id_cidade'],
-                                $row['nome'],
-                                $row['valor'],
-                                $row['descricao'],
-                                $row['estado'],
-                                $row['horario'],
-                                $row['img_servico'],
-                                $row['contato'],
-                                $row['id_categoria'],
-                                $row['id_usuario']
-                            );
-
-                            
-                            $servico->mostrarServicos(
-                                $pdo, 
-                                $row['id'], 
-                                $row['id_usuario'], 
-                                $_SESSION['nome'], 
-                                $_SESSION['cidade'],
-                                0,
-                                $_SESSION['id']
-                            );
-
-
+            <div class="container">
+                <div class="geral ativos your-bics">
+                    <?php
+                        $sql_query = $pdo->query($sql." AND estado = 0");
+                        if($sql_query->rowCount() > 0){
+                            while($row = $sql_query->fetch(PDO::FETCH_ASSOC)){
+                                $servico = new servico(
+                                    $_SESSION['id_cidade'],
+                                    $row['nome'],
+                                    $row['valor'],
+                                    $row['descricao'],
+                                    $row['estado'],
+                                    $row['horario'],
+                                    $row['img_servico'],
+                                    $row['contato'],
+                                    $row['id_categoria'],
+                                    $row['id_usuario']
+                                );
+                
+                                $servico->mostrarServicos(
+                                    $pdo,
+                                    $row['id'],
+                                    $row['id_usuario'],
+                                    $_SESSION['nome'],
+                                    $_SESSION['cidade'],
+                                    0,
+                                    $_SESSION['id']
+                                );
+                            }
                         }
-                    }
-                    else{
-                        echo $n_encontrado;
-                    }
-                ?>
+                        else{
+                            echo $n_encontrado;
+                        }
+                    ?>
+                </div>
             </div>
 
 
             <!-- SERVIÇOS AGUARDANDO CONFIRMAÇÃO -->
 
             <h3>Serviços aguardando confirmação</h3>
-            <div class="geral aguardo">
-                <?php
-                $sql_query = $pdo->query($sql." AND estado = 1");
-                if($sql_query->rowCount() > 0){
-                    while($row = $sql_query->fetch(PDO::FETCH_ASSOC)){
-
-                        $servico = new servico(
-                            $_SESSION['id_cidade'],
-                            $row['nome'],
-                            $row['valor'],
-                            $row['descricao'],
-                            $row['estado'],
-                            $row['horario'],
-                            $row['img_servico'],
-                            $row['contato'],
-                            $row['id_categoria'],
-                            $row['id_usuario']
-                        );
-
-                        
-                        $servico->mostrarServicos(
-                            $pdo, 
-                            $row['id'], 
-                            $row['id_usuario'], 
-                            $_SESSION['nome'], 
-                            $_SESSION['cidade'],
-                            1,
-                            $_SESSION['id']
-                        );
-
-
-                    }
-                }
-                else{
-                    echo $n_encontrado;
-                }
-                ?>
-            </div>
-
-
-            <!-- SERVIÇOS EM ANDAMENTO -->
-
-            <h3>Serviços em andamento</h3>
-            <div class="geral andamento">
-                <?php
-                    $sql_query = $pdo->query($sql." AND estado = 2");
+            <div class="container">
+                <div class="geral aguardo your-bics">
+                    <?php
+                    $sql_query = $pdo->query($sql." AND estado = 1");
                     if($sql_query->rowCount() > 0){
                         while($row = $sql_query->fetch(PDO::FETCH_ASSOC)){
-
                             $servico = new servico(
                                 $_SESSION['id_cidade'],
                                 $row['nome'],
@@ -169,25 +124,64 @@ $pdo = CriadorConexao::criarConexao();
                                 $row['id_categoria'],
                                 $row['id_usuario']
                             );
-
-                            
+                
                             $servico->mostrarServicos(
-                                $pdo, 
-                                $row['id'], 
-                                $row['id_usuario'], 
-                                $_SESSION['nome'], 
+                                $pdo,
+                                $row['id'],
+                                $row['id_usuario'],
+                                $_SESSION['nome'],
                                 $_SESSION['cidade'],
-                                2,
+                                1,
                                 $_SESSION['id']
                             );
-
-
                         }
                     }
                     else{
                         echo $n_encontrado;
                     }
-                ?>
+                    ?>
+                </div>
+            </div>
+
+
+            <!-- SERVIÇOS EM ANDAMENTO -->
+
+            <h3>Serviços em andamento</h3>
+            <div class="container">
+                <div class="geral andamento your-bics">
+                    <?php
+                        $sql_query = $pdo->query($sql." AND estado = 2");
+                        if($sql_query->rowCount() > 0){
+                            while($row = $sql_query->fetch(PDO::FETCH_ASSOC)){
+                                $servico = new servico(
+                                    $_SESSION['id_cidade'],
+                                    $row['nome'],
+                                    $row['valor'],
+                                    $row['descricao'],
+                                    $row['estado'],
+                                    $row['horario'],
+                                    $row['img_servico'],
+                                    $row['contato'],
+                                    $row['id_categoria'],
+                                    $row['id_usuario']
+                                );
+                
+                                $servico->mostrarServicos(
+                                    $pdo,
+                                    $row['id'],
+                                    $row['id_usuario'],
+                                    $_SESSION['nome'],
+                                    $_SESSION['cidade'],
+                                    2,
+                                    $_SESSION['id']
+                                );
+                            }
+                        }
+                        else{
+                            echo $n_encontrado;
+                        }
+                    ?>
+                </div>
             </div>
         </div>
         
