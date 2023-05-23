@@ -64,7 +64,7 @@ $pdo = CriadorConexao::criarConexao();
         
             <!-- SERVIÇOS ATIVOS -->
 
-            <h3>Servços ativos</h3>
+            <h3>Serviços ativos</h3>
             <div class="geral ativos">
                 <?php
                     $sql_query = $pdo->query($sql." AND estado = 0");
@@ -91,7 +91,8 @@ $pdo = CriadorConexao::criarConexao();
                                 $row['id_usuario'], 
                                 $_SESSION['nome'], 
                                 $_SESSION['cidade'],
-                                0
+                                0,
+                                $_SESSION['id']
                             );
 
 
@@ -133,7 +134,8 @@ $pdo = CriadorConexao::criarConexao();
                             $row['id_usuario'], 
                             $_SESSION['nome'], 
                             $_SESSION['cidade'],
-                            1
+                            1,
+                            $_SESSION['id']
                         );
 
 
@@ -175,7 +177,8 @@ $pdo = CriadorConexao::criarConexao();
                                 $row['id_usuario'], 
                                 $_SESSION['nome'], 
                                 $_SESSION['cidade'],
-                                2
+                                2,
+                                $_SESSION['id']
                             );
 
 

@@ -160,7 +160,7 @@ class Servico implements AutenticarServico{
 
 
     
-    public function mostrarServicos($mysqli, $id, $id_usuario, $nome_cliente, $cidade, $estado) : void
+    public function mostrarServicos($mysqli, $id, $id_usuario, $nome_cliente, $cidade, $estado, $id_session) : void
     {
         $caminho = 'http://localhost/BicoJobs/';
         
@@ -206,15 +206,64 @@ class Servico implements AutenticarServico{
         }
         
         if($estado == 0){
-            include("../templates/componentes/card_servico_home.php");
+            if($id_session == $this->id_usuario){
+                include("../templates/componentes/card_servico_deletar.php");
+            }
+            else{
+                include("../templates/componentes/card_servico_home.php");
+            }
         }
         else if($estado == 1){
             include("../templates/componentes/card_servico_confirma.php");
         }
         else if($estado == 2){
-            include("../templates/componentes/card_servico_home.php");
+            include("../templates/componentes/card_servico_finalizar.php");
         }
         
 
+    }
+
+
+    public function alterarEstado($user_id, $pdo, $estado, $id, $contatar) : void
+    {
+        $sql = "UPDATE servico SET estado = $estado WHERE id = $id";
+        $pdo->query($sql);
+
+        if($estado == 1){
+            // QUANDO O USUÁRIO SOLICITAR UM SERVIÇO, SERÁ INSERIDO NA TABELA SERVICOAVALIAR PARA, ASSIM QUE CONFIRMADO, O CLIENTE PODER DAR SUA AVALIAÇÃO
+
+            $sql = "INSERT INTO servicoavaliar (id_usuario, id_servico) VALUES ($user_id, $id)";
+            $pdo->query($sql);
+            
+
+            // VERIFICA SE A FORMA DE CONTATI É EMAIL OU TELEFONE PARA EFETUAR O REDIRECIONAMENTO
+            if(str_contains($contatar, "@")){
+                echo "<script>open('$contatar', '_blank');</script>";
+            }
+            else{
+                echo "<script>open('$contatar', '_blank');</script>";
+            }
+            echo "<script>open('http://localhost/BicoJobs/templates/servicos.php' , '_self');</script>";
+        }
+
+        else{
+            echo "<script>open('http://localhost/BicoJobs/templates/seus_bicos.php' , '_self');</script>";
+        }
+    }
+
+
+    public function deletarServico($pdo, $id, $servico) : void
+    {
+        $servico -> deletarServicoAvaliacao($pdo, $id);
+
+        $sql = "DELETE FROM servico WHERE id = $id";
+        $pdo -> query($sql);
+        echo "<script>open('http://localhost/BicoJobs/templates/seus_bicos.php' , '_self');</script>";
+    }
+
+    public function deletarServicoAvaliacao($pdo, $id_servico) : void
+    {
+        $sql = "DELETE FROM servicoavaliar WHERE id_servico = '$id_servico'";
+        $pdo -> query($sql);
     }
 }
