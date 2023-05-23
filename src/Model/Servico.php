@@ -160,7 +160,7 @@ class Servico implements AutenticarServico{
 
 
     
-    public function mostrarServicos($mysqli, $id, $id_usuario, $nome_cliente, $cidade, $estado) : void
+    public function mostrarServicos($mysqli, $id, $id_usuario, $nome_cliente, $cidade, $estado, $id_session) : void
     {
         $caminho = 'http://localhost/BicoJobs/';
         
@@ -206,7 +206,12 @@ class Servico implements AutenticarServico{
         }
         
         if($estado == 0){
-            include("../templates/componentes/card_servico_home.php");
+            if($id_session == $this->id_usuario){
+                include("../templates/componentes/card_servico_deletar.php");
+            }
+            else{
+                include("../templates/componentes/card_servico_home.php");
+            }
         }
         else if($estado == 1){
             include("../templates/componentes/card_servico_confirma.php");
@@ -244,5 +249,21 @@ class Servico implements AutenticarServico{
         else{
             echo "<script>open('http://localhost/BicoJobs/templates/seus_bicos.php' , '_self');</script>";
         }
+    }
+
+
+    public function deletarServico($pdo, $id, $servico) : void
+    {
+        $servico -> deletarServicoAvaliacao($pdo, $id);
+
+        $sql = "DELETE FROM servico WHERE id = $id";
+        $pdo -> query($sql);
+        echo "<script>open('http://localhost/BicoJobs/templates/seus_bicos.php' , '_self');</script>";
+    }
+
+    public function deletarServicoAvaliacao($pdo, $id_servico) : void
+    {
+        $sql = "DELETE FROM servicoavaliar WHERE id_servico = '$id_servico'";
+        $pdo -> query($sql);
     }
 }

@@ -14,6 +14,7 @@ $pdo = CriadorConexao::criarConexao();
 
 // DANDO VALOR ÀS VARIÁVEIS PARA O USO
 
+$id = $_SESSION['id'];
 $nome_cliente = $_SESSION['nome'];
 $cidade = $_SESSION['cidade'];
 
@@ -34,7 +35,7 @@ if(isset($_GET['submit'])){
 
     if($sql_query->rowCount() > 0){
         $id_categoria = ($sql_query->fetch(PDO::FETCH_ASSOC))['id'];
-        $sql = "SELECT * FROM servico WHERE id_cidade = '$id_cidade' AND nome = '$search'  OR id_categoria = '$id_categoria' AND estado = 0";
+        $sql = "SELECT * FROM servico WHERE id_cidade = '$id_cidade' AND nome = '$search'  OR id_categoria = '$id_categoria' AND estado = 0 AND id_usuario != $id";
         $sql_query = $pdo->query($sql);
 
         // CASO NÃO SEJA ENCONTRADO NENHUM MOSTRARÁ MENSAGEM DE ERRO;
@@ -45,7 +46,7 @@ if(isset($_GET['submit'])){
     }
 
     else{
-        $sql = "SELECT * FROM servico WHERE id_cidade = '$id_cidade' AND nome = '$search' AND estado = 0";
+        $sql = "SELECT * FROM servico WHERE id_cidade = '$id_cidade' AND nome = '$search' AND estado = 0 AND id_usuario != $id";
         $sql_query = $pdo->query($sql);
         
         // CASO NÃO SEJA ENCONTRADO NENHUM MOSTRARÁ MENSAGEM DE ERRO;
@@ -60,7 +61,7 @@ if(isset($_GET['submit'])){
 // SE CASO NÃO SEJA EFETUADA A PESQUISA LISTA TODOS OS SERVIÇOS;
 else{           
     $id_cidade = $_SESSION['id_cidade'];
-    $sql = "SELECT * FROM servico WHERE id_cidade = '$id_cidade' AND estado = 0";
+    $sql = "SELECT * FROM servico WHERE id_cidade = '$id_cidade' AND estado = 0 AND id_usuario != $id";
     $sql_query = $pdo->query($sql);
 
     // CASO NÃO SEJA ENCONTRADO NENHUM SERVIÇO COM O MESMO ID_USARIO MOSTRARÁ O ERRO;
@@ -100,7 +101,8 @@ if($sql_query->rowCount() > 0){
             $row['id_usuario'], 
             $_SESSION['nome'], 
             $_SESSION['cidade'],
-            0
+            0,
+            $_SESSION['id']
         );
 
         // INSTANCIÂNDO A CLASSE COM AS INFORMAÇÕES DO USUÁRIO E EXECUTANDO A FUNÇÃO;

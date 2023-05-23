@@ -26,13 +26,18 @@ $servico = new Servico(0, "", "", "", 0, "", "", "", "", "");
 // VERIFICANDO SE O BOTÃO FOI ACIONADO;
 
 if(isset($_POST['cancelar']) == true){
+    $servico -> deletarServicoAvaliacao($pdo, $id);
     $servico -> alterarEstado($user_id, $pdo, 0, $id, $contatar);
 }
 else if(isset($_POST['confirmar']) == true){
     $servico -> alterarEstado($user_id, $pdo, 2, $id, $contatar);
 }
 else if(isset($_POST['finalizar']) == true){
+    $servico -> deletarServicoAvaliacao($pdo, $id);
     $servico -> alterarEstado($user_id, $pdo, 0 , $id, $contatar);
+}
+else if(isset($_POST['deletar']) == true){
+    $servico -> deletarServico($pdo, $id, $servico);
 }
 else{
     // MUDANÇA DE ESTADO DO SERVIÇO;
