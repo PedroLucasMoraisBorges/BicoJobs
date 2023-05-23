@@ -69,5 +69,3 @@ echo "
             </div>
         </div>
     </div>";
-
-    
