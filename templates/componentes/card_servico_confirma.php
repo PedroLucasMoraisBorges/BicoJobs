@@ -57,13 +57,13 @@ echo "
                 </button>
                 
                 
-                <form method = 'POST'>
+                <form action = '../functions/servico_mudar_estado.php' method = 'POST'>
                     <input type='text' name='user_id' class = 'none' value='$user_id'>
                     <input type='text' name='id' class = 'none' value='$id'>
                     <input type='text' name='contatar' class = 'none' id = 'contatar' value='$contatar'>
                     <input type='text' name='confirmar' class = 'none' id = 'contatar' value='1'>
 
-                    <input type='submit' name = 'cancelar' value = 'Cancelar' action = '../functions/servico_mudar_estado.php'>
+                    <input type='submit' name = 'cancelar' value = 'Cancelar'>
                     <input type='submit' name = 'confirmar' value = 'Confirmar' action = '../functions/servico_mudar_estado.php'>
                 </form>
                 
