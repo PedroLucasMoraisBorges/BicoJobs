@@ -7,5 +7,5 @@ interface AutenticarServico{
 
     public function inserirNoDB($mysqli) : void;
 
-    public function mostrarServicos($mysqli, $id, $id_usuario, $nome_cliente, $cidade) : void;
+    public function mostrarServicos($mysqli, $id, $id_usuario, $nome_cliente, $cidade, $estado) : void;
 }

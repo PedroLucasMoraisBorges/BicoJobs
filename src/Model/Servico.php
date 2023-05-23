@@ -160,7 +160,7 @@ class Servico implements AutenticarServico{
 
 
     
-    public function mostrarServicos($mysqli, $id, $id_usuario, $nome_cliente, $cidade) : void
+    public function mostrarServicos($mysqli, $id, $id_usuario, $nome_cliente, $cidade, $estado) : void
     {
         $caminho = 'http://localhost/BicoJobs/';
         
@@ -205,7 +205,16 @@ class Servico implements AutenticarServico{
             $this->img_servico = "general_work.svg";
         }
         
-        include("../templates/componentes/card_servico_home.php");
+        if($estado == 0){
+            include("../templates/componentes/card_servico_home.php");
+        }
+        else if($estado == 1){
+            include("../templates/componentes/card_servico_confirma.php");
+        }
+        else if($estado == 2){
+            include("../templates/componentes/card_servico_home.php");
+        }
+        
 
     }
 }

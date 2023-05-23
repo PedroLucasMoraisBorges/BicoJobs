@@ -99,7 +99,8 @@ if($sql_query->rowCount() > 0){
             $row['id'], 
             $row['id_usuario'], 
             $_SESSION['nome'], 
-            $_SESSION['cidade']
+            $_SESSION['cidade'],
+            0
         );
 
         // INSTANCIÂNDO A CLASSE COM AS INFORMAÇÕES DO USUÁRIO E EXECUTANDO A FUNÇÃO;

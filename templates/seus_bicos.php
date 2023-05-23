@@ -90,7 +90,8 @@ $pdo = CriadorConexao::criarConexao();
                                 $row['id'], 
                                 $row['id_usuario'], 
                                 $_SESSION['nome'], 
-                                $_SESSION['cidade']
+                                $_SESSION['cidade'],
+                                0
                             );
 
 
@@ -131,7 +132,8 @@ $pdo = CriadorConexao::criarConexao();
                             $row['id'], 
                             $row['id_usuario'], 
                             $_SESSION['nome'], 
-                            $_SESSION['cidade']
+                            $_SESSION['cidade'],
+                            1
                         );
 
 
@@ -172,7 +174,8 @@ $pdo = CriadorConexao::criarConexao();
                                 $row['id'], 
                                 $row['id_usuario'], 
                                 $_SESSION['nome'], 
-                                $_SESSION['cidade']
+                                $_SESSION['cidade'],
+                                2
                             );
 
 
