@@ -223,6 +223,46 @@ class Servico implements AutenticarServico{
 
     }
 
+    public function mostrarServicosAvaliar($mysqli, $id, $id_usuario, $nome_cliente, $cidade, $estado, $id_session) : void 
+    {
+        $caminho = 'http://localhost/BicoJobs/';
+        
+        if($this->valor == 0.0){
+            $this->valor = "A combinar";
+        }
+        
+        $sql = "SELECT * FROM usuario WHERE id = $this->id_usuario";
+        $sql_result = $mysqli->query($sql);
+        
+        $user = $sql_result->fetch(PDO::FETCH_ASSOC);
+
+        $id_user = $user['id'];
+        $nome_comp_ofertante = $user['nome_comp'];
+        $nome_user = $user['nome'];
+        $avaliacao = 0;
+
+        $sql = "SELECT notas FROM notas WHERE id_usuario = '$id_user'";
+        $result = $mysqli->query($sql);
+        $n = 0;
+        if($result->rowCount() == 0){
+            $avaliacao = "Novo";
+        }
+        else{
+            while($row = $result->feth(PDO::FETCH_ASSOC)){
+                $n += 1;
+                $avaliacao += $row['nota'];
+            }
+            $avaliacao = $avaliacao/=$n;
+        }
+        
+
+        if($this->img_servico == NULL){
+            $this->img_servico = "general_work.svg";
+        }
+        
+        include("../templates/componentes/card_servico_avaliar.php");
+    }
+
 
     public function alterarEstado($user_id, $pdo, $estado, $id, $contatar) : void
     {

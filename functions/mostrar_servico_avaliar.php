@@ -41,7 +41,7 @@ if($sql_query_servico_aval -> rowCount() > 0){
                 );
     
                 
-                $servico->mostrarServicos(
+                $servico->mostrarServicosAvaliar(
                     $pdo, 
                     $id_serv, 
                     $id, 
