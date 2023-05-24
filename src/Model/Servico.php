@@ -7,7 +7,7 @@ use PDO;
 class Servico implements AutenticarServico{
     private  int     $id;
     private  $id_usuario;
-    private  int     $id_categoria;
+    private  $id_categoria;
     private  int     $id_cidade;
     private  string  $nome;
     private  string   $valor;
@@ -19,6 +19,46 @@ class Servico implements AutenticarServico{
     private  string  $categoria;
 
     // GETs
+    public function getCategoria($pdo) : string 
+    {
+        $sql = "SELECT categoria FROM categoria WHERE id =  '$this->categoria'";
+        $sql_query = $pdo->query($sql);
+        $categoria = ($sql_query->fetch(PDO::FETCH_ASSOC))['categoria'];
+
+        switch($categoria){
+            case("Educação"):
+                $categoria = "educacao.svg";
+                break;
+            case("Construção"):
+                $categoria = "construtor.svg";
+                break;
+            case("Alimentação"):
+                $categoria = "alimentacao.svg";
+                break;
+            case("Digital"):
+                $categoria = "Digital.svg";
+                break;
+            case("Elétrica"):
+                $categoria = "eletricista.svg";
+                break;
+            case("Limpeza"):
+                $categoria = "limpeza.svg";
+                break;
+            case("Cuidados"):
+                $categoria = "cuidados.svg";
+                break;
+            case("Encanamento"):
+                $categoria = "encanador.svg";
+                break;
+            case("Eventos"):
+                $categoria = "eventos.svg";
+                break;
+            default:
+                $categoria = "trabalhos_gerais.svg";
+                break;
+        }
+        return $categoria;
+    }
     public function getId() : int
     {
         return $this -> id;
@@ -160,8 +200,10 @@ class Servico implements AutenticarServico{
 
 
     
-    public function mostrarServicos($mysqli, $id, $id_usuario, $nome_cliente, $cidade, $estado, $id_session) : void
+    public function mostrarServicos($pdo, $id, $id_usuario, $nome_cliente, $cidade, $estado, $id_session) : void
     {
+        $img_categoria = $this->getCategoria($pdo);
+
         $caminho = 'http://localhost/BicoJobs/';
         
         if($this->valor == 0.0){
@@ -177,7 +219,7 @@ class Servico implements AutenticarServico{
         
 
         $sql = "SELECT * FROM usuario WHERE id = $this->id_usuario";
-        $sql_result = $mysqli->query($sql);
+        $sql_result = $pdo->query($sql);
         
         $user = $sql_result->fetch(PDO::FETCH_ASSOC);
 
@@ -187,7 +229,7 @@ class Servico implements AutenticarServico{
         $avaliacao = 0;
 
         $sql = "SELECT notas FROM notas WHERE id_usuario = '$id_user'";
-        $result = $mysqli->query($sql);
+        $result = $pdo->query($sql);
         $n = 0;
         if($result->rowCount() == 0){
             $avaliacao = "Novo";
@@ -198,11 +240,6 @@ class Servico implements AutenticarServico{
                 $avaliacao += $row['nota'];
             }
             $avaliacao = $avaliacao/=$n;
-        }
-        
-
-        if($this->img_servico == NULL){
-            $this->img_servico = "general_work.svg";
         }
         
         if($estado == 0){
@@ -223,8 +260,9 @@ class Servico implements AutenticarServico{
 
     }
 
-    public function mostrarServicosAvaliar($mysqli, $id, $id_usuario, $nome_cliente, $cidade, $estado, $id_session) : void 
+    public function mostrarServicosAvaliar($pdo, $id, $id_usuario, $nome_cliente, $cidade, $estado, $id_session) : void 
     {
+
         $caminho = 'http://localhost/BicoJobs/';
         
         if($this->valor == 0.0){
@@ -232,7 +270,7 @@ class Servico implements AutenticarServico{
         }
         
         $sql = "SELECT * FROM usuario WHERE id = $this->id_usuario";
-        $sql_result = $mysqli->query($sql);
+        $sql_result = $pdo->query($sql);
         
         $user = $sql_result->fetch(PDO::FETCH_ASSOC);
 
@@ -242,7 +280,7 @@ class Servico implements AutenticarServico{
         $avaliacao = 0;
 
         $sql = "SELECT notas FROM notas WHERE id_usuario = '$id_user'";
-        $result = $mysqli->query($sql);
+        $result = $pdo->query($sql);
         $n = 0;
         if($result->rowCount() == 0){
             $avaliacao = "Novo";

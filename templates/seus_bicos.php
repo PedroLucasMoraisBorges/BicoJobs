@@ -71,7 +71,8 @@ $pdo = CriadorConexao::criarConexao();
                         $sql_query = $pdo->query($sql." AND estado = 0");
                         if($sql_query->rowCount() > 0){
                             while($row = $sql_query->fetch(PDO::FETCH_ASSOC)){
-                                $servico = new servico(
+
+                                $servico = new Servico(
                                     $_SESSION['id_cidade'],
                                     $row['nome'],
                                     $row['valor'],
@@ -83,6 +84,7 @@ $pdo = CriadorConexao::criarConexao();
                                     $row['id_categoria'],
                                     $row['id_usuario']
                                 );
+                                
                 
                                 $servico->mostrarServicos(
                                     $pdo,
@@ -112,7 +114,9 @@ $pdo = CriadorConexao::criarConexao();
                     $sql_query = $pdo->query($sql." AND estado = 1");
                     if($sql_query->rowCount() > 0){
                         while($row = $sql_query->fetch(PDO::FETCH_ASSOC)){
-                            $servico = new servico(
+                            
+                            
+                            $servico = new Servico(
                                 $_SESSION['id_cidade'],
                                 $row['nome'],
                                 $row['valor'],
@@ -153,7 +157,7 @@ $pdo = CriadorConexao::criarConexao();
                         $sql_query = $pdo->query($sql." AND estado = 2");
                         if($sql_query->rowCount() > 0){
                             while($row = $sql_query->fetch(PDO::FETCH_ASSOC)){
-                                $servico = new servico(
+                                $servico = new Servico(
                                     $_SESSION['id_cidade'],
                                     $row['nome'],
                                     $row['valor'],

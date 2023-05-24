@@ -11,7 +11,7 @@ echo "
 
 
             <div class='info_princ'>
-                <img src='$caminho/media/area-atuação/limpeza.svg' alt=''>
+                <img src='$caminho/media/area-atuação/$img_categoria' alt=''>
                 <h2>$this->nome</h2>
             </div>
             
@@ -37,7 +37,7 @@ echo "
             <div class='oferta_detalhes'>
                 <div class='pessoais'>
                     <div class='img'>
-                        <img src='$caminho/media/area-atuação/limpeza.svg' alt=''>
+                        <img src='$caminho/media/area-atuação/$img_categoria' alt=''>
                     </div>
                     <h3>$nome_comp_ofertante</h3>
                     <p>$avaliacao</p>

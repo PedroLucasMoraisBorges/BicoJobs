@@ -26,7 +26,7 @@ if($sql_query_servico_aval -> rowCount() > 0){
 
         if($sql_query->rowCount() > 0){
             while($servico = $sql_query->fetch(PDO::FETCH_ASSOC)){
-    
+
                 $servico = new servico(
                     $_SESSION['id_cidade'],
                     $servico['nome'],

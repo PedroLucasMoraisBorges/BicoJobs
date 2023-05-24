@@ -21,7 +21,6 @@ if(isset($_FILES['img_input']))
     $diretorio = "../media/img_services/";
     move_uploaded_file($_FILES['img_input']['tmp_name'], $diretorio.$novo_nome);
 }
-
 // CODIFICAÇÃO DA IMAGEM E ARMAZENAMENTO NA PASTA;
 
 
