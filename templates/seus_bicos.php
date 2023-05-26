@@ -6,6 +6,7 @@ require_once("../functions/mostrar_meus_servico.php");
 require_once "../autoload.php";
 use Pi\Bicojobs\Model\Servico;
 use Pi\Bicojobs\Infraestrutura\Persistencia\CriadorConexao;
+use Pi\Bicojobs\Model\User;
 $pdo = CriadorConexao::criarConexao();
 ?>
 
@@ -23,6 +24,8 @@ $pdo = CriadorConexao::criarConexao();
         include '../static/css/servicos_css.php';
     ?>
     </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     <title>BicoJobs | Seus Bicos</title>
 </head>
 <body>
@@ -188,11 +191,34 @@ $pdo = CriadorConexao::criarConexao();
                 </div>
             </div>
         </div>
+
+
+
+        <div class="graficos">
+            <div class="grafico">
+                <canvas id="total_serv"></canvas>
+                <?php 
+                    include("../functions/retornarServicosFeitos.php");
+                    $meses = $user -> setServicosUser($pdo);
+                    $user -> retornarServicosUser($meses);
+                ?>
+            </div>
+
+            <div class="grafico">
+                <canvas id="total_valor"></canvas>
+                <?php 
+                    include("../functions/retornarServicosFeitos.php");
+                    $meses = $user -> setServicosUser($pdo);
+                    $user -> retornarServicosValor($meses);
+                ?>
+            </div>
+        </div>
+        
+        
         
     </main>
     
     <?php include 'componentes/footer.html';?>
-
     <script src="<?php echo $caminho."static/js/servicos.js"?>"></script>
     <script src="<?php echo $caminho."static/js/nav.js"?>"></script>
 </body>

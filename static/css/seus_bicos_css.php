@@ -147,7 +147,14 @@ button:hover{
 
 /* Conteudo */
 
-
+.graficos{
+    display: flex;
+}
+.grafico{
+    width: 50%;
+    margin: 0 auto 1rem auto;
+    border: 3px solid #303030;
+}
 
 
 
@@ -247,6 +254,7 @@ label:hover{
     padding-top: 5px;
     padding-left: 5px;
 }
+tetse
 
 .modal_adiconar .modal_footer{
     height: 15%;

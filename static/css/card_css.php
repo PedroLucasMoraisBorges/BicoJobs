@@ -1,7 +1,7 @@
 <style type="text/css">
 
 .conteudo{
-    
+    display: inherit;
 }
 
 
@@ -24,7 +24,7 @@
     color: white;
     font-size: 1rem;
     box-shadow: 1.5px 1.5px 2px #40404050;
-    background-color: #303030;
+    background-color: #30303080;
 }
 
 .card:hover{
@@ -40,7 +40,6 @@
     position: absolute;
     height: 100%;
     width: 100%;
-    filter: brightness(.5);
 }
 
 .botao_abrir{

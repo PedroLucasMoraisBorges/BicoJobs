@@ -13,7 +13,6 @@ $pdo = CriadorConexao::criarConexao();
 
 
 // PUXANDO INFORMAÇÕES DO USUÁRIO E A FORMA DE CONTATO;
-
 $user_id = $_POST['user_id'];
 $contatar = $_POST['contatar'];
 $id = $_POST['id'];
@@ -33,7 +32,7 @@ else if(isset($_POST['confirmar']) == true){
     $servico -> alterarEstado($user_id, $pdo, 2, $id, $contatar);
 }
 else if(isset($_POST['finalizar']) == true){
-    //$servico -> deletarServicoAvaliacao($pdo, $id);
+    $servico -> finalizarServico($pdo, $id, $user_id);
     $servico -> alterarEstado($user_id, $pdo, 0 , $id, $contatar);
 }
 else if(isset($_POST['deletar']) == true){

@@ -339,6 +339,19 @@ class Servico implements AutenticarServico{
         echo "<script>open('http://localhost/BicoJobs/templates/seus_bicos.php' , '_self');</script>";
     }
 
+
+    public function finalizarServico($pdo, $id, $user_id) : void
+    {
+        $sql = "SELECT valor FROM servico WHERE id = $id";
+        $valor = (($pdo->query($sql))->fetch(PDO::FETCH_ASSOC))['valor'];
+
+
+        $data = date("Y-m-d",strtotime('-3 hour'));
+
+        $sql = "INSERT INTO servicosfeitos (valor, id_usuario, dt) VALUES ($valor, $user_id, '$data')";
+        $sql_query = $pdo->query($sql);
+    }
+
     public function deletarServicoAvaliacao($pdo, $id_servico) : void
     {
         $sql = "DELETE FROM servicoavaliar WHERE id_servico = '$id_servico'";

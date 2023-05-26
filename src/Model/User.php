@@ -562,4 +562,123 @@ class User implements AutenticarUser{
 
         echo "<script>open('http://localhost/BicoJobs/templates/servicos.php' , '_self');</script>";
     }
+
+
+
+    public function setServicosUser($pdo) : array
+    {
+        $sql = "SELECT * FROM servicosfeitos WHERE id_usuario = '$this->id'";
+        $sql_query = $pdo->query($sql);
+        
+        $meses = array(
+            "quantidade" => [0,0,0,0,0,0,0,0,0,0,0,0],
+            "valor" => [0.0 ,0.0 ,0.0 ,0.0 ,0.0 ,0.0 ,0.0 ,0.0 ,0.0 ,0.0 ,0.0 ,0.0 ]
+        );
+        while($row = $sql_query->fetch(PDO::FETCH_ASSOC)){
+            $data = $row['dt'];
+            $valor = $row['valor'];
+
+            $mes = $data[5].$data[6];
+            
+            if($mes == "01"){
+                $meses['quantidade'][0] += 1;
+                $meses['valor'][0] += $valor;
+            }
+            else if($mes == "02"){
+                $meses['quantidade'][1] += 1;
+                $meses['valor'][1] += $valor;
+            }
+            else if($mes == "03"){
+                $meses['quantidade'][2] += 1;
+                $meses['valor'][2] += $valor;
+            }
+            else if($mes == "04"){
+                $meses['quantidade'][3] += 1;
+                $meses['valor'][3] += $valor;
+            }
+            else if($mes == "05"){
+                $meses['quantidade'][4] += 1;
+                $meses['valor'][4] += $valor;
+            }
+            else if($mes == "06"){
+                $meses['quantidade'][5] += 1;
+                $meses['valor'][5] += $valor;
+            }
+            else if($mes == "07"){
+                $meses['quantidade'][6] += 1;
+                $meses['valor'][6] += $valor;
+            }
+            else if($mes == "08"){
+                $meses['quantidade'][7] += 1;
+                $meses['valor'][7] += $valor;
+            }
+            else if($mes == "09"){
+                $meses['quantidade'][8] += 1;
+                $meses['valor'][8] += $valor;
+            }
+            else if($mes == "10"){
+                $meses['quantidade'][9] += 1;
+                $meses['valor'][9] += $valor;
+            }
+            else if($mes == "11"){
+                $meses['quantidade'][10] += 1;
+                $meses['valor'][10] += $valor;
+            }
+            else if($mes == "12"){
+                $meses['quantidade'][11] += 1;
+                $meses['valor'][11] += $valor;
+            }
+        }
+
+        return $meses;
+    }
+
+
+    public function retornarServicosUser($meses)
+    {
+        echo "
+        <script>
+            var total_servico = document.getElementById('total_serv');
+        
+            this.servicosGrafico = new Chart(total_servico , {
+                type:'line',
+                data: {
+                    labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                    datasets: [{
+                        label: 'Serviços concluídos - 2023',
+                        data: [".$meses['quantidade'][0].",".$meses['quantidade'][1].",".$meses['quantidade'][2].",".$meses['quantidade'][3].",".$meses['quantidade'][4].",".$meses['quantidade'][5].",".$meses['quantidade'][6].",".$meses['quantidade'][7].",".$meses['quantidade'][8].",".$meses['quantidade'][9].",".$meses['quantidade'][10].",".$meses['quantidade'][11]."],
+                        borderWidth: 3,
+                        borderColor: 'blue',
+                        backgroundColor: 'transparent',
+                    }
+                    ]
+                }
+                
+            });
+        </script>";
+    }
+
+
+    public function retornarServicosValor($meses){
+        echo "
+        <script>
+            var total_valor = document.getElementById('total_valor');
+
+            this.ValorGrafico = new Chart(total_valor , {
+                type:'line',
+                data: {
+                    labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                    datasets: [{
+                        label: 'Valor Ganho - 2023',
+                        data: [".$meses['valor'][0].",".$meses['valor'][1].",".$meses['valor'][2].",".$meses['valor'][3].",".$meses['valor'][4].",".$meses['valor'][5].",".$meses['valor'][6].",".$meses['valor'][7].",".$meses['valor'][8].",".$meses['valor'][9].",".$meses['valor'][10].",".$meses['valor'][11]."],
+                        borderWidth: 3,
+                        borderColor: 'green',
+                        backgroundColor: 'transparent',
+                    }
+                    ]
+                }
+                
+            });
+        </script>";
+    }
 }

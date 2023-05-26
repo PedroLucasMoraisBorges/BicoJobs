@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 23/05/2023 às 13:50
+-- Tempo de geração: 24/05/2023 às 22:23
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.2.4
 
@@ -36,9 +36,6 @@ CREATE TABLE `categoria` (
 -- Despejando dados para a tabela `categoria`
 --
 
-INSERT INTO `categoria` (`id`, `categoria`) VALUES
-(0, 'Alimentação'),
-(1, 'Construção');
 
 -- --------------------------------------------------------
 
@@ -55,11 +52,6 @@ CREATE TABLE `cidade` (
 -- Despejando dados para a tabela `cidade`
 --
 
-INSERT INTO `cidade` (`id`, `cep`) VALUES
-(0, 'Caririaçu'),
-(1, 'Juazeiro do Norte'),
-(2, '');
-
 -- --------------------------------------------------------
 
 --
@@ -69,18 +61,24 @@ INSERT INTO `cidade` (`id`, `cep`) VALUES
 CREATE TABLE `contato` (
   `id` int(11) NOT NULL,
   `email` varchar(50) DEFAULT NULL,
-  `telefone` varchar(15) DEFAULT NULL,
-  `id_usuario` int(11) DEFAULT NULL
+  `telefone` varchar(15) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `contato`
 --
 
-INSERT INTO `contato` (`id`, `email`, `telefone`, `id_usuario`) VALUES
-(0, 'pedrulucas@gmail.com', '88997974194', NULL),
-(1, 'pedrulucas000@gmail.com', '88999213838', NULL),
-(2, 'sarahnithaelly@gmail.com', NULL, NULL);
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `habilidades`
+--
+
+CREATE TABLE `habilidades` (
+  `id` int(11) NOT NULL,
+  `habilidade` varchar(40) DEFAULT NULL,
+  `id_usuario` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -90,19 +88,14 @@ INSERT INTO `contato` (`id`, `email`, `telefone`, `id_usuario`) VALUES
 
 CREATE TABLE `idioma` (
   `id` int(11) NOT NULL,
-  `idioma` varchar(15) DEFAULT NULL
+  `idioma` varchar(15) DEFAULT NULL,
+  `id_usuario` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `idioma`
 --
 
-INSERT INTO `idioma` (`id`, `idioma`) VALUES
-(0, 'Inglês'),
-(1, 'Português'),
-(2, 'Português'),
-(3, 'Português'),
-(4, 'Português');
 
 -- --------------------------------------------------------
 
@@ -140,11 +133,6 @@ CREATE TABLE `servico` (
 -- Despejando dados para a tabela `servico`
 --
 
-INSERT INTO `servico` (`id`, `id_categoria`, `id_usuario`, `id_cidade`, `nome`, `valor`, `descricao`, `estado`, `horario`, `img_servico`, `contato`) VALUES
-(44, 0, 0, 0, 'sdsdsdsds', 2.00, 'dcfvghbj', 1, 'manhã', '10dd05da27f9c33aa13eef6272e2a00a.jpg', 'pedrulucas000@gmail.com '),
-(45, 0, 0, 0, 'sdsdsdsds', 0.00, 'gvhbjnkm', 0, 'manhã', 'ae3d06e8a4c1a3798e07f063f7fc8128.jpg', 'pedrulucas000@gmail.com '),
-(46, 1, 0, 0, 'sdsdsdsds', 0.00, 'ghjbkl', 0, 'manhã', '9d860aa66a2542be1fbd2b9e8c4e5a8a.jpg', '88999213838');
-
 -- --------------------------------------------------------
 
 --
@@ -156,13 +144,6 @@ CREATE TABLE `servicoavaliar` (
   `id_usuario` int(11) DEFAULT NULL,
   `id_servico` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Despejando dados para a tabela `servicoavaliar`
---
-
-INSERT INTO `servicoavaliar` (`id`, `id_usuario`, `id_servico`) VALUES
-(1, 0, 44);
 
 -- --------------------------------------------------------
 
@@ -191,10 +172,6 @@ CREATE TABLE `usuario` (
 -- Despejando dados para a tabela `usuario`
 --
 
-INSERT INTO `usuario` (`id`, `id_contato`, `id_idioma`, `id_cidade`, `dt_nascimento`, `habilidades`, `cpf`, `tipo_usuario`, `descricao`, `nome`, `senha`, `img_perfil`, `nome_comp`, `quant_servicos`) VALUES
-(0, 1, 0, 0, '2001-04-25', 'js', '08445032313', 1, 'Teste', 'Pedrol', 'pedro456', '5de28a8cb84398bf3b9c240d3ade99ee.jpg', 'PEDRO LUCAS DE MORAIS BORGES', NULL),
-(1, 2, NULL, 0, '2001-04-25', NULL, '08778963213', 0, NULL, 'teste', 'pedro456', NULL, NULL, NULL);
-
 --
 -- Índices para tabelas despejadas
 --
@@ -215,6 +192,12 @@ ALTER TABLE `cidade`
 -- Índices de tabela `contato`
 --
 ALTER TABLE `contato`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices de tabela `habilidades`
+--
+ALTER TABLE `habilidades`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_usuario` (`id_usuario`);
 
@@ -222,7 +205,8 @@ ALTER TABLE `contato`
 -- Índices de tabela `idioma`
 --
 ALTER TABLE `idioma`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_usuario` (`id_usuario`);
 
 --
 -- Índices de tabela `notas`
@@ -262,20 +246,44 @@ ALTER TABLE `usuario`
 --
 
 --
+-- AUTO_INCREMENT de tabela `habilidades`
+--
+ALTER TABLE `habilidades`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `notas`
+--
+ALTER TABLE `notas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de tabela `servico`
 --
 ALTER TABLE `servico`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT de tabela `servicoavaliar`
 --
 ALTER TABLE `servicoavaliar`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- Restrições para tabelas despejadas
 --
+
+--
+-- Restrições para tabelas `habilidades`
+--
+ALTER TABLE `habilidades`
+  ADD CONSTRAINT `habilidades_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`);
+
+--
+-- Restrições para tabelas `idioma`
+--
+ALTER TABLE `idioma`
+  ADD CONSTRAINT `idioma_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`);
 
 --
 -- Restrições para tabelas `notas`
