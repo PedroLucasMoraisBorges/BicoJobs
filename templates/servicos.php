@@ -75,9 +75,25 @@ $caminho = 'http://localhost/BicoJobs/';
                 ?>
             </div>
         </div>
-    </main>
-    
 
+        
+
+        
+
+        
+        
+        <?php
+            if($pg>1){
+                $previous = $pg-1;
+                echo '<a href="http://localhost/BicoJobs/templates/servicos.php?page='.$previous.'">Voltar</a>';
+            }
+            echo '<a href="http://localhost/BicoJobs/templates/servicos.php?page'.$pg.'">Página '.$pg.'</a>';
+            if($pg >= 1 && $quantia > $pg){
+                $next = $pg+1;
+                echo '<a href="http://localhost/BicoJobs/templates/servicos.php?page='.$next.'">Próxima</a>';
+            } 
+        ?>
+    </main>
     <?php include 'componentes/footer.html';?>
 
 

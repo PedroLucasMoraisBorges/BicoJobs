@@ -35,8 +35,31 @@ if(isset($_GET['submit'])){
 
     if($sql_query->rowCount() > 0){
         $id_categoria = ($sql_query->fetch(PDO::FETCH_ASSOC))['id'];
-        $sql = "SELECT * FROM servico WHERE id_cidade = '$id_cidade' AND nome = '$search'  OR id_categoria = '$id_categoria' AND estado = 0 AND id_usuario != $id";
-        $sql_query = $pdo->query($sql);
+
+        // PAGINAÇÃO
+
+        // CAPTURA DE PARÂMETROS DA URL
+        $capture = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_URL);
+
+        // VARIÁVEIS DE TRATAMENTO
+        // PG = número da página, limit = limite de elementos por página, start é o número do elemento que inicia a página
+        $pg = ($capture == "" ? 1 : $capture);
+        $limit = 5;
+        $start = ($pg * $limit) - $limit;
+
+        $id_cidade = $_SESSION['id_cidade'];
+
+        $sql = "SELECT * FROM servico WHERE id_cidade = $id_cidade AND estado = 0 AND nome = '$search' OR id_categoria = $id_categoria AND id_usuario != $id AND serv_status = :status LIMIT $start, $limit";
+        $sql_query = $pdo -> prepare($sql);
+        $sql_query -> bindValue(":status", 1);
+        $sql_query -> execute();
+
+        $sql = "SELECT * FROM servico WHERE id_cidade = $id_cidade AND estado = 0 AND nome = '$search' OR id_categoria = $id_categoria AND id_usuario != $id";
+        $sql_rows = $pdo->query($sql);
+
+        // LINES É A QUANTIDADE DE ELEMENTOS SELECIONAOS E QUANTIA É A QUANTIDADE DE PÁGINAS
+        $lines = $sql_rows->rowCount();
+        $quantia = ceil($lines/$limit);
 
         // CASO NÃO SEJA ENCONTRADO NENHUM MOSTRARÁ MENSAGEM DE ERRO;
         $n_encontrado =  '<div class="read_list"> 
@@ -46,8 +69,32 @@ if(isset($_GET['submit'])){
     }
 
     else{
-        $sql = "SELECT * FROM servico WHERE id_cidade = '$id_cidade' AND nome = '$search' AND estado = 0 AND id_usuario != $id";
-        $sql_query = $pdo->query($sql);
+    
+        // PAGINAÇÃO
+
+        // CAPTURA DE PARÂMETROS DA URL
+        $capture = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_URL);
+
+        // VARIÁVEIS DE TRATAMENTO
+        // PG = número da página, limit = limite de elementos por página, start é o número do elemento que inicia a página
+        $pg = ($capture == "" ? 1 : $capture);
+        $limit = 5;
+        $start = ($pg * $limit) - $limit;
+
+        $id_cidade = $_SESSION['id_cidade'];
+
+        $sql = "SELECT * FROM servico WHERE id_cidade = $id_cidade AND estado = 0 AND nome = '$search' AND id_usuario != $id AND serv_status = :status LIMIT $start, $limit";
+        
+        $sql_query = $pdo -> prepare($sql);
+        $sql_query -> bindValue(":status", 1);
+        $sql_query -> execute();
+
+        $sql = "SELECT * FROM servico WHERE id_cidade = '$id_cidade' AND estado = 0 AND nome = '$search' AND id_usuario != $id";
+        $sql_rows = $pdo->query($sql);
+        
+        // LINES É A QUANTIDADE DE ELEMENTOS SELECIONAOS E QUANTIA É A QUANTIDADE DE PÁGINAS
+        $lines = $sql_rows->rowCount();
+        $quantia = ceil($lines/$limit);
         
         // CASO NÃO SEJA ENCONTRADO NENHUM MOSTRARÁ MENSAGEM DE ERRO;
         $n_encontrado =  '<div class="read_list"> 
@@ -60,9 +107,33 @@ if(isset($_GET['submit'])){
 
 // SE CASO NÃO SEJA EFETUADA A PESQUISA LISTA TODOS OS SERVIÇOS;
 else{           
+
+    // PAGINAÇÃO
+
+    // CAPTURA DE PARÂMETROS DA URL
+    $capture = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_URL);
+
+    // VARIÁVEIS DE TRATAMENTO
+    // PG = número da página, limit = limite de elementos por página, start é o número do elemento que inicia a página
+    $pg = ($capture == "" ? 1 : $capture);
+    $limit = 5;
+    $start = ($pg * $limit) - $limit;
+
     $id_cidade = $_SESSION['id_cidade'];
+
+    $sql = "SELECT * FROM servico WHERE id_cidade = '$id_cidade' AND estado = 0 AND id_usuario != $id AND serv_status = :status LIMIT $start, $limit";
+    $sql_query = $pdo -> prepare($sql);
+    $sql_query -> bindValue(":status", 1);
+    $sql_query -> execute();
+
     $sql = "SELECT * FROM servico WHERE id_cidade = '$id_cidade' AND estado = 0 AND id_usuario != $id";
-    $sql_query = $pdo->query($sql);
+    $sql_rows = $pdo->query($sql);
+
+    // LINES É A QUANTIDADE DE ELEMENTOS SELECIONAOS E QUANTIA É A QUANTIDADE DE PÁGINAS
+    $lines = $sql_rows->rowCount();
+    $quantia = ceil($lines/$limit);
+
+
 
     // CASO NÃO SEJA ENCONTRADO NENHUM SERVIÇO COM O MESMO ID_USARIO MOSTRARÁ O ERRO;
     $n_encontrado =  '<div class="read_list"> 
