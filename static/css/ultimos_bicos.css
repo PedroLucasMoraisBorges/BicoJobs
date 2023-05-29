@@ -1,0 +1,31 @@
+.modal_footer_rating{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    font-size: 1.2rem;
+}
+
+.modal_footer_rating form{
+    display: flex;
+    align-items: center;
+}
+
+.modal_footer_rating button{
+    padding: 10px;
+    border: none;
+    background-color: grey;
+    color: white;
+    border-radius: 10px;
+}
+
+.modal_footer_rating form div{
+    margin-right: 50px;
+    color: black;
+}
+
+.ratingP{
+    margin-right: 10px;
+    color: rgb(2, 2, 87);
+    font-size: 1.5rem;
+    font-weight: bold;
+}

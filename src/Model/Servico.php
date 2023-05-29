@@ -6,7 +6,7 @@ require "../autoload.php";
 use PDO;
 class Servico implements AutenticarServico{
     private  int     $id;
-    private  $id_usuario;
+    private             $id_usuario;
     private  $id_categoria;
     private  int     $id_cidade;
     private  string  $nome;
@@ -235,9 +235,9 @@ class Servico implements AutenticarServico{
             $avaliacao = "Novo";
         }
         else{
-            while($row = $result->feth(PDO::FETCH_ASSOC)){
+            while($row = $result->fetch(PDO::FETCH_ASSOC)){
                 $n += 1;
-                $avaliacao += $row['nota'];
+                $avaliacao += $row['notas'];
             }
             $avaliacao = $avaliacao/=$n;
         }
@@ -286,7 +286,7 @@ class Servico implements AutenticarServico{
             $avaliacao = "Novo";
         }
         else{
-            while($row = $result->feth(PDO::FETCH_ASSOC)){
+            while($row = $result->fetch(PDO::FETCH_ASSOC)){
                 $n += 1;
                 $avaliacao += $row['nota'];
             }

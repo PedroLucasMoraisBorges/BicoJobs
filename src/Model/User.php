@@ -504,9 +504,9 @@ class User implements AutenticarUser{
                 $avaliacao = "Novo";
             }
             else{
-                while($row = $result->feth(PDO::FETCH_ASSOC)){
+                while($row = $result->fetch(PDO::FETCH_ASSOC)){
                     $n += 1;
-                    $avaliacao += $row['nota'];
+                    $avaliacao += $row['notas'];
                 }
                 $avaliacao = $avaliacao/=$n;
             }
