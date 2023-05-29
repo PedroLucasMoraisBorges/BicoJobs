@@ -6,7 +6,7 @@ require "../autoload.php";
 use PDO;
 class Servico implements AutenticarServico{
     private  int     $id;
-    private  $id_usuario;
+    private             $id_usuario;
     private  $id_categoria;
     private  int     $id_cidade;
     private  string  $nome;
