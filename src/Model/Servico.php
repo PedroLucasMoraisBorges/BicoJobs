@@ -168,7 +168,7 @@ class Servico implements AutenticarServico{
 
         if($sql_query->rowCount() == 0){
             $sql_categoria = "INSERT INTO categoria (id, categoria) VALUES ($last_id, '$this->categoria')";
-            $sql = "INSERT INTO servico (id_cidade, nome, valor, descricao, estado, horario, img_servico, id_categoria, contato,id_usuario) VALUES ($this->id_cidade, '$this->nome', '$this->valor', '$this->valor_descricao', '$this->estado', '$this->horario', '$this->img_servico', $last_id, '$this->contato' ,$this->id_usuario)";
+            $sql = "INSERT INTO servico (id_cidade, nome, valor, descricao, estado, horario, img_servico, id_categoria, contato,id_usuario, serv_status) VALUES ($this->id_cidade, '$this->nome', '$this->valor', '$this->valor_descricao', '$this->estado', '$this->horario', '$this->img_servico', $last_id, '$this->contato' ,$this->id_usuario, 1)";
 
             $mysqli->query($sql_categoria);
             if($mysqli->query($sql) === FALSE){

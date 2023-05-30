@@ -25,3 +25,10 @@ $stmt->bindValue(":notas", $nota, PDO::PARAM_INT);
 $stmt->bindValue(":id_usuario", $result['id_usuario'], PDO::PARAM_INT);
 $stmt->bindValue(":dt", $data, PDO::PARAM_STR);
 $stmt->execute();
+
+
+$sqlDelete = "DELETE FROM servicoavaliar WHERE id_servico = $id_servico";
+$pdo->query($sqlDelete);
+
+header("location: http://localhost/BicoJobs/templates/ultimos_bicos.php");
+
