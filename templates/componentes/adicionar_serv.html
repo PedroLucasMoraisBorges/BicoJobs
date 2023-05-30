@@ -18,17 +18,22 @@
 
                 <div class="div_servico">
                     <label for="servico">Serviço</label>
-                    <input type="text" placeholder="Professor de Mat" class="servico" id="servico" name="servico">
+                    <input type="text" placeholder="Professor de Mat" class="servico" id="servico" name="servico" required>
                 </div>
 
                 <div class="div_horario">
                     <label for="horario">Horário</label>
-                    <input type="text" placeholder="Manhã" class="horario" id="horario" name="horario">
+                    <input type="text" placeholder="Manhã" class="horario" id="horario" name="horario" autocomplete="off" list="horarios" required>
+                    <datalist id="horarios">
+                        <option value="Manhã"></option>
+                        <option value="Tarde"></option>
+                        <option value="Noite"></option>
+                    </datalist>
                 </div>
 
                 <div>
                     <label for="area-atuação">Área de atuação</label>
-                    <input type="text" placeholder="Educação" class="area-atuacao" id="area-atuacao" name="area-atuacao" list="faixa">
+                    <input type="text" placeholder="Educação" class="area-atuacao" id="area-atuacao" name="area-atuacao" list="faixa" autocomplete="off" required>
                     <datalist id="faixa">
                         <option value="Educação"></option>
                         <option value="Construção"></option>
@@ -45,12 +50,12 @@
 
                 <div class="espaco_descricao">
                     <label for="descricao">Descrição</label>
-                    <textarea name="descricao" id="descricao" cols="30" rows="5" placeholder="Descreva o seu serviço..." class="descricao"  ></textarea>
+                    <textarea name="descricao" id="descricao" cols="30" rows="5" placeholder="Descreva o seu serviço..." class="descricao" required></textarea>
                 </div>
         
                 <div class="div_valor">
                     <label for="valor">Valor</label>
-                    <input type="number" name="valor" placeholder="A combinar" class="valor" id="valor" list="valores">
+                    <input type="number" name="valor" placeholder="A combinar" class="valor" id="valor" list="valores" required>
                     <datalist id="valores">
                         <option value="A combinar"></option>
                     </datalist>
@@ -58,7 +63,7 @@
         
                 <div>
                     <label for="contato">Contato</label>
-                    <input type="text" name="contato" placeholder="(88) 99999-9999" class="contato" id="contato" list="contatos">
+                    <input type="text" name="contato" placeholder="(88) 99999-9999" class="contato" id="contato" list="contatos" autocomplete="off" required>
                     <datalist id="contatos">
                         <option value="<?php echo $_SESSION['email']; ?> "></option>
                         <option value="<?php echo $_SESSION['telefone']; ?>"></option>

@@ -5,6 +5,7 @@ require_once("../templates/editar_perfil.php");
 
 require_once("../autoload.php");
 use Pi\Bicojobs\Model\User;
+use Pi\Bicojobs\Model\Verificacoes;
 use Pi\Bicojobs\Infraestrutura\Persistencia\CriadorConexao;
 $pdo = CriadorConexao::criarConexao();
 
@@ -41,29 +42,13 @@ $email = $_POST['email'];
 $cep = $_POST['cep'];
 $sql_codes = [];
 
+
 // DANDO VALOR ÀS VARIÁVEIS PARA O USO;
 
+$verificacao = new Verificacoes();
 
 
-
-// VERIFICA SE OS CAMPOS FORAM PREENCHIDOS;
-
-if($descricao == "" || $habilidade == "" || $idioma == "" || $telefone == "" || $nome_comp == "" || $nome == "" || $email == ""){
-    echo "<script> 
-        let error = document.getElementById('error-msg-login');
-        error.innerHTML = 'Campos obrigatórios não preenchidos';
-        setTimeout(() => {
-            error.classList.add('slide');
-        }, 250);
-        setTimeout(() => {
-        error.classList.remove('slide');
-        }, 3250);
-        </script>";
-}
-
-// VERIFICA A VALIDADE DO CEP;
-
-else if($cep == "00000000" || strlen($cep) != 8){
+if($cep == "00000000" || strlen($cep) != 8){
     echo "<script> 
         let error = document.getElementById('error-msg-login');
         error.innerHTML = 'CEP Inválido';
@@ -90,6 +75,18 @@ else if(str_contains($email, "@") === false || str_contains($email, ".") === fal
         }, 3250);
         </script>";
 }
+else if($verificacao -> verificaEmail($pdo, $email, $_SESSION['id_contato']) != 0){
+    echo "<script> 
+        let error = document.getElementById('error-msg-login');
+        error.innerHTML = 'Email já cadastrado';
+        setTimeout(() => {
+            error.classList.add('slide');
+        }, 250);
+        setTimeout(() => {
+        error.classList.remove('slide');
+        }, 3250);
+        </script>";
+}
 
 // VERIFICA A VALIDADE DO TELEFONE;
 
@@ -104,6 +101,9 @@ else if(strlen($telefone) < 11){
         error.classList.remove('slide');
         }, 3250);
         </script>";
+}
+else if($verificacao -> verificaTel($pdo, $telefone, $_SESSION['id_contato']) != 0){
+    echo "";
 }
 else{
 
@@ -120,8 +120,7 @@ else{
         $_POST['email'],
         1
     );
-    
-    $usuario->editar_perfil($pdo, $id, $img_perfil, $descricao, $habilidade, $idioma, $telefone, $nome_comp, $nome, $email, $cep, $usuario);
 
+    $usuario->editar_perfil($pdo, $id, $img_perfil, $descricao, $habilidade, $idioma, $telefone, $nome_comp, $nome, $email, $cep, $usuario);
     // INSTANCIÂNDO A CLASSE COM AS INFORMAÇÕES DO USUÁRIO E EXECUTANDO A FUNÇÃO;
 }

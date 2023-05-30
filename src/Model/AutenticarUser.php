@@ -3,7 +3,7 @@ namespace Pi\Bicojobs\Model;
 require "../autoload.php";
 
 interface AutenticarUser{
-    public function login($mysqli,$email, $senha) :void;
+    public function login($pdo,$v_email_senha) :void;
 
     public function sign_in($sql_codes, $mysqli) : void;
 
