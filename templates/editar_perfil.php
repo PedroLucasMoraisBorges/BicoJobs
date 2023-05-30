@@ -39,7 +39,7 @@ $caminho = 'http://localhost/BicoJobs/';
                 <input type="file" require name="img_perfil" id="img_perfil" style="display:none" value="">
                 <div class="habilidades">
                     <h3>Proeficiência:</h3>
-                    <input type="text" value="<?php echo $_SESSION['habilidades']?>" name="habilidade" placeholder="Habilidades">
+                    <input type="text" value="<?php echo $_SESSION['habilidades']?>" name="habilidade" placeholder="Habilidades" required>
                 </div>
             </div>
 
@@ -47,25 +47,25 @@ $caminho = 'http://localhost/BicoJobs/';
                 <div class="nome-cep">
                     <div>
                         <h3>Nome de usuario</h3>
-                        <h2><input type="text" value="<?php echo $_SESSION['nome']?>" name="nome" placeholder="nome"></h2>
+                        <h2><input type="text" value="<?php echo $_SESSION['nome']?>" name="nome" placeholder="nome"></h2 required>
                     </div>
 
                     <div>
                         <h3>CEP</h3>
-                        <input type="text" name="cep" placeholder="CEP">
+                        <input type="text" name="cep" placeholder="CEP" required>
                     </div>
                 </div>
 
                 <div class="info_pessoais">
                     <div class="nome_comp">
                         <h3>Nome completo:</h3>
-                        <input type="text" value="<?php echo $_SESSION['nome_comp']?>" name="nome_comp" placeholder="Nome completo">
+                        <input type="text" value="<?php echo $_SESSION['nome_comp']?>" name="nome_comp" placeholder="Nome completo" required>
                     </div>
 
                     <div class="linguas">
                         <h3>Fluente em:</h3>
                         <div>
-                            <input type="text" value="<?php echo $_SESSION['idioma']?>" name="idioma" placeholder="Idioma">
+                            <input type="text" value="<?php echo $_SESSION['idioma']?>" name="idioma" placeholder="Idioma" required>
                         </div>
                     </div>
                 </div>
@@ -73,18 +73,18 @@ $caminho = 'http://localhost/BicoJobs/';
                 <div class="contatos">
                     <div class="tel">
                         <h3>Telefone:</h3>
-                        <input type="text" value="<?php echo $_SESSION['telefone']?>" name="telefone" placeholder="Telefone">
+                        <input type="text" value="<?php echo $_SESSION['telefone']?>" name="telefone" placeholder="Telefone" required>
                     </div>
 
                     <div class="email">
                         <h3>Email:</h3>
-                        <input type="text" value="<?php echo $_SESSION['email']?>" name="email" placeholder="Email">
+                        <input type="text" value="<?php echo $_SESSION['email']?>" name="email" placeholder="Email" required>
                     </div>
                 </div>
 
                 <div class="descricao_edit">
                     <h3>Descrição</h3>
-                    <textarea name="descricao" id="descricao" cols="30" rows="10"  placeholder="Descrição"><?php echo $_SESSION['descricao'];?></textarea>
+                    <textarea name="descricao" id="descricao" cols="30" rows="10"  placeholder="Descrição" required><?php echo $_SESSION['descricao'];?></textarea>
                 </div>
 
                 <div class="buttons">

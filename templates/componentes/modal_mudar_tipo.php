@@ -19,30 +19,30 @@
             <div class="inputs">
                 <div>
                     <label for="nome_comp">Nome completo:</label>
-                    <input type="text" name="nome_comp" placeholder="Nome completo">
+                    <input type="text" name="nome_comp" placeholder="Nome completo" required>
                 </div>
 
                 <div>
                     <div>
                         <label for="descricao">Descrição:</label>
-                        <textarea name="descricao" id="descricao" cols="75" rows="5"></textarea>
+                        <textarea name="descricao" id="descricao" cols="75" rows="5" required></textarea>
                     </div>
                 </div>
 
                 <div class="div_inp">
                     <div>
                         <label for="habilidade">Habilidades:</label>
-                        <input type="text" name="habilidade" id="habilidade" autocomplete="off" placeholder="Motorista">
+                        <input type="text" name="habilidade" id="habilidade" autocomplete="off" placeholder="Motorista" required>
                     </div>
                 
                     <div>
                         <label for="idioma">Idiomas:</label>
-                        <input type="text" id="idioma" name="idioma" autocomplete="off" placeholder="Português">
+                        <input type="text" id="idioma" name="idioma" autocomplete="off" placeholder="Português" required>
                     </div>
 
                     <div>
                         <label for="telefone">Telefone:</label>
-                        <input type="text" id="telefone" name="telefone" placeholder="(88) 99999-9999">
+                        <input type="text" id="telefone" name="telefone" placeholder="(88) 99999-9999" required>
                     </div>
                 </div>
             </div>

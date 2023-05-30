@@ -21,6 +21,31 @@ body{
     background-color: #F9F9F9;
 }
 
+.error-msg{
+    position: absolute;
+    z-index: 5;
+    top: 10%;
+    transform: translateX(-100%);
+    left: 0;
+    background-color: red;
+    color: white;
+    padding: 10px;
+    transition: 1s;
+}
+
+.error-camp{
+    border: solid 2px red !important; 
+    color: red;
+}
+
+.error-camp::placeholder{
+    color: red !important;
+}
+
+.slide{
+    transform: translateX(0);
+}
+
 /*Pesquisa*/
 
 .titulo{

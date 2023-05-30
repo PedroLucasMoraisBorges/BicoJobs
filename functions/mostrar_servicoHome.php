@@ -5,6 +5,7 @@ require_once("../templates/servicos.php");
 
 require_once "../autoload.php";
 use Pi\Bicojobs\Model\Servico;
+use Pi\Bicojobs\Model\Paginator;
 use Pi\Bicojobs\Infraestrutura\Persistencia\CriadorConexao;
 $pdo = CriadorConexao::criarConexao();
 
@@ -15,8 +16,7 @@ $pdo = CriadorConexao::criarConexao();
 // DANDO VALOR ÀS VARIÁVEIS PARA O USO
 
 $id = $_SESSION['id'];
-$nome_cliente = $_SESSION['nome'];
-$cidade = $_SESSION['cidade'];
+$id_cidade = $_SESSION['id_cidade'];
 
 // DANDO VALOR ÀS VARIÁVEIS PARA O USO
 
@@ -27,7 +27,6 @@ $cidade = $_SESSION['cidade'];
 if(isset($_GET['submit'])){
     
     $search = $_GET['search'];
-    $id_cidade = $_SESSION['id_cidade'];
 
     // SE A PESQUISA CORRESPONDER TANTO AO NOME QUANTO A CATEGORIA DO SERVICO, MOSTRARÁ AMBOS RESULTADOS;
     $sql = "SELECT * FROM categoria WHERE categoria = '$search'";
@@ -37,109 +36,59 @@ if(isset($_GET['submit'])){
         $id_categoria = ($sql_query->fetch(PDO::FETCH_ASSOC))['id'];
 
         // PAGINAÇÃO
-
-        // CAPTURA DE PARÂMETROS DA URL
-        $capture = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_URL);
-
-        // VARIÁVEIS DE TRATAMENTO
-        // PG = número da página, limit = limite de elementos por página, start é o número do elemento que inicia a página
-        $pg = ($capture == "" ? 1 : $capture);
-        $limit = 5;
-        $start = ($pg * $limit) - $limit;
-
-        $id_cidade = $_SESSION['id_cidade'];
-
-        $sql = "SELECT * FROM servico WHERE id_cidade = $id_cidade AND estado = 0 AND nome = '$search' OR id_categoria = $id_categoria AND id_usuario != $id AND serv_status = :status LIMIT $start, $limit";
-        $sql_query = $pdo -> prepare($sql);
-        $sql_query -> bindValue(":status", 1);
-        $sql_query -> execute();
-
-        $sql = "SELECT * FROM servico WHERE id_cidade = $id_cidade AND estado = 0 AND nome = '$search' OR id_categoria = $id_categoria AND id_usuario != $id";
-        $sql_rows = $pdo->query($sql);
-
-        // LINES É A QUANTIDADE DE ELEMENTOS SELECIONAOS E QUANTIA É A QUANTIDADE DE PÁGINAS
-        $lines = $sql_rows->rowCount();
-        $quantia = ceil($lines/$limit);
+        $paginator = new Paginator();
+        $sql_query = $paginator -> query(
+            $pdo, 
+            "SELECT * FROM servico WHERE id_cidade = $id_cidade AND estado = 0 AND nome = '$search' OR id_categoria = $id_categoria AND id_usuario != $id"
+        );
+        $paginator -> queryTotal(
+            $pdo,
+            "SELECT * FROM servico WHERE id_cidade = $id_cidade AND estado = 0 AND nome = '$search' OR id_categoria = $id_categoria AND id_usuario != $id"
+        );
+        $pg = $paginator->getPage();
+        $quantia = $paginator->getQuantia();
 
         // CASO NÃO SEJA ENCONTRADO NENHUM MOSTRARÁ MENSAGEM DE ERRO;
-        $n_encontrado =  '<div class="read_list"> 
-            <img src="../media/svg/read_list.svg" alt="Read List">
-            <p>Não foi encontrado nenhum serviço que atenda a sua pesquisa</p>
-            </div>';
+        $n_encontrado = $paginator->getNull("Não foi encontrado nenhum serviço que atenda a sua pesquisa");
     }
 
     else{
-    
         // PAGINAÇÃO
-
-        // CAPTURA DE PARÂMETROS DA URL
-        $capture = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_URL);
-
-        // VARIÁVEIS DE TRATAMENTO
-        // PG = número da página, limit = limite de elementos por página, start é o número do elemento que inicia a página
-        $pg = ($capture == "" ? 1 : $capture);
-        $limit = 5;
-        $start = ($pg * $limit) - $limit;
-
-        $id_cidade = $_SESSION['id_cidade'];
-
-        $sql = "SELECT * FROM servico WHERE id_cidade = $id_cidade AND estado = 0 AND nome = '$search' AND id_usuario != $id AND serv_status = :status LIMIT $start, $limit";
-        
-        $sql_query = $pdo -> prepare($sql);
-        $sql_query -> bindValue(":status", 1);
-        $sql_query -> execute();
-
-        $sql = "SELECT * FROM servico WHERE id_cidade = '$id_cidade' AND estado = 0 AND nome = '$search' AND id_usuario != $id";
-        $sql_rows = $pdo->query($sql);
-        
-        // LINES É A QUANTIDADE DE ELEMENTOS SELECIONAOS E QUANTIA É A QUANTIDADE DE PÁGINAS
-        $lines = $sql_rows->rowCount();
-        $quantia = ceil($lines/$limit);
+        $paginator = new Paginator();
+        $sql_query = $paginator -> query(
+            $pdo, 
+            "SELECT * FROM servico WHERE id_cidade = $id_cidade AND estado = 0 AND nome = '$search' AND id_usuario != $id"
+        );
+        $paginator -> queryTotal(
+            $pdo,
+            "SELECT * FROM servico WHERE id_cidade = '$id_cidade' AND estado = 0 AND nome = '$search' AND id_usuario != $id"
+        );
+        $pg = $paginator->getPage();
+        $quantia = $paginator->getQuantia();
         
         // CASO NÃO SEJA ENCONTRADO NENHUM MOSTRARÁ MENSAGEM DE ERRO;
-        $n_encontrado =  '<div class="read_list"> 
-            <img src="../media/svg/read_list.svg" alt="Read List">
-            <p>Não foi encontrado nenhum serviço que atenda a sua pesquisa</p>
-            </div>';
+        $n_encontrado = $paginator->getNull("Não foi encontrado nenhum serviço que atenda a sua pesquisa");
     }
     
 }
 
 // SE CASO NÃO SEJA EFETUADA A PESQUISA LISTA TODOS OS SERVIÇOS;
-else{           
-
+else{    
     // PAGINAÇÃO
-
-    // CAPTURA DE PARÂMETROS DA URL
-    $capture = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_URL);
-
-    // VARIÁVEIS DE TRATAMENTO
-    // PG = número da página, limit = limite de elementos por página, start é o número do elemento que inicia a página
-    $pg = ($capture == "" ? 1 : $capture);
-    $limit = 5;
-    $start = ($pg * $limit) - $limit;
-
-    $id_cidade = $_SESSION['id_cidade'];
-
-    $sql = "SELECT * FROM servico WHERE id_cidade = '$id_cidade' AND estado = 0 AND id_usuario != $id AND serv_status = :status LIMIT $start, $limit";
-    $sql_query = $pdo -> prepare($sql);
-    $sql_query -> bindValue(":status", 1);
-    $sql_query -> execute();
-
-    $sql = "SELECT * FROM servico WHERE id_cidade = '$id_cidade' AND estado = 0 AND id_usuario != $id";
-    $sql_rows = $pdo->query($sql);
-
-    // LINES É A QUANTIDADE DE ELEMENTOS SELECIONAOS E QUANTIA É A QUANTIDADE DE PÁGINAS
-    $lines = $sql_rows->rowCount();
-    $quantia = ceil($lines/$limit);
-
-
+    $paginator = new Paginator();
+    $sql_query = $paginator -> query(
+        $pdo, 
+        "SELECT * FROM servico WHERE id_cidade = '$id_cidade' AND estado = 0 AND id_usuario != $id"
+    );
+    $paginator -> queryTotal(
+        $pdo,
+        "SELECT * FROM servico WHERE id_cidade = '$id_cidade' AND estado = 0 AND id_usuario != $id"
+    );
+    $pg = $paginator->getPage();
+    $quantia = $paginator->getQuantia();
 
     // CASO NÃO SEJA ENCONTRADO NENHUM SERVIÇO COM O MESMO ID_USARIO MOSTRARÁ O ERRO;
-    $n_encontrado =  '<div class="read_list"> 
-            <img src="../media/svg/read_list.svg" alt="Read List">
-            <p>Não há serviços locais na sua região, tente verificar se o seu CEP está correto</p>
-            </div>';
+    $n_encontrado = $paginator->getNull("Não há serviços locais na sua região, tente verificar se o seu CEP está correto");
 
 }
 

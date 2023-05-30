@@ -1,9 +1,10 @@
 <?php
-session_start();
+require_once("../templates/servicos.php");
 // AUTOLOAD DOS ARQUIVOS COM AS CLASSES;
 
 require_once "../autoload.php";
 use Pi\Bicojobs\Model\User;
+use Pi\Bicojobs\Model\Verificacoes;
 use Pi\Bicojobs\Infraestrutura\Persistencia\CriadorConexao;
 $pdo = CriadorConexao::criarConexao();
 
@@ -38,17 +39,21 @@ $usuario = new User(
     1
 );
 
+$verificacao = new Verificacoes();
+$v_telefone = $verificacao->verificaTel($pdo, $_POST['telefone'], $_SESSION['id']);
 
-$usuario->alterar_tipo(
-    $_SESSION["id"],
-    $pdo,
-    $novo_nome,
-    $_POST['descricao'],
-    $_POST['habilidade'],
-    $_POST['idioma'],
-    $_POST['telefone'],
-    $_POST['nome_comp'],
-    $usuario
-);
+if($v_telefone == 0){
+    $usuario->alterar_tipo(
+        $_SESSION["id"],
+        $pdo,
+        $novo_nome,
+        $_POST['descricao'],
+        $_POST['habilidade'],
+        $_POST['idioma'],
+        $_POST['telefone'],
+        $_POST['nome_comp'],
+        $usuario
+    );
+}
 
 // INSTANCIÂNDO A CLASSE COM AS INFORMAÇÕES DO USUÁRIO E EXECUTANDO A FUNÇÃO; 

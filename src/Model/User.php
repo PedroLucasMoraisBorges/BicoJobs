@@ -127,71 +127,13 @@ class User implements AutenticarUser{
         
     }
     public function setEmail($pdo, $email, $id_contato) : void{
-        // Alteração ou cancelamento de email
-        $sql_code = "SELECT id FROM contato WHERE email = '$email'";
-        $sql_query = $pdo->query($sql_code);
-
-        // Verifica se o email já é cadastrado no BD
-        if($sql_query->rowCount() == 0){
-            // Altera o valor da coluna
-            $pdo->query("UPDATE contato SET email= '$email' WHERE id = '$id_contato'");
-        }
-        else{
-            $sql_code = "SELECT * FROM contato WHERE id = '$id_contato'";
-            $sql_query = $pdo->query($sql_code);
-            $sql_query = $sql_query->fetch(PDO::FETCH_ASSOC);
-
-
-            // Verifica se o email cadastrado no banco já pertence ao usuário
-            if($sql_query['email'] != $email){
-                echo "<script> 
-                let error = document.getElementById('error-msg-login');
-                error.innerHTML = 'Email Já cadastrado';
-                setTimeout(() => {
-                    error.classList.add('slide');
-                }, 250);
-                setTimeout(() => {
-                error.classList.remove('slide');
-                }, 3250);
-                </script>";
-            }
-        }
-        // Alteração ou cancelamento de email
+        $pdo->query("UPDATE contato SET email= '$email' WHERE id = '$id_contato'");
     }
 
 
 
     public function setTelefone($pdo, $telefone, $id_contato){
-        // Alteração ou cancelamento de telefone
-        $sql_code = "SELECT id FROM contato WHERE telefone = '$telefone'";
-        $sql_query = $pdo->query($sql_code);
-        
-
-        // Verifica se o email já é cadastrado no BD
-        if($sql_query->rowCount() == 0){
-            // Altera o valor da coluna
-            $id_contato = ($sql_query->fetch(PDO::FETCH_ASSOC))['id'];
-            $sql_query = $pdo->query("UPDATE contato SET telefone= '$telefone' WHERE id = '$id_contato'");
-        }
-        else{
-            $sql_code = "SELECT telefone FROM contato WHERE id = $id_contato";
-            $sql_query = $pdo->query($sql_code);
-            $sql_query = $sql_query->fetch(PDO::FETCH_ASSOC);
-
-            // Verifica se o email cadastrado no banco já pertence ao usuário
-            if($sql_query['telefone'] != $telefone){
-                echo "<script> 
-                let error = document.getElementById('error-msg-login');
-                error.innerHTML = 'Telefone Já cadastrado';
-                setTimeout(() => {
-                    error.classList.add('slide');
-                }, 250);
-                setTimeout(() => {
-                error.classList.remove('slide');
-                }, 3250);
-                </script>";
-            }
-        }
+        $sql_query = $pdo->query("UPDATE contato SET telefone= '$telefone' WHERE id = '$id_contato'");
     }
 
     // GET E SET
@@ -279,68 +221,23 @@ class User implements AutenticarUser{
 
     // MÉTODOS ESPECÍFICOS
 
-    public function login($pdo,$email, $senha) : void
+    public function login($pdo,$user) : void
     {
-        $sql_code_contato = "SELECT id FROM contato WHERE email = '$email'";
-
-
-        $sql_query = $pdo->query($sql_code_contato);
-        $row = $sql_query->fetch(PDO::FETCH_ASSOC);
-
-        if($sql_query->rowCount() == 1){
-            $email = $row["id"];
-            $sql = "SELECT * FROM usuario WHERE id_contato = '$email' AND senha = '$senha'";
-            $sql_qery = $pdo->query($sql);
-
-            $user = $sql_qery->fetch(PDO::FETCH_ASSOC);
-
-            if($sql_qery -> rowCount() == 0){
-                echo "<script> 
-                let error = document.getElementById('error-msg-login');
-                error.innerHTML = 'Senha não corresponde!';
-                setTimeout(() => {
-                    error.classList.add('slide');
-                }, 250);
-                setTimeout(() => {
-                error.classList.remove('slide');
-                }, 3250);
-                </script>";
-            } else{
-
-                if(!isset($_SESSION)){
-                    session_start();
-                }
-
-                //Criado a sessao do USER
-                $cep = $user['id_cidade'];
-                $sql = "SELECT cep FROM cidade WHERE id = $cep";
-                $sql_query = $pdo->query($sql);
-                $nome_cidade = $sql_query->fetch(PDO::FETCH_ASSOC);
-
-                $_SESSION = $user;
-                $_SESSION['cidade'] = $nome_cidade['cep'];
-
-                //redicionando o user
-                header("Location: http://localhost/BicoJobs/templates/servicos.php");
-            }
+        if(!isset($_SESSION)){
+            session_start();
         }
-        else{
 
-            echo "<script> 
+        //Criado a sessao do USER
+        $cep = $user['id_cidade'];
+        $sql = "SELECT cep FROM cidade WHERE id = $cep";
+        $sql_query = $pdo->query($sql);
+        $nome_cidade = $sql_query->fetch(PDO::FETCH_ASSOC);
 
-                let error = document.getElementById('error-msg-login');
-                error.textContent = 'Email não encontrado!';
-                setTimeout(() => {
-                    error.classList.add('slide');
-                }, 250);
-                setTimeout(() => {
-                    error.classList.remove('slide');
-                }, 3250);
-            
-            </script>";
+        $_SESSION = $user;
+        $_SESSION['cidade'] = $nome_cidade['cep'];
 
-
-        }
+        //redicionando o user
+        header("Location: http://localhost/BicoJobs/templates/servicos.php");
     }
 
 
@@ -463,8 +360,8 @@ class User implements AutenticarUser{
         }
 
         $_SESSION = $user;
+        echo "<script>open('http://localhost/BicoJobs/templates/servicos.php' , '_self');</script>";
 
-        header("Location: http://localhost/BicoJobs/templates/servicos.php");
     }
 
 

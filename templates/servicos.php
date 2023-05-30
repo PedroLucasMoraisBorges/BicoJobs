@@ -33,7 +33,6 @@ $caminho = 'http://localhost/BicoJobs/';
     </div>
 
     <?php include 'componentes/nav.php';?>
-
     <div class="error-msg" id="error-msg-login"></div>
 
 
