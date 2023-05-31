@@ -1,7 +1,7 @@
 <?php
 
 echo "
-    <div class='card' id='card$id'>
+    <div class='card' id='card$id' onClick='verOferta(this)'>
 
         <img src='$caminho/media/img_services/$this->img_servico' alt='#' class='img_fundo'>
 
@@ -29,60 +29,61 @@ echo "
             Abrir
         </button>
 
-        
-        <div class='modal_verOferta none' id='modal_btn$id'>
-            <div class='modal_header'>
-                <h2>Detalhes da oferta</h2>
-            </div>
-            <div class='oferta_detalhes'>
-                <div class='pessoais'>
-                    <div class='img'>
-                        <img src='$caminho/media/area-atuação/$img_categoria' alt=''>
-                    </div>
-                    <h3>$nome_comp_ofertante</h3>
-                    <p>$avaliacao</p>
-                </div>
-                <div class='oferta'>
-                    <p><strong>Serviço: </strong>$this->nome</p>
-                    <p><strong>Horário: </strong>$this->horario</p>
-                    <p><strong>Descrição: </strong>$this->valor_descricao</p>
-                    <p><strong>Valor: </strong>$this->valor</p>
-                    <p><strong>Contato: </strong>$this->contato</p>
-                </div>
-            </div>
-            <hr>
-            <div class='modal_footer_rating'>
-                <button class='fechar' onclick='fecharModal()'>
-                    Fechar
-                </button>
-                
-                
-                <form action = '../functions/avaliar_servico.php' method = 'POST'>
-                    <p class='ratingP'>Nota: </p>
-                    <div class='stars'>
-                        <input type='radio' name='score' id='r1' value='1'>
-                        <label for='r1'>1</label>
-                        <input type='radio' name='score' id='r2' value='2'>
-                        <label for='r2'>2</label>
-                        <input type='radio' name='score' id='r3' value='3'>
-                        <label for='r3'>3</label>
-                        <input type='radio' name='score' id='r4' value='4'>
-                        <label for='r4'>4</label>
-                        <input type='radio' name='score' id='r5' value='5'>
-                        <label for='r5'>5</label>
-                    </div>
-
-                    <input type='text' name='user_id' class = 'none' value='$id_user'>
-                    <input type='text' name='id' class = 'none' value='$id'>
-                    <input type='text' name='confirmar' class = 'none' id = 'contatar' value='1'>
-
-
-                    <input type='submit' name = 'confirmar' value = 'Avaliar'>
-                </form>
-                
-                
-            </div>
-        </div>
     </div>";
+
+    echo "<div class='modal_verOferta none' id='modal_card$id'>
+    <div class='modal_header'>
+        <h2>Detalhes da oferta</h2>
+    </div>
+    <div class='oferta_detalhes'>
+        <div class='pessoais'>
+            <div class='img'>
+                <img src='$caminho/media/area-atuação/$img_categoria' alt=''>
+            </div>
+            <h3>$nome_comp_ofertante</h3>
+            <p>$avaliacao</p>
+        </div>
+        <div class='oferta'>
+            <p><strong>Serviço: </strong>$this->nome</p>
+            <p><strong>Horário: </strong>$this->horario</p>
+            <p><strong>Descrição: </strong>$this->valor_descricao</p>
+            <p><strong>Valor: </strong>$this->valor</p>
+            <p><strong>Contato: </strong>$this->contato</p>
+        </div>
+    </div>
+    <hr>
+    <div class='modal_footer_rating'>
+        <button class='fechar' onclick='fecharModal()'>
+            Fechar
+        </button>
+        
+        
+        <form action = '../functions/avaliar_servico.php' method = 'POST'>
+            <p class='ratingP'>Nota: </p>
+            <div class='stars'>
+                <input type='radio' name='score' id='r1' value='1'>
+                <label for='r1'>1</label>
+                <input type='radio' name='score' id='r2' value='2'>
+                <label for='r2'>2</label>
+                <input type='radio' name='score' id='r3' value='3'>
+                <label for='r3'>3</label>
+                <input type='radio' name='score' id='r4' value='4'>
+                <label for='r4'>4</label>
+                <input type='radio' name='score' id='r5' value='5'>
+                <label for='r5'>5</label>
+            </div>
+
+            <input type='text' name='user_id' class = 'none' value='$id_user'>
+            <input type='text' name='id' class = 'none' value='$id'>
+            <input type='text' name='confirmar' class = 'none' id = 'contatar' value='1'>
+
+
+            <input type='submit' name = 'confirmar' value = 'Avaliar'>
+        </form>
+        
+        
+    </div>
+</div>";
+
 
     

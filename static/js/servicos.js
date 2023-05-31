@@ -15,20 +15,14 @@ function ativate(){
     return teste;
 }
 
-
-function verOferta(){
+function verOferta(event){
     var modal = document.querySelector(".modal_fundo");
-    var geral = document.querySelector(".conteudo");
-    geral.addEventListener("click" ,function(event){
-        click = event.target;
-        var id = click.id;
-        var modal_id = "modal_"+id;
-        
-        var modal_info = document.getElementById(modal_id);
-        console.log(modal_info)
-        modal_info.classList.remove('none');
-        console.log(id);
-    })
+    click = event;
+    var id = click.id;
+    var modal_id = "modal_"+id;
+    console.log(modal_id);
+    var modal_info = document.getElementById(modal_id);
+    modal_info.classList.remove('none');
     modal.classList.remove("none");
 }
 

@@ -22,13 +22,14 @@
     flex-direction: column;
     justify-content: flex-end;
     color: white;
+    transition: 0.1s;
     font-size: 1rem;
     box-shadow: 1.5px 1.5px 2px #40404050;
     background-color: #30303080;
 }
 
 .card:hover{
-    cursor: pointer;
+    transform: scale(1.03);
 }
 
 .card:hover .botao_abrir{
