@@ -264,6 +264,8 @@ class Servico implements AutenticarServico{
     {
 
         $caminho = 'http://localhost/BicoJobs/';
+
+        $img_categoria = $this->getCategoria($pdo);
         
         if($this->valor == 0.0){
             $this->valor = "A combinar";
@@ -288,7 +290,7 @@ class Servico implements AutenticarServico{
         else{
             while($row = $result->fetch(PDO::FETCH_ASSOC)){
                 $n += 1;
-                $avaliacao += $row['nota'];
+                $avaliacao += $row['notas'];
             }
             $avaliacao = $avaliacao/=$n;
         }

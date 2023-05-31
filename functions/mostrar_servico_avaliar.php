@@ -24,7 +24,6 @@ if($sql_query_servico_aval -> rowCount() > 0){
     
         $sql_query = $pdo->query($sql);
 
-        if($sql_query->rowCount() > 0){
             while($servico = $sql_query->fetch(PDO::FETCH_ASSOC)){
 
                 $servico = new servico(
@@ -54,14 +53,7 @@ if($sql_query_servico_aval -> rowCount() > 0){
     
             }
         }
-        else{
-            echo '<div class="read_list"> 
-            <img src="../media/svg/read_list.svg" alt="Read List">
-            <p>Você não tem nenhum serviço no momento</p>
-            </div>';
-        }
-        }
-}
+    }
 else{
     echo '<div class="read_list"> 
     <img src="../media/svg/read_list.svg" alt="Read List">
