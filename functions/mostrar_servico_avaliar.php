@@ -55,7 +55,7 @@ if($sql_query_servico_aval -> rowCount() > 0){
         }
     }
 else{
-    echo '<div class="read_list"> 
+    echo '<div class="read_list" style="margin-bottom: 3rem;"> 
     <img src="../media/svg/read_list.svg" alt="Read List">
     <p>Você não tem nenhum serviço no momento</p>
     </div>';

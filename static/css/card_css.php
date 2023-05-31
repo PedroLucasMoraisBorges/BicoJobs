@@ -30,6 +30,7 @@
 
 .card:hover{
     transform: scale(1.03);
+    cursor: pointer;
 }
 
 .card:hover .botao_abrir{
