@@ -108,9 +108,8 @@ else if($verificacao -> verificaTel($pdo, $telefone, $_SESSION['id_contato']) !=
 else{
 
     // INSTANCIÂNDO A CLASSE COM AS INFORMAÇÕES DO USUÁRIO E EXECUTANDO A FUNÇÃO; 
-
     $usuario = new User(
-        $_SESSION['id'],
+        $id,
         $_SESSION["nome"],
         $_SESSION["dt_nascimento"],
         $_SESSION["cpf"],

@@ -260,9 +260,8 @@ class Servico implements AutenticarServico{
 
     }
 
-    public function mostrarServicosAvaliar($pdo, $id, $id_usuario, $nome_cliente, $cidade, $estado, $id_session) : void 
+    public function mostrarServicosAvaliar($pdo, $id) : void 
     {
-
         $caminho = 'http://localhost/BicoJobs/';
 
         $img_categoria = $this->getCategoria($pdo);
@@ -304,17 +303,16 @@ class Servico implements AutenticarServico{
     }
 
 
-    public function alterarEstado($user_id, $pdo, $estado, $id, $contatar) : void
+    public function alterarEstado($pdo, $estado, $contatar,$id,$id_user) : void
     {
+
+        
         $sql = "UPDATE servico SET estado = $estado WHERE id = $id";
         $pdo->query($sql);
 
         if($estado == 1){
             // QUANDO O USUÁRIO SOLICITAR UM SERVIÇO, SERÁ INSERIDO NA TABELA SERVICOAVALIAR PARA, ASSIM QUE CONFIRMADO, O CLIENTE PODER DAR SUA AVALIAÇÃO
-
-            $sql = "INSERT INTO servicoavaliar (id_usuario, id_servico) VALUES ($user_id, $id)";
-            $pdo->query($sql);
-            
+            $this->setServicosAvaliar($pdo, $id, $id_user);
 
             // VERIFICA SE A FORMA DE CONTATI É EMAIL OU TELEFONE PARA EFETUAR O REDIRECIONAMENTO
             if(str_contains($contatar, "@")){
@@ -329,6 +327,12 @@ class Servico implements AutenticarServico{
         else{
             echo "<script>open('http://localhost/BicoJobs/templates/seus_bicos.php' , '_self');</script>";
         }
+    }
+
+    public function setServicosAvaliar($pdo, $id, $id_user){
+        $sql = "INSERT INTO servicoavaliar (id_usuario, id_servico, id_categoria, nome, valor, descricao, horario, img_servico, contato, id_ofertante) VALUES ('$id_user', '$id', '$this->id_categoria', '$this->nome', '$this->valor', '$this->valor_descricao', '$this->horario', '$this->img_servico', '$this->contato', '$this->id_usuario')";
+    
+        $pdo->query($sql);
     }
 
 

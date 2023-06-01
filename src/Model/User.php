@@ -45,22 +45,22 @@ class User implements AutenticarUser{
 
 
     public function setNome($pdo, $nome) : void{
-        $pdo->query("UPDATE usuario SET nome = '$nome'");
+        $pdo->query("UPDATE usuario SET nome = '$nome' WHERE id = '$this->id'");
     }
 
     public function setDescricao($pdo, $descricao) : void
     {
-        $pdo->query("UPDATE usuario SET descricao = '$descricao'");
+        $pdo->query("UPDATE usuario SET descricao = '$descricao' WHERE id = '$this->id'");
     }
 
     public function setNomeComp($pdo, $nome_comp) : void
     {
-        $pdo->query("UPDATE usuario SET nome_comp = '$nome_comp'");
+        $pdo->query("UPDATE usuario SET nome_comp = '$nome_comp' WHERE id = '$this->id'");
     }
 
     public function setHabilidades($pdo, $habilidade) : void
     {
-        $pdo->query("UPDATE usuario SET habilidades = '$habilidade'");
+        $pdo->query("UPDATE usuario SET habilidades = '$habilidade' WHERE id = '$this->id'");
     }
 
     public function setImgPerfil($pdo, $img_perfil) : void
@@ -88,7 +88,7 @@ class User implements AutenticarUser{
             $id_idioma = ($sql_query->fetch(PDO::FETCH_ASSOC))['id'];
         }
 
-        $sql = "UPDATE usuario SET id_idioma = '$id_idioma'";
+        $sql = "UPDATE usuario SET id_idioma = '$id_idioma' WHERE id = '$this->id'";
         $sql_query = $pdo->query($sql);
 
         return $id_idioma;
@@ -528,6 +528,74 @@ class User implements AutenticarUser{
         }
 
         return $meses;
+    }
+
+
+    public function setNotasUser($pdo){
+        $sql = "SELECT notas FROM notas WHERE id_usuario = '$this->id'";
+        $sql_query = $pdo->query($sql);
+        
+        $notas = array(
+            "0" => 0,
+            "1" => 0,
+            "2" => 0,
+            "3" => 0,
+            "4" => 0,
+            "5" => 0
+        );
+
+        while($nota = $sql_query->fetch(PDO::FETCH_ASSOC)){
+            if($nota['notas'] == 0){
+                $notas["0"] += 1;
+            }
+            else if($nota['notas'] == 1){
+                $notas["1"] += 1;
+            }
+            else if($nota['notas'] == 2){
+                $notas["2"] += 1;
+            }
+            else if($nota['notas'] == 3){
+                $notas["3"] += 1;
+            }
+            else if($nota['notas'] == 4){
+                $notas["4"] += 1;
+            }
+            else{
+                $notas["5"] += 1;
+            }
+        }
+
+        return $notas;
+    }
+
+
+    public function retornarNotas($notas){
+        echo "
+        <script>
+            var ctx = document.getElementById('total_notas');
+
+            // Tipos de dados e opções do gráfico
+            var chartGraph = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: [
+                '0', '1', '2', '3', '4', '5',
+                ],
+                datasets: [{
+
+                data: [".$notas['0'].",".$notas['1'].",".$notas['2'].",".$notas['3'].",".$notas['4'].",".$notas['5']."],
+                backgroundColor: [
+                    'red',
+                    'orange',
+                    'yellow',
+                    'green',
+                    'blue'
+                ],
+                hoverOffset: 8
+                }]
+            },
+            });
+      </script>";
     }
 
 

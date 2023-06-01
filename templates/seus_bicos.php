@@ -214,6 +214,16 @@ $pdo = CriadorConexao::criarConexao();
             </div>
         </div>
 
+        <div class="graficos">
+            <canvas id="total_notas">
+            <?php 
+                    include("../functions/retornarServicosFeitos.php");
+                    $notas = $user -> setNotasUser($pdo);
+                    $user -> retornarNotas($notas);
+                ?>
+            </canvas>
+        </div>
+
         
         
     </main>
