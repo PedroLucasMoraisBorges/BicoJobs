@@ -1,53 +1,41 @@
 <?php
-require_once("../templates/logcad.php");
-// AUTOLOAD DOS ARQUIVOS COM AS CLASSES;
 
-require_once("../autoload.php");
-use Pi\Bicojobs\Model\User;
-use Pi\Bicojobs\Model\Verificacoes;
-use Pi\Bicojobs\Infraestrutura\Persistencia\CriadorConexao;
-$pdo = CriadorConexao::criarConexao();
+    require_once("../templates/logcad.php");
+    require_once("../autoload.php");
 
-// AUTOLOAD DOS ARQUIVOS COM AS CLASSES;
+    use Pi\Bicojobs\Model\User;
+    use Pi\Bicojobs\Model\Verificacoes;
+    use Pi\Bicojobs\Infraestrutura\Persistencia\CriadorConexao;
+    $pdo = CriadorConexao::criarConexao();
 
+    $cep = $_POST['cep'];
+    $sql_codes = [];
 
+    $url =  "https://viacep.com.br/ws/$cep/json/";
+    $address = json_decode(file_get_contents($url),true);
 
-$cep = $_POST['cep'];
-$sql_codes = [];
+    $usuario = new User(
+        0,
+        $_POST['user_cad'],
+        $_POST['dtNasci'],
+        $_POST['cpf'],
+        $address['localidade'],
+        $_POST['password_cad'],
+        0,
+        $_POST['email_cad'],
+    );
 
+    $verificacoes = new Verificacoes;
 
-$url =  "https://viacep.com.br/ws/$cep/json/";
-$address = json_decode(file_get_contents($url),true);
+    $v_email = $verificacoes->verificaEmailCad($pdo, $_POST['email_cad']);
+    $v_cpf = $verificacoes->verificaCpf($pdo, $_POST['cpf']);
 
-
-
-// INSTANCIÂNDO A CLASSE COM AS INFORMAÇÕES DO USUÁRIO E EXECUTANDO A FUNÇÃO; 
-
-$usuario = new User(
-    0,
-    $_POST['user_cad'],
-    $_POST['dtNasci'],
-    $_POST['cpf'],
-    $address['localidade'],
-    $_POST['password_cad'],
-    0,
-    $_POST['email_cad'],
-);
-
-$verificacoes = new Verificacoes;
-
-
-$v_email = $verificacoes->verificaEmailCad($pdo, $_POST['email_cad']);
-$v_cpf = $verificacoes->verificaCpf($pdo, $_POST['cpf']);
-
-if($v_email != 0){
-    $verificacoes->error("Email já existente");
-}
-else if($v_cpf != 0){
-    $verificacoes->error("CPF já cadastrado");
-}
-else{
-    // EFETUTA O CADASTRO;
-    $usuario->sign_in($sql_codes,$pdo);
-}
-// INSTANCIÂNDO A CLASSE COM AS INFORMAÇÕES DO USUÁRIO E EXECUTANDO AS FUNÇÕES; 
+    if($v_email != 0){
+        $verificacoes->error("Email já existente");
+    }
+    else if($v_cpf != 0){
+        $verificacoes->error("CPF já cadastrado");
+    }
+    else{
+        $usuario->sign_in($sql_codes,$pdo);
+    }

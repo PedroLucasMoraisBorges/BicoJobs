@@ -1,6 +1,6 @@
 <?php
     namespace Pi\Bicojobs\Model;
-    require "../autoload.php";
+    require_once "../autoload.php";
     use PDO;
 
     class Servico{
@@ -209,8 +209,8 @@
                 }
             }
             else{
-                $id_categoria = ($pdo->fetch(PDO::FETCH_ASSOC))['id'];
-                $sqlInsert = "INSERT INTO servico (id_cidade, nome, valor, descricao, estado, horario, img_servico, id_categoria, contato, id_usuario) VALUES ($this->id_cidade, '$this->nome', '$this->valor', '$this->valor_descricao', '$this->estado', '$this->horario', '$this->img_servico', $id_categoria, '$this->contato', $this->id_usuario)";
+                $id_categoria = ($stmt->fetch(PDO::FETCH_ASSOC))['id'];
+                $sqlInsert = "INSERT INTO servico (id_cidade, nome, valor, descricao, estado, horario, img_servico, id_categoria, contato, id_usuario, serv_status) VALUES ($this->id_cidade, '$this->nome', '$this->valor', '$this->valor_descricao', '$this->estado', '$this->horario', '$this->img_servico', $id_categoria, '$this->contato', $this->id_usuario)";
 
                 if($pdo->query($sqlInsert) === FALSE){
                     echo "Failed Insertion!";
@@ -253,7 +253,7 @@
             $avaliacao = 0;
 
             $sqlConsult = "SELECT notas FROM notas WHERE id_usuario = '$id_user'";
-            $stmt = $pdo->query($stmt);
+            $stmt = $pdo->query($sqlConsult);
             $n = 0;
             if($stmt->rowCount() == 0){
                 $avaliacao = "Novo";
