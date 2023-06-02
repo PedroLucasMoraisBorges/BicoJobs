@@ -267,8 +267,6 @@ class User{
 
             //fazendo login
             $user = $sql_query->fetch(PDO::FETCH_ASSOC);
-            // start da sessao
-            session_start();
 
             //Criado a sessao do USER
             $_SESSION = $user;

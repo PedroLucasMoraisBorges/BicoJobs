@@ -1,8 +1,7 @@
 <?php
-namespace Pi\Bicojobs\Infraestrutura\Persistencia;
+    namespace Pi\Bicojobs\Infraestrutura\Persistencia; // UTILIZANDO O NAMESPACE PARA USAR A CLASSE PDO
+    use PDO;
 
-// UTILIZANDO O NAMESPACE PARA USAR A CLASSE PDO
-use PDO;
     class CriadorConexao{
         private static $instace;
         public static function criarConexao() : PDO
