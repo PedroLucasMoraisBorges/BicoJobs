@@ -3,7 +3,7 @@ namespace Pi\Bicojobs\Model;
 require "../autoload.php";
 
 use PDO;
-class User implements AutenticarUser{
+class User{
     private  $id;
     private  $email;
     private  $telefone;
@@ -43,6 +43,59 @@ class User implements AutenticarUser{
         self::$numUsuarios--;
     }
 
+    public function getUsuario($pdo){
+        $sql = "SELECT * FROM usuario WHERE id = '$this->id'";
+        $usuario = ($pdo->query($sql))->fetch(PDO::FETCH_ASSOC);
+
+        return $usuario;
+    }
+
+    public function getId() : int
+    {
+        return $this->id;
+    }
+
+    public function getCidade($pdo){
+        $sql = "SELECT cid.cep FROM cidade cid join usuario usu on cid.id = usu.id_cidade WHERE usu.id = '$this->id'";
+        $cidade = ($pdo->query($sql))->fetch(PDO::FETCH_ASSOC);
+
+        return $cidade['cep'];
+    }
+
+
+    public function getContatos($pdo){
+        $sql = "SELECT con.email, con.telefone FROM contato con join usuario usu on con.id = usu.id_contato WHERE usu.id = '$this->id'";
+        $contatos = ($pdo->query($sql))->fetch(PDO::FETCH_ASSOC);
+
+        return $contatos;
+    }
+
+
+    public function getIdioma($pdo){
+        $sql = "SELECT idi.idioma FROM idioma idi join usuario usu on idi.id = usu.id_idioma WHERE usu.id = '$this->id'";
+        $idioma = ($pdo->query($sql))->fetch(PDO::FETCH_ASSOC);
+
+        return $idioma['idioma'];
+    }
+
+    public function getNotas($pdo){
+        $sql = "SELECT nota.notas FROM notas nota join usuario usu on nota.id_usuario = usu.id WHERE usu.id = '$this->id'";
+        $result = $pdo->query($sql);
+        $nota = 0;
+        $n = 0;
+        if($result->rowCount() == 0){
+            $nota = "Novo";
+        }
+        else{
+            while($row = $result->fetch(PDO::FETCH_ASSOC)){
+                $n += 1;
+                $nota += $row['notas'];
+            }
+            $nota = $nota/=$n;
+        }
+
+        return $nota;
+    }
 
     public function setNome($pdo, $nome) : void{
         $pdo->query("UPDATE usuario SET nome = '$nome' WHERE id = '$this->id'");
@@ -126,92 +179,53 @@ class User implements AutenticarUser{
         $sql_query = $pdo->query($sql_code);
         
     }
+
+
     public function setEmail($pdo, $email, $id_contato) : void{
         $pdo->query("UPDATE contato SET email= '$email' WHERE id = '$id_contato'");
     }
-
-
 
     public function setTelefone($pdo, $telefone, $id_contato){
         $sql_query = $pdo->query("UPDATE contato SET telefone= '$telefone' WHERE id = '$id_contato'");
     }
 
-    // GET E SET
-    public function getIdCidade($mysqli) : int
-    {
-        $sql_code = "SELECT id_cidade FROM usuario WHERE id = $this->id";
-        $sql_query = $mysqli->query($sql_code) or die("Falha na execuça do código SQL" .$mysqli->error);
-
-        $id_cidade = $sql_query->fetch(PDO::FETCH_ASSOC);
-
-        return $id_cidade['id_cidade'];
-    }
-    public function setIdCidade($sql_codes, $mysqli) : array
+    public function setIdCidade($pdo)
     {
         // Verifica se tem a cidade no banco
-        $sql_code_mesmo_cep = "SELECT id FROM cidade WHERE cep = '$this->cep'";
-        $sql_code_last_id = "SELECT id FROM cidade";
+        $sql_code = "SELECT id FROM cidade WHERE cep = '$this->cep'";
+        $sql_last_id = "SELECT id FROM cidade";
 
         // Verifica se é possível efetuar o código ou da erro;
-        $sql_query = $mysqli->query($sql_code_mesmo_cep) or die("Falha na execuça do código SQL" .$mysqli->error);
+        $sql_query = $pdo->query($sql_code);
         // Retorna a chave do array
         $row = $sql_query->fetch(PDO::FETCH_ASSOC);
 
         // Verifica se é possível efetuar o código ou da erro;
-        $sql_query_last_id = $mysqli->query($sql_code_last_id) or die("Falha na execuça do código SQL" .$mysqli->error);
+        $sql_query_last_id = $pdo->query($sql_last_id);
         // Verifica a qauntidade de lihas afetadas;
         $last_id = $sql_query_last_id->rowCount();
 
 
         if($sql_query->rowCount() <= 0){
             $sql = "INSERT INTO cidade (id, cep) VALUES ($last_id, '$this->cep')";
-            $sql_codes[] = $sql;
-            //(mysqli_query($mysqli, $sql));
+            $pdo->query($sql);
             $this->cep = $last_id;
-            return $sql_codes;
         }
         else{
             $this->cep = $row["id"];
-            return $sql_codes;
         }
     }
 
-
-
-    public function getEmail($mysqli) : string
+    public function setIdEmail($pdo)
     {
-        $sql_code = "SELECT id_contato FROM usuario WHERE id = $this->id";
-        $sql_query = $mysqli->query($sql_code) or die("Falha na execuça do código SQL" .$mysqli->error);
-
-        $id_contato = $sql_query->fetch(PDO::FETCH_ASSOC);
-        $id_contato = $id_contato['id'];
-
-        $sql_code = "SELECT email FROM contato WHERE id = $id_contato";
-        $sql_query = $mysqli->qery($sql_code) or die("Falha na execuça do código SQL" .$mysqli->error);
-        $email = $sql_query->fetch(PDO::FETCH_ASSOC);
-
-        return $email['email'];
-    }
-    public function setIdEmail($sql_codes, $mysqli) : array
-    {
-        $sql_code = "SELECT id FROM contato WHERE email = '$this->email'";
         $sql_code_last_id = "SELECT id FROM contato";
+        $sql_query_last_id = $pdo->query($sql_code_last_id) or die("Falha na execuça do código SQL" .$pdo->error);
 
-        $sql_query = $mysqli->query($sql_code) or die("Falha na execuça do código SQL" .$mysqli->error);
-
-        $sql_query_last_id = $mysqli->query($sql_code_last_id) or die("Falha na execuça do código SQL" .$mysqli->error);
         $last_id = $sql_query_last_id->rowCount();
 
-
-        if($sql_query->rowCount() <= 0){
-            $sql = "INSERT INTO contato (id, email) VALUES ($last_id, '$this->email')";
-            $sql_codes[] = $sql;
-            $this->id_contato = $last_id;
-            return $sql_codes;
-        }
-        else{
-            die("Email já cadastrado");
-        }
+        $sql = "INSERT INTO contato (id, email) VALUES ($last_id, '$this->email')";
+        $pdo->query($sql);
+        $this->id_contato = $last_id;
     }
 
     public static function getNumUsuarios() : int 
@@ -227,14 +241,7 @@ class User implements AutenticarUser{
             session_start();
         }
 
-        //Criado a sessao do USER
-        $cep = $user['id_cidade'];
-        $sql = "SELECT cep FROM cidade WHERE id = $cep";
-        $sql_query = $pdo->query($sql);
-        $nome_cidade = $sql_query->fetch(PDO::FETCH_ASSOC);
-
         $_SESSION = $user;
-        $_SESSION['cidade'] = $nome_cidade['cep'];
 
         //redicionando o user
         header("Location: http://localhost/BicoJobs/templates/servicos.php");
@@ -243,28 +250,13 @@ class User implements AutenticarUser{
 
     public function sign_in($sql_codes, $pdo) : void
     {
-        // Verifica se tem cpf no banco
-        $sql_code = "SELECT id FROM usuario WHERE cpf = '$this->cpf'";
-
-        $sql_query = $pdo->query($sql_code) or die("Falha na execuça do código SQL" .$pdo->error);
-
-        if($sql_query->rowCount() == 1){
-            die("O cpf já está cadastrado <a href='javascript:history.back()'>Retornar</a>");
-        }
-    
         $sql_code = "SELECT * FROM usuario";
         $sql_query = $pdo->query($sql_code) or die("Falha na execuça do código SQL" .$pdo->error);
 
-        if($sql_query->rowCount() <= 0){
-            for($i=0 ; $i<count($sql_codes) ; $i++){
-                $pdo->query($sql_codes[$i]);
-            }
+        $this->setIdEmail($pdo);
+        $this->setIdCidade($pdo);
 
-            // Recebe o nome da cidade
-            $sql = "SELECT cep FROM cidade WHERE id = $this->cep";
-            $sql_query = $pdo->query($sql);
-            $nome_cidade = $sql_query->fetch(PDO::FETCH_ASSOC);
-        
+        if($sql_query->rowCount() <= 0){        
             // Cria um novo usuario no banco de dados
             $sql = "INSERT INTO usuario (id ,nome, cpf, senha, id_cidade, id_contato,tipo_usuario,dt_nascimento ) VALUES (0 ,'$this->nome', '$this->cpf', '$this->senha', $this->cep, $this->id_contato, 0,'$this->dt_nascimento' )";
             
@@ -280,7 +272,6 @@ class User implements AutenticarUser{
 
             //Criado a sessao do USER
             $_SESSION = $user;
-            $_SESSION['cidade'] = $nome_cidade['cep'];
 
             //redicionando o user
             header("Location: http://localhost/BicoJobs/templates/servicos.php");
@@ -288,18 +279,11 @@ class User implements AutenticarUser{
         }
         else{
             $last_id = $sql_query->rowCount();
-            for($i=0 ; $i<count($sql_codes) ; $i++){
-                ($pdo->query($sql_codes[$i]));
-            }
-        
-            $sql = "SELECT cep FROM cidade WHERE id = $this->cep";
-            $sql_query = $pdo->query($sql);
-            $nome_cidade = $sql_query->fetch(PDO::FETCH_ASSOC);
 
             // Cria um novo usuario no banco de dados
             $sql = "INSERT INTO usuario (id ,nome, cpf, senha, id_cidade, id_contato,tipo_usuario,dt_nascimento) VALUES ($last_id ,'$this->nome', '$this->cpf', '$this->senha', $this->cep, $this->id_contato , 0,'$this->dt_nascimento')";
         
-            ($pdo->query($sql));
+            $pdo->query($sql);
 
             $sql_code = "SELECT * FROM usuario WHERE cpf = '$this->cpf'";
             $sql_query = $pdo->query($sql_code) or die("Falha na execuça do código SQL" .$pdo->error);
@@ -315,8 +299,6 @@ class User implements AutenticarUser{
 
             //Criado a sessao do USER
             $_SESSION = $user;
-            
-            $_SESSION['cidade'] = $nome_cidade['cep'];
 
             //redicionando o user
             header("Location: http://localhost/BicoJobs/templates/servicos.php");
@@ -331,29 +313,20 @@ class User implements AutenticarUser{
         $id_contato = $pdo->query("SELECT id_contato FROM usuario WHERE id = $this->id");
         $id_contato = $id_contato->fetch(PDO::FETCH_ASSOC);
         $id_contato = $id_contato['id_contato'];
-        // IDIOMA 
+
         $usuario -> setIdioma($pdo, $idioma);
-        // IDIOMA
-
         $usuario -> setHabilidades($pdo, $habilidade);
-
         $usuario -> setImgPerfil($pdo, $img_perfil);
-
         $usuario -> setNomeComp($pdo, $nome_comp);
-
         $usuario -> setDescricao($pdo, $descricao);
-
         $usuario -> setTelefone($pdo, $telefone,$id_contato);
 
         // INCREMENTO NO PERFIL DE USUARIO
         $sql = "UPDATE usuario SET tipo_usuario= 1 WHERE id = $id";
-        $sql_query = $pdo->query($sql);    
+        $pdo->query($sql);    
         // INCREMENTO NO PERFIL DE USUARIO
 
-
-        $sql = "SELECT * FROM usuario WHERE id = '$id'";
-        $sql_query = $pdo->query($sql);
-        $user = $sql_query->fetch(PDO::FETCH_ASSOC);
+        $user = $this->getUsuario($pdo);
 
         if(!isset($_SESSION)){
             session_reset();
@@ -365,285 +338,57 @@ class User implements AutenticarUser{
     }
 
 
-    public function retornar_info($mysqli,$id_idioma, $id_contato, $id_cep, $id) : void
+    public function retornar_info($pdo) : void
     {
         if($this -> tipo_usuario == 1){
-            $sql_code = "SELECT idioma FROM idioma WHERE id = $id_idioma";
-            $sql_query = $mysqli->query($sql_code);
-
-            $idioma = $sql_query->fetch(PDO::FETCH_ASSOC);
+            $idioma = $this->getIdioma($pdo);
+            $cidade = $this->getCidade($pdo);
+            $contatos = $this->getContatos($pdo);
+            $avaliacao = $this->getNotas($pdo);
 
             if(!isset($_SESSION)){
                 session_start();
             }
 
-            if($sql_query->rowCount() == 0){
-                $_SESSION['idioma'] = "Você não cadastrou nenhum idioma";
-            }
-            else{
-                $_SESSION['idioma'] = $idioma['idioma'];
-            }
-
-            $sql_code = "SELECT email, telefone FROM contato WHERE id = '$id_contato'";
-            $sql_query = $mysqli->query($sql_code);
-            $contatos = $sql_query->fetch(PDO::FETCH_ASSOC);
-
-            $sql_code = "SELECT cep FROM cidade WHERE id = '$id_cep'";
-            $sql_query = $mysqli->query($sql_code);
-            $cep = $sql_query->fetch(PDO::FETCH_ASSOC);
-
-
-            $sql = "SELECT notas FROM notas WHERE id_usuario = '$id'";
-            $result = $mysqli->query($sql);
-            $avaliacao = 0;
-            $n = 0;
-            if($result->rowCount() == 0){
-                $avaliacao = "Novo";
-            }
-            else{
-                while($row = $result->fetch(PDO::FETCH_ASSOC)){
-                    $n += 1;
-                    $avaliacao += $row['notas'];
-                }
-                $avaliacao = $avaliacao/=$n;
-            }
+            $_SESSION['idioma'] = $idioma;
             $_SESSION['email'] = $contatos['email'];
             $_SESSION['telefone'] = $contatos['telefone'];
             $_SESSION['avaliacao'] = $avaliacao;
-            $_SESSION['cidade'] = $cep['cep'];
-            }
+            $_SESSION['cidade'] = $cidade;
+        }
+        else{
+            $cidade = $this->getCidade($pdo);
+            $_SESSION['cidade'] = $cidade;
+        }
     }
 
 
-    public function editar_perfil($pdo, $id, $img_perfil, $descricao, $habilidade, $idioma, $telefone, $nome_comp, $nome, $email, $cep, $usuario) : void
+    public function editar_perfil($pdo, $img_perfil, $descricao, $habilidade, $idioma, $telefone, $nome_comp, $nome, $email, $cep) : void
     {
         // Pegar as chaves estrangeiras para efetuar edição
-        $sql_code = "SELECT id_cidade, id_contato, id_idioma FROM usuario WHERE id = $id";
+        $sql_code = "SELECT id_contato FROM usuario WHERE id = '$this->id'";
         $sql_query = $pdo->query($sql_code);
         $sql_query = $sql_query->fetch(PDO::FETCH_ASSOC);
-
-        //$id_cidade = $sql_query['id_cidade'];
         $id_contato = $sql_query['id_contato'];
-        $id_cidade = $sql_query['id_cidade'];
-        $id_idioma = $sql_query['id_idioma'];
-        // Pegar as chaves estrangeiras para efetuar edição
 
 
-        $usuario -> setImgPerfil($pdo, $img_perfil);
+        $this -> setImgPerfil($pdo, $img_perfil);
+        $this -> setHabilidades($pdo, $habilidade);
+        $this -> setNome($pdo, $nome);
+        $this -> setDescricao($pdo, $descricao);
+        $this -> setNomeComp($pdo, $nome_comp);
+        $this -> setIdioma($pdo, $idioma);
+        $this -> setEmail($pdo, $email, $id_contato);
+        $this -> setTelefone($pdo, $telefone, $id_contato);
+        $this -> setCidade($pdo, $cep);
 
-        $usuario -> setHabilidades($pdo, $habilidade);
 
-        $usuario -> setNome($pdo, $nome);
-
-        $usuario -> setDescricao($pdo, $descricao);
-
-        $usuario -> setNomeComp($pdo, $nome_comp);
-        
-        $usuario -> setIdioma($pdo, $idioma);
-        
-        $usuario -> setEmail($pdo, $email, $id_contato);
-
-        $usuario -> setTelefone($pdo, $telefone, $id_contato);
-
-        $usuario -> setCidade($pdo, $cep);
-
-        
         session_reset();
-
-        $sql_code = "SELECT * FROM usuario WHERE id = $id";
-        $sql_query = $pdo->query($sql_code);
-        $user = $sql_query->fetch(PDO::FETCH_ASSOC);
+        $user = $this->getUsuario($pdo);
 
         $_SESSION = $user;
         $_SESSION['cidade'] = $cep;
 
         echo "<script>open('http://localhost/BicoJobs/templates/servicos.php' , '_self');</script>";
-    }
-
-
-
-    public function setServicosUser($pdo) : array
-    {
-        $sql = "SELECT * FROM servicosfeitos WHERE id_usuario = '$this->id'";
-        $sql_query = $pdo->query($sql);
-        
-        $meses = array(
-            "quantidade" => [0,0,0,0,0,0,0,0,0,0,0,0],
-            "valor" => [0.0 ,0.0 ,0.0 ,0.0 ,0.0 ,0.0 ,0.0 ,0.0 ,0.0 ,0.0 ,0.0 ,0.0 ]
-        );
-        while($row = $sql_query->fetch(PDO::FETCH_ASSOC)){
-            $data = $row['dt'];
-            $valor = $row['valor'];
-
-            $mes = $data[5].$data[6];
-            
-            if($mes == "01"){
-                $meses['quantidade'][0] += 1;
-                $meses['valor'][0] += $valor;
-            }
-            else if($mes == "02"){
-                $meses['quantidade'][1] += 1;
-                $meses['valor'][1] += $valor;
-            }
-            else if($mes == "03"){
-                $meses['quantidade'][2] += 1;
-                $meses['valor'][2] += $valor;
-            }
-            else if($mes == "04"){
-                $meses['quantidade'][3] += 1;
-                $meses['valor'][3] += $valor;
-            }
-            else if($mes == "05"){
-                $meses['quantidade'][4] += 1;
-                $meses['valor'][4] += $valor;
-            }
-            else if($mes == "06"){
-                $meses['quantidade'][5] += 1;
-                $meses['valor'][5] += $valor;
-            }
-            else if($mes == "07"){
-                $meses['quantidade'][6] += 1;
-                $meses['valor'][6] += $valor;
-            }
-            else if($mes == "08"){
-                $meses['quantidade'][7] += 1;
-                $meses['valor'][7] += $valor;
-            }
-            else if($mes == "09"){
-                $meses['quantidade'][8] += 1;
-                $meses['valor'][8] += $valor;
-            }
-            else if($mes == "10"){
-                $meses['quantidade'][9] += 1;
-                $meses['valor'][9] += $valor;
-            }
-            else if($mes == "11"){
-                $meses['quantidade'][10] += 1;
-                $meses['valor'][10] += $valor;
-            }
-            else if($mes == "12"){
-                $meses['quantidade'][11] += 1;
-                $meses['valor'][11] += $valor;
-            }
-        }
-
-        return $meses;
-    }
-
-
-    public function setNotasUser($pdo){
-        $sql = "SELECT notas FROM notas WHERE id_usuario = '$this->id'";
-        $sql_query = $pdo->query($sql);
-        
-        $notas = array(
-            "0" => 0,
-            "1" => 0,
-            "2" => 0,
-            "3" => 0,
-            "4" => 0,
-            "5" => 0
-        );
-
-        while($nota = $sql_query->fetch(PDO::FETCH_ASSOC)){
-            if($nota['notas'] == 0){
-                $notas["0"] += 1;
-            }
-            else if($nota['notas'] == 1){
-                $notas["1"] += 1;
-            }
-            else if($nota['notas'] == 2){
-                $notas["2"] += 1;
-            }
-            else if($nota['notas'] == 3){
-                $notas["3"] += 1;
-            }
-            else if($nota['notas'] == 4){
-                $notas["4"] += 1;
-            }
-            else{
-                $notas["5"] += 1;
-            }
-        }
-
-        return $notas;
-    }
-
-
-    public function retornarNotas($notas){
-        echo "
-        <script>
-            var ctx = document.getElementById('total_notas');
-
-            // Tipos de dados e opções do gráfico
-            var chartGraph = new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                labels: [
-                '0', '1', '2', '3', '4', '5',
-                ],
-                datasets: [{
-
-                data: [".$notas['0'].",".$notas['1'].",".$notas['2'].",".$notas['3'].",".$notas['4'].",".$notas['5']."],
-                backgroundColor: [
-                    'red',
-                    'orange',
-                    'yellow',
-                    'green',
-                    'blue'
-                ],
-                hoverOffset: 8
-                }]
-            },
-            });
-      </script>";
-    }
-
-
-    public function retornarServicosUser($meses)
-    {
-        echo "
-        <script>
-            var total_servico = document.getElementById('total_serv');
-        
-            this.servicosGrafico = new Chart(total_servico , {
-                type:'line',
-                data: {
-                    labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-                    datasets: [{
-                        label: 'Serviços concluídos - 2023',
-                        data: [".$meses['quantidade'][0].",".$meses['quantidade'][1].",".$meses['quantidade'][2].",".$meses['quantidade'][3].",".$meses['quantidade'][4].",".$meses['quantidade'][5].",".$meses['quantidade'][6].",".$meses['quantidade'][7].",".$meses['quantidade'][8].",".$meses['quantidade'][9].",".$meses['quantidade'][10].",".$meses['quantidade'][11]."],
-                        borderWidth: 3,
-                        borderColor: 'blue',
-                        backgroundColor: 'transparent',
-                    }
-                    ]
-                }
-                
-            });
-        </script>";
-    }
-
-
-    public function retornarServicosValor($meses){
-        echo "
-        <script>
-            var total_valor = document.getElementById('total_valor');
-
-            this.ValorGrafico = new Chart(total_valor , {
-                type:'line',
-                data: {
-                    labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-                    datasets: [{
-                        label: 'Valor Ganho - 2023',
-                        data: [".$meses['valor'][0].",".$meses['valor'][1].",".$meses['valor'][2].",".$meses['valor'][3].",".$meses['valor'][4].",".$meses['valor'][5].",".$meses['valor'][6].",".$meses['valor'][7].",".$meses['valor'][8].",".$meses['valor'][9].",".$meses['valor'][10].",".$meses['valor'][11]."],
-                        borderWidth: 3,
-                        borderColor: 'green',
-                        backgroundColor: 'transparent',
-                    }
-                    ]
-                }
-                
-            });
-        </script>";
     }
 }

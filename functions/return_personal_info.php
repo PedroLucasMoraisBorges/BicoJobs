@@ -28,10 +28,10 @@ $usuario = new User(
     $_SESSION['id_cidade'],
     $_SESSION["cpf"],
     $_SESSION['senha'],
-    1,
+    $_SESSION['tipo_usuario'],
     $_SESSION['id_contato']
 );
 
-$usuario->retornar_info($pdo, $id_idioma, $id_contato, $id_cep, $_SESSION["id"]);
+$usuario->retornar_info($pdo);
 
 // INSTANCIÂNDO A CLASSE COM AS INFORMAÇÕES DO USUÁRIO E EXECUTANDO A FUNÇÃO;

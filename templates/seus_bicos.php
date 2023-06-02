@@ -6,7 +6,7 @@ require_once("../functions/mostrar_meus_servico.php");
 require_once "../autoload.php";
 use Pi\Bicojobs\Model\Servico;
 use Pi\Bicojobs\Infraestrutura\Persistencia\CriadorConexao;
-use Pi\Bicojobs\Model\User;
+use Pi\Bicojobs\Model\Grafico;
 $pdo = CriadorConexao::criarConexao();
 ?>
 
@@ -199,8 +199,8 @@ $pdo = CriadorConexao::criarConexao();
                 <canvas id="total_serv"></canvas>
                 <?php 
                     include("../functions/retornarServicosFeitos.php");
-                    $meses = $user -> setServicosUser($pdo);
-                    $user -> retornarServicosUser($meses);
+                    $meses = $grafico -> setServicosUser($user);
+                    $grafico -> retornarServicosUser($meses);
                 ?>
             </div>
 
@@ -208,22 +208,20 @@ $pdo = CriadorConexao::criarConexao();
                 <canvas id="total_valor"></canvas>
                 <?php 
                     include("../functions/retornarServicosFeitos.php");
-                    $meses = $user -> setServicosUser($pdo);
-                    $user -> retornarServicosValor($meses);
+                    $meses = $grafico -> setServicosUser($user);
+                    $grafico -> retornarServicosValor($meses);
                 ?>
             </div>
         </div>
 
         <div class="graficos">
-            <canvas id="total_notas">
+            <canvas id="total_notas"></canvas>
             <?php 
                     include("../functions/retornarServicosFeitos.php");
-                    $notas = $user -> setNotasUser($pdo);
-                    $user -> retornarNotas($notas);
-                ?>
-            </canvas>
+                    $notas = $grafico -> setNotasUser($user);
+                    $grafico -> retornarNotas($notas);
+            ?>
         </div>
-
         
         
     </main>
