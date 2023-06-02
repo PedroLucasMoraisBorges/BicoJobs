@@ -1,8 +1,10 @@
 <?php
+require_once("../templates/logcad.php");
 // AUTOLOAD DOS ARQUIVOS COM AS CLASSES;
 
 require_once("../autoload.php");
 use Pi\Bicojobs\Model\User;
+use Pi\Bicojobs\Model\Verificacoes;
 use Pi\Bicojobs\Infraestrutura\Persistencia\CriadorConexao;
 $pdo = CriadorConexao::criarConexao();
 
@@ -32,18 +34,20 @@ $usuario = new User(
     $_POST['email_cad'],
 );
 
-
-// VERIFICA SE HÁ CIDADE CADASTRADA (SE TIVER PEGA O ID DA CIDADE SE NÃO TIVER CRIA UMA NOVA); 
-$teste = $usuario->setIdCidade($sql_codes, $pdo);
-$sql_codes = $teste;
+$verificacoes = new Verificacoes;
 
 
-// VERIFICA SE HÁ EMAIL CADASTRADO, SE TIVER BLOQUEIA O CADASTRO;
-$teste = $usuario->setIdEmail($sql_codes, $pdo);
-$sql_codes = $teste;
+$v_email = $verificacoes->verificaEmailCad($pdo, $_POST['email_cad']);
+$v_cpf = $verificacoes->verificaCpf($pdo, $_POST['cpf']);
 
-
-// EFETUTA O CADASTRO;
-$usuario->sign_in($sql_codes,$pdo);
-
+if($v_email != 0){
+    $verificacoes->error("Email já existente");
+}
+else if($v_cpf != 0){
+    $verificacoes->error("CPF já cadastrado");
+}
+else{
+    // EFETUTA O CADASTRO;
+    $usuario->sign_in($sql_codes,$pdo);
+}
 // INSTANCIÂNDO A CLASSE COM AS INFORMAÇÕES DO USUÁRIO E EXECUTANDO AS FUNÇÕES; 

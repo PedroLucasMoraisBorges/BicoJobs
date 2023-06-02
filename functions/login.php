@@ -23,12 +23,13 @@ $verificacao = new Verificacoes;
 $v_email = $verificacao -> verificaEmailLog($pdo, $email);
 $v_email_senha = $verificacao -> verificaEmailSenha($pdo, $v_email, $senha);
 
-
-if($v_email != "null" && $v_email_senha != 0){
+if($v_email == "null"){
+    $verificacao->error("Email não encontrado");
+}
+else if($v_email_senha == "null"){
+    $verificacao->error("Senha não corresponde");
+}
+else{
     $usuario = new User(0, "", "", 0, 0, $senha, 0, $email);
     $usuario->login($pdo,$v_email_senha);
 }
-// INSTANCIÂNDO A CLASSE COM AS INFORMAÇÕES DO USUÁRIO E EXECUTANDO A FUNÇÃO; 
-
-
-// INSTANCIÂNDO A CLASSE COM AS INFORMAÇÕES DO USUÁRIO E EXECUTANDO A FUNÇÃO; 

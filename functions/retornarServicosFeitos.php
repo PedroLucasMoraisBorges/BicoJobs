@@ -2,6 +2,7 @@
 
 require_once("../autoload.php");
 use Pi\Bicojobs\Model\User;
+use Pi\Bicojobs\Model\Grafico;
 use Pi\Bicojobs\Infraestrutura\Persistencia\CriadorConexao;
 $pdo = CriadorConexao::criarConexao();
 
@@ -15,3 +16,5 @@ $user = new User(
     $_SESSION['tipo_usuario'],
     $_SESSION['email']
 );
+
+$grafico = new Grafico($pdo);

@@ -40,71 +40,39 @@ $nome_comp = $_POST['nome_comp'];
 $nome = $_POST['nome'];
 $email = $_POST['email'];
 $cep = $_POST['cep'];
-$sql_codes = [];
-
 
 // DANDO VALOR ÀS VARIÁVEIS PARA O USO;
 
+
 $verificacao = new Verificacoes();
 
-
+// VERIFICA VALIDADE DO CEP
 if($cep == "00000000" || strlen($cep) != 8){
-    echo "<script> 
-        let error = document.getElementById('error-msg-login');
-        error.innerHTML = 'CEP Inválido';
-        setTimeout(() => {
-            error.classList.add('slide');
-        }, 250);
-        setTimeout(() => {
-        error.classList.remove('slide');
-        }, 3250);
-        </script>";
+    $verificacao->error("CEP Inválido");
 }
+
+
 
 // VERIFICA A VALIDADE DO EMAIL;
-
 else if(str_contains($email, "@") === false || str_contains($email, ".") === false){
-    echo "<script> 
-        let error = document.getElementById('error-msg-login');
-        error.innerHTML = 'Email Inválido';
-        setTimeout(() => {
-            error.classList.add('slide');
-        }, 250);
-        setTimeout(() => {
-        error.classList.remove('slide');
-        }, 3250);
-        </script>";
+    $verificacao->error("Email Inválido");
 }
 else if($verificacao -> verificaEmail($pdo, $email, $_SESSION['id_contato']) != 0){
-    echo "<script> 
-        let error = document.getElementById('error-msg-login');
-        error.innerHTML = 'Email já cadastrado';
-        setTimeout(() => {
-            error.classList.add('slide');
-        }, 250);
-        setTimeout(() => {
-        error.classList.remove('slide');
-        }, 3250);
-        </script>";
+    $verificacao->error("Email já cadastrado");
 }
+
+
 
 // VERIFICA A VALIDADE DO TELEFONE;
-
 else if(strlen($telefone) < 11){
-    echo "<script> 
-        let error = document.getElementById('error-msg-login');
-        error.innerHTML = 'Telefone Inválido';
-        setTimeout(() => {
-            error.classList.add('slide');
-        }, 250);
-        setTimeout(() => {
-        error.classList.remove('slide');
-        }, 3250);
-        </script>";
+    $verificacao->error("Telefone Inválido");
 }
 else if($verificacao -> verificaTel($pdo, $telefone, $_SESSION['id_contato']) != 0){
-    echo "";
+    $verificacao->error("Telefone já cadastrado");
 }
+
+
+
 else{
 
     // INSTANCIÂNDO A CLASSE COM AS INFORMAÇÕES DO USUÁRIO E EXECUTANDO A FUNÇÃO; 
@@ -121,6 +89,6 @@ else{
         1
     );
 
-    $usuario->editar_perfil($pdo, $id, $img_perfil, $descricao, $habilidade, $idioma, $telefone, $nome_comp, $nome, $email, $cep, $usuario);
+    $usuario->editar_perfil($pdo, $img_perfil, $descricao, $habilidade, $idioma, $telefone, $nome_comp, $nome, $email, $cep);
     // INSTANCIÂNDO A CLASSE COM AS INFORMAÇÕES DO USUÁRIO E EXECUTANDO A FUNÇÃO;
 }

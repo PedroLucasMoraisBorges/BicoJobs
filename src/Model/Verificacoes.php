@@ -17,18 +17,22 @@ class Verificacoes{
 
 
 
-    public function verificaEmailCad($pdo, $email) : array
-    {
+    public function verificaEmailCad($pdo, $email) : int
+    {   
         $sql = "SELECT email FROM contato WHERE email = '$email'";
         $row = ($pdo->query($sql)) -> rowCount();
 
-        $sql = "SELECT * FROM contato";
-        $last_id = ($pdo -> query()) -> rowCount();
-
-        return [$row, $last_id];
+        return $row;
     }
 
 
+    public function verificaCpf($pdo, $cpf){
+        $sql = "SELECT cpf FROM usuario WHERE cpf = '$cpf'";
+        $row = ($pdo->query($sql)) -> rowCount();
+
+
+        return $row;
+    }
 
 
     public function verificaEmailLog($pdo, $email)
@@ -37,16 +41,6 @@ class Verificacoes{
         $row = $pdo->query($sql);
         
         if($row->rowCount() == 0){
-            echo "<script> 
-                let error = document.getElementById('error-msg-login');
-                error.innerHTML = 'Email não encontrado';
-                setTimeout(() => {
-                    error.classList.add('slide');
-                }, 250);
-                setTimeout(() => {
-                error.classList.remove('slide');
-                }, 3250);
-                </script>";
             return "null";
         }
         else{
@@ -67,17 +61,7 @@ class Verificacoes{
             return $sql_query->fetch(PDO::FETCH_ASSOC);
         }
         else{
-            echo "<script> 
-                let error = document.getElementById('error-msg-login');
-                error.innerHTML = 'Senha não corresponde';
-                setTimeout(() => {
-                    error.classList.add('slide');
-                }, 250);
-                setTimeout(() => {
-                error.classList.remove('slide');
-                }, 3250);
-                </script>";
-            return 0;
+            return "null";
         }
     }
 
@@ -101,5 +85,19 @@ class Verificacoes{
                 </script>";
         }
         return $row;
+    }
+
+
+    public function error($mensagem){
+        echo "<script> 
+        let error = document.getElementById('error-msg-login');
+        error.innerHTML = '".$mensagem."';
+        setTimeout(() => {
+            error.classList.add('slide');
+        }, 250);
+        setTimeout(() => {
+        error.classList.remove('slide');
+        }, 3250);
+        </script>";
     }
 }
