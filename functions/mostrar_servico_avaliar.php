@@ -12,48 +12,31 @@ $pdo = CriadorConexao::criarConexao();
 
 $id = $_SESSION['id'];
 $sql = "SELECT * FROM servicoavaliar WHERE id_usuario = $id";
-$sql_query_servico_aval = $pdo->query($sql);
+$sql_query = $pdo->query($sql);
 
-if($sql_query_servico_aval -> rowCount() > 0){
-    while($row = $sql_query_servico_aval->fetch(PDO::FETCH_ASSOC)){
-        $id_serv = $row['id_servico'];
-    
-        $sql = "SELECT * from servico WHERE id = $id_serv AND estado = 0";
-        $sql_query = $pdo->query($sql);
-    
-    
-        $sql_query = $pdo->query($sql);
+if($sql_query -> rowCount() > 0){
+    while($serv = $sql_query->fetch(PDO::FETCH_ASSOC)){
+        
+        $servico = new servico(
+            $_SESSION['id_cidade'],
+            $serv['nome'],
+            $serv['valor'],
+            $serv['descricao'],
+            0,
+            $serv['horario'],
+            $serv['img_servico'],
+            $serv['contato'],
+            $serv['id_categoria'],
+            $serv['id_ofertante']
+        );
 
-            while($servico = $sql_query->fetch(PDO::FETCH_ASSOC)){
-
-                $servico = new servico(
-                    $_SESSION['id_cidade'],
-                    $servico['nome'],
-                    $servico['valor'],
-                    $servico['descricao'],
-                    $servico['estado'],
-                    $servico['horario'],
-                    $servico['img_servico'],
-                    $servico['contato'],
-                    $servico['id_categoria'],
-                    $servico['id_usuario']
-                );
-    
-                
-                $servico->mostrarServicosAvaliar(
-                    $pdo, 
-                    $id_serv, 
-                    $id, 
-                    $_SESSION['nome'], 
-                    $_SESSION['cidade'],
-                    1,
-                    $_SESSION['id']
-                );
-    
-    
-            }
-        }
+        
+        $servico->mostrarServicosAvaliar(
+            $pdo,
+            $serv['id_servico']
+        );
     }
+}
 else{
     echo '<div class="read_list" style="margin-bottom: 3rem;"> 
     <img src="../media/svg/read_list.svg" alt="Read List">

@@ -32,7 +32,7 @@
                 echo '<a href="'.$caminho.'templates/perfil.php">Perfil</a><div></div>';
             }
         ?>
-        <a href="<?php echo $caminho."conection/logout.php"?>">Sair</a>
+        <a href="<?php echo $caminho."functions/logout.php"?>">Sair</a>
     </div>
 </header>
 <hr>

@@ -1,6 +1,7 @@
 <?php
 
 // AUTOLOAD DOS ARQUIVOS COM AS CLASSES;
+session_start();
 
 require_once("../autoload.php");
 use Pi\Bicojobs\Infraestrutura\Persistencia\CriadorConexao;
@@ -13,33 +14,46 @@ $pdo = CriadorConexao::criarConexao();
 
 
 // PUXANDO INFORMAÇÕES DO USUÁRIO E A FORMA DE CONTATO;
-$user_id = $_POST['user_id'];
 $contatar = $_POST['contatar'];
-$id = $_POST['id'];
+$id_serv = $_POST['id'];
+$id_usuario = $_SESSION['id'];
 
 // PUXANDO INFORMAÇÕES DO USUÁRIO E A FORMA DE CONTATO;
 
+$sql = "SELECT * FROM servico WHERE id = $id_serv";
+$sql_query = $pdo->query($sql);
+$serv = $sql_query->fetch(PDO::FETCH_ASSOC);
 
-$servico = new Servico(0, "", "", "", 0, "", "", "", "", "");
+$servico = new Servico(
+    $serv['id_cidade'],
+    $serv['nome'],
+    $serv['valor'],
+    $serv['descricao'],
+    $serv['estado'],
+    $serv['horario'],
+    $serv['img_servico'],
+    $serv['contato'],
+    $serv['id_categoria'],
+    $serv['id_usuario']
+);
 
 // VERIFICANDO SE O BOTÃO FOI ACIONADO;
 
 if(isset($_POST['cancelar']) == true){
-    $servico -> deletarServicoAvaliacao($pdo, $id);
-    $servico -> alterarEstado($user_id, $pdo, 0, $id, $contatar);
+    $servico -> deletarServicoAvaliacao($pdo, $id_serv);
+    $servico -> alterarEstado($pdo, 0, $contatar, $id_serv ,$id_usuario);
 }
 else if(isset($_POST['confirmar']) == true){
-    $servico -> alterarEstado($user_id, $pdo, 2, $id, $contatar);
+    $servico -> alterarEstado($pdo, 2, $contatar, $id_serv, $id_usuario);
 }
 else if(isset($_POST['finalizar']) == true){
-    $servico -> finalizarServico($pdo, $id, $user_id);
-    $servico -> alterarEstado($user_id, $pdo, 0 , $id, $contatar);
+    $servico -> finalizarServico($pdo, $id_serv, $id_usuario);
+    $servico -> alterarEstado($pdo, 0 , $contatar, $id_serv, $id_usuario);
 }
 else if(isset($_POST['deletar']) == true){
-    $servico -> deletarServico($pdo, $id, $servico);
+    $servico -> deletarServico($pdo, $id_serv, $servico);
 }
 else{
     // MUDANÇA DE ESTADO DO SERVIÇO;
-    $servico -> alterarEstado($user_id, $pdo, 1, $id, $contatar);
-
+    $servico -> alterarEstado($pdo, 1, $contatar, $id_serv, $id_usuario);
 }

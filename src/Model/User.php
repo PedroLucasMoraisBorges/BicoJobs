@@ -98,22 +98,22 @@ class User{
     }
 
     public function setNome($pdo, $nome) : void{
-        $pdo->query("UPDATE usuario SET nome = '$nome'");
+        $pdo->query("UPDATE usuario SET nome = '$nome' WHERE id = '$this->id'");
     }
 
     public function setDescricao($pdo, $descricao) : void
     {
-        $pdo->query("UPDATE usuario SET descricao = '$descricao'");
+        $pdo->query("UPDATE usuario SET descricao = '$descricao' WHERE id = '$this->id'");
     }
 
     public function setNomeComp($pdo, $nome_comp) : void
     {
-        $pdo->query("UPDATE usuario SET nome_comp = '$nome_comp'");
+        $pdo->query("UPDATE usuario SET nome_comp = '$nome_comp' WHERE id = '$this->id'");
     }
 
     public function setHabilidades($pdo, $habilidade) : void
     {
-        $pdo->query("UPDATE usuario SET habilidades = '$habilidade'");
+        $pdo->query("UPDATE usuario SET habilidades = '$habilidade' WHERE id = '$this->id'");
     }
 
     public function setImgPerfil($pdo, $img_perfil) : void
@@ -141,7 +141,7 @@ class User{
             $id_idioma = ($sql_query->fetch(PDO::FETCH_ASSOC))['id'];
         }
 
-        $sql = "UPDATE usuario SET id_idioma = '$id_idioma'";
+        $sql = "UPDATE usuario SET id_idioma = '$id_idioma' WHERE id = '$this->id'";
         $sql_query = $pdo->query($sql);
 
         return $id_idioma;
