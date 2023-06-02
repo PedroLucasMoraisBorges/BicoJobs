@@ -21,7 +21,9 @@ class User{
     private  $id_contato;
     private  static $numUsuarios = 0;
 
+
     // COMPORTAMENTOS(CONSTRUTOR , GET/SET , MÉTODOS EXPECÍFICOS)
+
 
     // CONSTRUTOR 
     public function __construct($id, $nome, $dt_nascimento, $cpf, $cep, $senha, $tipo_usuario, $email)
@@ -43,6 +45,8 @@ class User{
         self::$numUsuarios--;
     }
 
+    // GET
+
     public function getUsuario($pdo){
         $sql = "SELECT * FROM usuario WHERE id = '$this->id'";
         $usuario = ($pdo->query($sql))->fetch(PDO::FETCH_ASSOC);
@@ -50,8 +54,7 @@ class User{
         return $usuario;
     }
 
-    public function getId() : int
-    {
+    public function getId(){
         return $this->id;
     }
 
@@ -62,14 +65,12 @@ class User{
         return $cidade['cep'];
     }
 
-
     public function getContatos($pdo){
         $sql = "SELECT con.email, con.telefone FROM contato con join usuario usu on con.id = usu.id_contato WHERE usu.id = '$this->id'";
         $contatos = ($pdo->query($sql))->fetch(PDO::FETCH_ASSOC);
 
         return $contatos;
     }
-
 
     public function getIdioma($pdo){
         $sql = "SELECT idi.idioma FROM idioma idi join usuario usu on idi.id = usu.id_idioma WHERE usu.id = '$this->id'";
@@ -96,6 +97,14 @@ class User{
 
         return $nota;
     }
+
+
+
+
+    // SET's
+
+
+
 
     public function setNome($pdo, $nome) : void{
         $pdo->query("UPDATE usuario SET nome = '$nome' WHERE id = '$this->id'");
@@ -228,12 +237,9 @@ class User{
         $this->id_contato = $last_id;
     }
 
-    public static function getNumUsuarios() : int 
-    {
-        return self::$numUsuarios;
-    }
 
-    // MÉTODOS ESPECÍFICOS
+    // LOGIN
+
 
     public function login($pdo,$user) : void
     {
@@ -248,30 +254,37 @@ class User{
     }
 
 
+    // CADASTRO
+
+
+    // Cria um novo usuario no banco de dados
+    public function inserirUserDb($pdo, $id){
+        $sql = "INSERT INTO usuario (id ,nome, cpf, senha, id_cidade, id_contato,tipo_usuario,dt_nascimento ) VALUES ($id ,'$this->nome', '$this->cpf', '$this->senha', $this->cep, $this->id_contato, 0,'$this->dt_nascimento' )";
+            
+        $pdo->query($sql);
+
+        $sql_code = "SELECT * FROM usuario WHERE cpf = '$this->cpf'";
+        $sql_query = $pdo->query($sql_code) or die("Falha na execuça do código SQL" .$pdo->error);
+
+        return $sql_query->fetch(PDO::FETCH_ASSOC);
+    }
+
+
+
     public function sign_in($sql_codes, $pdo) : void
     {
         $sql_code = "SELECT * FROM usuario";
         $sql_query = $pdo->query($sql_code) or die("Falha na execuça do código SQL" .$pdo->error);
 
+
         $this->setIdEmail($pdo);
         $this->setIdCidade($pdo);
 
-        if($sql_query->rowCount() <= 0){        
-            // Cria um novo usuario no banco de dados
-            $sql = "INSERT INTO usuario (id ,nome, cpf, senha, id_cidade, id_contato,tipo_usuario,dt_nascimento ) VALUES (0 ,'$this->nome', '$this->cpf', '$this->senha', $this->cep, $this->id_contato, 0,'$this->dt_nascimento' )";
-            
-            $pdo->query($sql);
-
-            $sql_code = "SELECT * FROM usuario WHERE cpf = '$this->cpf'";
-            $sql_query = $pdo->query($sql_code) or die("Falha na execuça do código SQL" .$pdo->error);
-
-            //fazendo login
-            $user = $sql_query->fetch(PDO::FETCH_ASSOC);
-            // start da sessao
+        if($sql_query->rowCount() <= 0){
             session_start();
 
             //Criado a sessao do USER
-            $_SESSION = $user;
+            $_SESSION = $this->inserirUserDb($pdo,0);
 
             //redicionando o user
             header("Location: http://localhost/BicoJobs/templates/servicos.php");
@@ -279,33 +292,18 @@ class User{
         }
         else{
             $last_id = $sql_query->rowCount();
-
-            // Cria um novo usuario no banco de dados
-            $sql = "INSERT INTO usuario (id ,nome, cpf, senha, id_cidade, id_contato,tipo_usuario,dt_nascimento) VALUES ($last_id ,'$this->nome', '$this->cpf', '$this->senha', $this->cep, $this->id_contato , 0,'$this->dt_nascimento')";
-        
-            $pdo->query($sql);
-
-            $sql_code = "SELECT * FROM usuario WHERE cpf = '$this->cpf'";
-            $sql_query = $pdo->query($sql_code) or die("Falha na execuça do código SQL" .$pdo->error);
-
-
-            //fazendo login
-            $user = $sql_query->fetch(PDO::FETCH_ASSOC);
-            // start da sessao
-            
             if(!isset($_SESSION)){
                 session_start();
             }
 
             //Criado a sessao do USER
-            $_SESSION = $user;
+            $_SESSION = $this->inserirUserDb($pdo,$last_id);
 
             //redicionando o user
             header("Location: http://localhost/BicoJobs/templates/servicos.php");
             
         }
     }
-
 
 
     public function alterar_tipo($id,$pdo,$img_perfil,$descricao,$habilidade,$idioma,$telefone,$nome_comp, $usuario) : void
@@ -387,7 +385,6 @@ class User{
         $user = $this->getUsuario($pdo);
 
         $_SESSION = $user;
-        $_SESSION['cidade'] = $cep;
 
         echo "<script>open('http://localhost/BicoJobs/templates/servicos.php' , '_self');</script>";
     }

@@ -7,7 +7,6 @@ use PDO;
 class Grafico{
     private $pdo;
 
-
     public function __construct($pdo)
     {
         $this->pdo = $pdo;
@@ -98,10 +97,7 @@ class Grafico{
         );
 
         while($nota = $sql_query->fetch(PDO::FETCH_ASSOC)){
-            if($nota['notas'] == 0){
-                $notas["0"] += 1;
-            }
-            else if($nota['notas'] == 1){
+            if($nota['notas'] == 1){
                 $notas["1"] += 1;
             }
             else if($nota['notas'] == 2){
@@ -132,17 +128,16 @@ class Grafico{
             type: 'doughnut',
             data: {
                 labels: [
-                '0', '1', '2', '3', '4', '5',
+                '1', '2', '3', '4', '5',
                 ],
                 datasets: [{
-
-                data: [".$notas['0'].",".$notas['1'].",".$notas['2'].",".$notas['3'].",".$notas['4'].",".$notas['5']."],
+                data: [".$notas['1'].",".$notas['2'].",".$notas['3'].",".$notas['4'].",".$notas['5']."],
                 backgroundColor: [
-                    'red',
-                    'orange',
-                    'yellow',
-                    'green',
-                    'blue'
+                    '#ff4040',
+                    '#ffbc40',
+                    '#ffff40',
+                    '#4040ff',
+                    '#00a000'
                 ],
                 hoverOffset: 8
                 }]
@@ -165,12 +160,25 @@ class Grafico{
                     datasets: [{
                         label: 'Serviços concluídos - 2023',
                         data: [".$meses['quantidade'][0].",".$meses['quantidade'][1].",".$meses['quantidade'][2].",".$meses['quantidade'][3].",".$meses['quantidade'][4].",".$meses['quantidade'][5].",".$meses['quantidade'][6].",".$meses['quantidade'][7].",".$meses['quantidade'][8].",".$meses['quantidade'][9].",".$meses['quantidade'][10].",".$meses['quantidade'][11]."],
-                        borderWidth: 3,
-                        borderColor: 'blue',
-                        backgroundColor: 'transparent',
+                        borderColor: '#0079AD',
+                        backgroundColor: '#0079AD75',
+                        pointBorderColor: '#0079AD',
+                        pointBackgroundColor: '#0079AD',
+                        pointHoverBackgroundColor: '#0079AD',
+                        pointHoverBorderColor: '#0079AD',
+                        pointBorderWidth: 3,
                     }
-                    ]
-                }
+                ]
+                },
+                options: {
+                    scales: {
+                      yAxes: [{
+                        ticks: {
+                          beginAtZero: true
+                        }
+                      }]
+                    }
+                  }
                 
             });
         </script>";
@@ -182,6 +190,8 @@ class Grafico{
         <script>
             var total_valor = document.getElementById('total_valor');
 
+            Chart.defaults.global.defaultFontColor = '#000';
+            Chart.defaults.global.defaultFontSize = 12;
             this.ValorGrafico = new Chart(total_valor , {
                 type:'line',
                 data: {
@@ -189,9 +199,14 @@ class Grafico{
                     datasets: [{
                         label: 'Valor Ganho - 2023',
                         data: [".$meses['valor'][0].",".$meses['valor'][1].",".$meses['valor'][2].",".$meses['valor'][3].",".$meses['valor'][4].",".$meses['valor'][5].",".$meses['valor'][6].",".$meses['valor'][7].",".$meses['valor'][8].",".$meses['valor'][9].",".$meses['valor'][10].",".$meses['valor'][11]."],
-                        borderWidth: 3,
-                        borderColor: 'green',
-                        backgroundColor: 'transparent',
+                        borderColor: '#11866F',
+                        backgroundColor: '#11866F75',
+                        pointBorderColor: '#11866F',
+                        pointBackgroundColor: '#11866F',
+                        pointHoverBackgroundColor: '#11866F',
+                        pointHoverBorderColor: '#11866F',
+                        pointBorderWidth: 3,
+                        scaleFontColor: '#FFFFFF'
                     }
                     ]
                 }

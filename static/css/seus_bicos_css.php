@@ -147,239 +147,7 @@ button:hover{
 
 /* Conteudo */
 
-.graficos{
-    display: flex;
-}
-.grafico{
-    width: 50%;
-    margin: 0 auto 1rem auto;
-    border: 3px solid #303030;
-}
 
-
-
-
-/* Modal adicionarOferta */
-
-.modal_adiconar{
-    width: 60%;
-    height: 75%;
-    background-color: white;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-}
-
-.modal_adiconar .modal_header{
-    height: 15%;
-    margin: 0;
-}
-
-.modal_adiconar .oferta_detalhes{
-    padding-top: 2%;
-    height: fit-content;
-}
-
-.modal_adiconar .oferta_detalhes .pessoais #input_img{
-    display: none;
-}
-
-.modal_adiconar .oferta_detalhes .pessoais label{
-    background-color: #90909060;
-    border-radius: 10px;
-    margin-right: 2%;
-    padding: 10px;
-}
-
-label:hover{
-    cursor: pointer;
-}
-
-.modal_adiconar .oferta_detalhes .pessoais label img{
-    width: 3em; 
-}
-
-.modal_adiconar .oferta{
-    display: flex;
-    flex-wrap: wrap;
-}
-
-
-.modal_adiconar .oferta_detalhes div{
-    margin-bottom: 3%;
-}
-
-.modal_adiconar .oferta label{
-    margin-bottom: 1%;
-    display: block;
-}
-
-.modal_adiconar .oferta input{
-    margin-bottom: 2%;
-    display: block;
-    font-size: 1rem;
-    padding: 5px;
-    border: 2px solid #90909075;
-    border-radius: 10px;
-}
-
-.div_servico{
-    margin-right: 5%;
-}
-
-.div_horario{
-    margin-right: 5%;
-}
-
-.div_valor{
-    margin-right: 5%;
-}
-
-.espaco_descricao{
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.descricao{
-    width: 100%;
-    height: 55px;
-    font-family: 'Roboto',sans-serif;
-    border-radius: 10px;
-    font-size: 1rem;
-    padding-top: 5px;
-    padding-left: 5px;
-}
-tetse
-
-.modal_adiconar .modal_footer{
-    height: 15%;
-    border-radius: 0px 0px 10px 10px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-}
-.modal_adiconar .fechar{
-    margin-bottom: 0;
-}
-
-.modal_adiconar .modal_footer .ofertar{
-    background-color: #143dba;
-    color: white;
-}
-
-/* Modal adicionarOferta */
-
-
-
-
-/* Modal verOferta */
-
-.modal_fundo{
-    width: 100vw;
-    height: 100vh;
-    background-color: #00000075;
-    z-index: 3;
-    position: fixed;
-}
-
-
-.modal_verOferta{
-    width: 60%;
-    height: 75%;
-    background-color: white;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    position: fixed;
-    z-index: 1;
-    left: 20%;
-    right: 25%;
-}
-
-.modal_header{
-    background-color: #143dba;
-    color: white;
-    height: 15%;
-    border-radius: 10px 10px 0px 0px;
-    margin-bottom: 2%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.oferta_detalhes{
-    height: 70%;
-    padding: 0% 3% 0% 3%;
-}
-
-.pessoais{
-    display: flex;
-    align-items: center;
-    margin-bottom: 4%;
-    color: #0B2060;
-}
-
-.img{
-    width: 75px;
-    height: 75px;
-    border-radius: 100%;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 3px solid #EBEBEB;
-
-}
-
-.pessoais .img img{
-    width: 75%;
-    height: 75%;
-}
-
-.pessoais h3{
-    margin-right: 3%;
-}
-
-.oferta p{
-    color: #404040;
-    margin-bottom: 2%;
-}
-
-.modal_footer{
-    height: 15%;
-    border-radius: 0px 0px 10px 10px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-}
-
-.modal_footer button{
-    background-color: #404040;
-    color: white;
-    padding: 10px 15px;
-    font-size: 1rem;
-    border: 0;
-    font-weight: 550;
-    margin-right: 3%;
-    border-radius: 5px;
-}
-
-.modal_footer a{
-    background-color: #143dba;
-    color: white;
-    padding: 10px 15px;
-    margin-right: 2%;
-    font-weight: 550;
-    border-radius: 5px;
-}
-
-/* Modal verOferta */
 
 
 
@@ -425,3 +193,68 @@ tetse
   background: #000033; 
 }
 
+
+.dashboard{
+    padding: 5% 0;
+    border-radius: 15px;
+}
+.graficos{
+    display: flex;
+}
+.grafico{
+    color: white;
+    text-align: center;
+    width: 45%;
+    padding: 20px;
+    margin: 0 auto 1rem auto;
+}
+
+.grafico_nota{
+    width: 35%;
+    margin: auto;   
+}
+
+.notas{
+    display: flex;
+    align-items: center;
+}
+
+.nota_unid .nota{
+    display: flex;
+    align-items: center;
+    width: 5rem;
+    margin-bottom: 2rem;
+}
+
+.um div{
+    background-color: #ff4040;
+}
+.dois div{
+    background-color: #ffbc40;
+}
+.tres div{
+    background-color: #ffff40;
+}
+.quatro div{
+    background-color: #4040ff;
+}
+.cinco div{
+    background-color: #00a000;
+}
+
+.nota_unid div div{
+    width: 3rem;
+    height: 3rem;
+    color: #000033;
+    font-size: 1.4rem;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    margin-right: 1rem;
+}
+
+.nota_unid p{
+    line-height: auto;
+}
