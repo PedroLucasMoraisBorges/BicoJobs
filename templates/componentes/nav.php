@@ -6,7 +6,14 @@
 
         <?php 
             if($_SESSION['tipo_usuario'] != 0){
-                echo '<a href="../templates/seus_bicos.php">Meus Bicos</a>';
+                include("../functions/retornarServicosFeitos.php");
+                $pendencias = $user->getServicosPendencias($pdo);
+
+                echo '
+                <div class="meus_bicos">
+                    <div class="none" >'.$pendencias.'</div>
+                    <a href="../templates/seus_bicos.php">Meus Bicos</a>
+                </div>';
             }
         ?>
 
@@ -35,4 +42,3 @@
         <a href="<?php echo $caminho."functions/logout.php"?>">Sair</a>
     </div>
 </header>
-<hr>

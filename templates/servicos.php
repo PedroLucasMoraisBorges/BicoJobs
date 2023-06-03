@@ -2,8 +2,7 @@
 session_start();
 
 require_once("../functions/return_personal_info.php");
-
-
+include("../functions/retornarServicosFeitos.php");
 
 $caminho = 'http://localhost/BicoJobs/';
 ?>
@@ -80,18 +79,22 @@ $caminho = 'http://localhost/BicoJobs/';
 
         
         
-        <?php
-            if($pg>1){
-                $previous = $pg-1;
-                echo '<a href="http://localhost/BicoJobs/templates/servicos.php?page='.$previous.'">Voltar</a>';
-            }
-            echo '<a href="http://localhost/BicoJobs/templates/servicos.php?page'.$pg.'">Página '.$pg.'</a>';
-            if($pg >= 1 && $quantia > $pg){
-                $next = $pg+1;
-                echo '<a href="http://localhost/BicoJobs/templates/servicos.php?page='.$next.'">Próxima</a>';
-            } 
-        ?>
+        
+
     </main>
+    <div class="pagination">
+            <?php
+                if($pg>1){
+                    $previous = $pg-1;
+                    echo '<a href="http://localhost/BicoJobs/templates/servicos.php?page='.$previous.'">Voltar</a>';
+                }
+                echo '<a href="http://localhost/BicoJobs/templates/servicos.php?page='.$pg.'">Página '.$pg.'</a>';
+                if($pg >= 1 && $quantia > $pg){
+                    $next = $pg+1;
+                    echo '<a href="http://localhost/BicoJobs/templates/servicos.php?page='.$next.'">Próxima</a>';
+                }
+            ?>
+        </div>
     <?php include 'componentes/footer.html';?>
 
 

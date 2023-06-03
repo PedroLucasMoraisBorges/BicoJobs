@@ -25,5 +25,5 @@ else if($v_email_senha == "null"){
 }
 else{
     $usuario = new User(0, "", "", 0, 0, $senha, 0, $email);
-    $usuario->login($pdo,$v_email_senha);
+    $usuario->login($v_email_senha);
 }

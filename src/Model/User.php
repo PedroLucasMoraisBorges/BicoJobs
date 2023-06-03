@@ -397,4 +397,13 @@ class User{
     }
 
     /*<=====================================================================================>*/
+
+
+
+    public function getServicosPendencias($pdo){
+        $sql = "SELECT count(id) FROM servico WHERE id_usuario = $this->id AND estado = 1";
+        $pendencia = ($pdo->query($sql))->fetch(PDO::FETCH_ASSOC);
+
+        return $pendencia['count(id)'];
+    }
 }

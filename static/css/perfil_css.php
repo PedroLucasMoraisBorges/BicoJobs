@@ -11,6 +11,10 @@ body{
     font-size: 18px;
     font-family: 'Roboto',sans-serif;
     color: #0B2060;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
 
@@ -189,20 +193,21 @@ button{
     width: 15%;
     background-color: #1237A6;
     padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
     color: white;
     border-radius: 10px;
     align-self: end;
     font-size: 1.1rem;
     margin-left: .5rem;
+    transition: .2s;
 }
 
 button:hover{
     cursor: pointer;
+    filter: brightness(1.15);
 }
 
 .buttons a{
+    line-height: inherit;
     border: 1px solid #303030;
     border-radius: 10px;
     padding: 10px 20px;

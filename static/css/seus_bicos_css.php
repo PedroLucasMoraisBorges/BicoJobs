@@ -202,7 +202,7 @@ button:hover{
     display: flex;
 }
 .grafico{
-    color: white;
+    color: #0B2060;
     text-align: center;
     width: 45%;
     padding: 20px;

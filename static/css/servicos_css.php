@@ -515,6 +515,7 @@ label:hover{
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    padding-right: 2rem;
 }
 
 .modal_footer button{
@@ -524,8 +525,21 @@ label:hover{
     font-size: 1rem;
     border: 0;
     font-weight: 550;
-    margin-right: 3%;
     border-radius: 5px;
+    width: fit-content;
+    margin-left: 2rem;
+}
+
+.modal_footer input{
+    background-color: #404040;
+    color: white;
+    padding: 10px 15px;
+    font-size: 1rem;
+    border: 0;
+    font-weight: 550;
+    border-radius: 5px;
+    width: fit-content;
+    margin-left: 2rem;
 }
 
 .modal_footer a{
@@ -537,6 +551,32 @@ label:hover{
     border-radius: 5px;
 }
 
+.modal_footer .btn-default{
+    transition: .2s;
+    background-color: white;
+    border: 1px solid black;
+    color: #0B2050;
+}
+
+.modal_footer .btn-primary{
+    transition: .2s;
+    width: fit-content;
+    background-color: #143dba;
+}
+
+.modal_footer .btn-del{
+    transition: .2s;
+    background-color: red;
+}
+
+.modal_footer .btn-primary:hover{
+    filter: brightness(1.15);
+}
+
+.modal_footer .btn-del:hover{
+    cursor: pointer;
+    filter: brightness(1.15);
+}
 /* Modal verOferta*/
 
 
@@ -604,4 +644,29 @@ label:hover{
     height: 100%;
     margin: auto;
     
+}
+
+
+
+/* Paginação */
+
+.pagination{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem
+}
+
+.pagination a{
+    padding: .4rem .5rem;
+    border-radius: 10px;
+    background-color: #00000050;
+    font-size: 1rem;
+    color: #0B2050;
+    font-weight: bold;
+    margin: 0 2rem;
+}
+
+.pagination a:hover{
+    background-color: #00000025;
 }

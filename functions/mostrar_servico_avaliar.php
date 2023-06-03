@@ -11,9 +11,7 @@
     $sql_query = $pdo->query($sql);
 
     if($sql_query -> rowCount() > 0){
-        while($serv = $sql_query->fetchAll(PDO::FETCH_ASSOC)){
-
-            var_dump($serv);
+        while($serv = $sql_query->fetch(PDO::FETCH_ASSOC)){
 
             $servico = new servico(
                 $_SESSION['id_cidade'],
