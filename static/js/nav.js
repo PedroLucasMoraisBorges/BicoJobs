@@ -37,3 +37,16 @@ function fechar_op(){
         console.log(teste)
     }
 }
+
+
+function contadorPendencias(){
+    var texto = document.querySelector(".meus_bicos div");
+
+    console.log(texto)
+    
+    if(texto.innerText != 0){
+        texto.classList.remove("none")
+    }
+    
+}
+contadorPendencias()

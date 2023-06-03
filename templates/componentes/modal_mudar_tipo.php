@@ -52,10 +52,10 @@
 
         <div class="modal_footer">
             <hr>
-            <p class="fechar" onclick="fecharModal2()">
+            <p class="btn-default" onclick="fecharModal2()">
                 Fechar
             </p>
-            <button class="ofertar">Confirmar</button>
+            <button class="btn-primary">Confirmar</button>
         </div>
     </form>
 </div>

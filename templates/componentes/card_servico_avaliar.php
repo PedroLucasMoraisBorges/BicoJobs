@@ -52,8 +52,8 @@ echo "
         </div>
     </div>
     <hr>
-    <div class='modal_footer_rating'>
-        <button class='fechar' onclick='fecharModal()'>
+    <div class='modal_footer modal_footer_rating'>
+        <button class='btn-default' onclick='fecharModal()'>
             Fechar
         </button>
         
@@ -78,7 +78,7 @@ echo "
             <input type='text' name='confirmar' class = 'none' id = 'contatar' value='1'>
 
 
-            <input type='submit' name = 'confirmar' value = 'Avaliar'>
+            <input type='submit' name = 'confirmar' class= 'btn-primary' value = 'Avaliar'>
         </form>
         
         

@@ -210,7 +210,7 @@
             }
             else{
                 $id_categoria = ($stmt->fetch(PDO::FETCH_ASSOC))['id'];
-                $sqlInsert = "INSERT INTO servico (id_cidade, nome, valor, descricao, estado, horario, img_servico, id_categoria, contato, id_usuario, serv_status) VALUES ($this->id_cidade, '$this->nome', '$this->valor', '$this->valor_descricao', '$this->estado', '$this->horario', '$this->img_servico', $id_categoria, '$this->contato', $this->id_usuario)";
+                $sqlInsert = "INSERT INTO servico (id_cidade, nome, valor, descricao, estado, horario, img_servico, id_categoria, contato, id_usuario, serv_status) VALUES ($this->id_cidade, '$this->nome', '$this->valor', '$this->valor_descricao', '$this->estado', '$this->horario', '$this->img_servico', $id_categoria, '$this->contato', $this->id_usuario,1)";
 
                 if($pdo->query($sqlInsert) === FALSE){
                     echo "Failed Insertion!";
@@ -347,7 +347,7 @@
         }
 
         public function setServicosAvaliar($pdo, $id, $id_user){
-            $sqlInsert = "INSERT INTO servicoavaliar (id_usuario, id_servico, id_categoria, nome, valor, descricao, horario, img_servico, contato, id_ofertante) VALUES ('$id_user', '$id', '$this->id_categoria', '$this->nome', '$this->valor', '$this->valor_descricao', '$this->horario', '$this->img_servico', '$this->contato', '$this->id_usuario')";
+            $sqlInsert = "INSERT INTO servicoavaliar (id_usuario, id_servico, id_categoria, nome, valor, descricao, horario, img_servico, contato, id_ofertante) VALUES ('$id_user', '$id', '$this->categoria', '$this->nome', '$this->valor', '$this->valor_descricao', '$this->horario', '$this->img_servico', '$this->contato', '$this->id_usuario')";
             $pdo->query($sqlInsert);
         }
 

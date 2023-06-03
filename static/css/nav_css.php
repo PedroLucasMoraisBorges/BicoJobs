@@ -19,10 +19,16 @@ div{
 body{
     font-size: 18px;
     font-family: 'Roboto',sans-serif;
-    padding-top: 90px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 
+nav{
+    display: flex;
+}
 
 a{
     position: relative;
@@ -56,6 +62,26 @@ nav a:hover::before{
     width: 100%;
 }
 
+.meus_bicos{
+    position: relative;
+}
+
+.meus_bicos div{
+    font-size: .8rem;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 1.2rem;
+    height: 1.2rem;
+    background-color: #11866F;
+    color: white;
+    font-weight: 400;
+}
+
 header{
     display: flex;
     font-weight: bolder;
@@ -68,10 +94,7 @@ header{
     box-sizing: border-box;
     height: 90px;
     box-shadow: 0px 4px 4px #EEEEEE;
-    position: fixed;
-    top: 0;
     width: 100%;
-    z-index: 1;
 }
 
 
@@ -237,4 +260,9 @@ footer .logo{
 .contact a:hover{
     transition: .4s;
     box-shadow: 6px 5px 0px #1d5be1;
+}
+
+
+.none{
+    opacity: 0;
 }

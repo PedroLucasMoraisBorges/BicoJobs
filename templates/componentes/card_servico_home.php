@@ -52,7 +52,7 @@ echo "
     </div>
     <hr>
     <div class='modal_footer'>
-        <button class='fechar' onclick='fecharModal()'>
+        <button class='btn-default' onclick='fecharModal()'>
             Fechar
         </button>
         
@@ -62,7 +62,7 @@ echo "
             <input type='text' name='id' class = 'none' value='$id'>
             <input type='text' name='contatar' class = 'none' id = 'contatar' value='$contatar'>
             
-            <button>Fazer Contato</button>
+            <button class='btn-primary'>Fazer Contato</button>
         </form>
         
         
