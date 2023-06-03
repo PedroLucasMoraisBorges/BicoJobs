@@ -1,15 +1,13 @@
 <?php
-require_once("../templates/editar_perfil.php");
-
 // AUTOLOAD DOS ARQUIVOS COM AS CLASSES;
 
+require_once("../templates/editar_perfil.php");
 require_once("../autoload.php");
 use Pi\Bicojobs\Model\User;
 use Pi\Bicojobs\Model\Verificacoes;
 use Pi\Bicojobs\Infraestrutura\Persistencia\CriadorConexao;
 $pdo = CriadorConexao::criarConexao();
 
-// AUTOLOAD DOS ARQUIVOS COM AS CLASSES;
 
 
 
@@ -25,11 +23,6 @@ else{
     $img_perfil = $_SESSION['img_perfil'];
 }
 
-// CODIFICAÇÃO DA IMAGEM E ARMAZENAMENTO NA PASTA;
-
-   
-
-// DANDO VALOR ÀS VARIÁVEIS PARA O USO;
 
 $id = $_SESSION['id'];
 $descricao = $_POST['descricao'];
@@ -41,19 +34,25 @@ $nome = $_POST['nome'];
 $email = $_POST['email'];
 $cep = $_POST['cep'];
 
-// DANDO VALOR ÀS VARIÁVEIS PARA O USO;
 
 
 $verificacao = new Verificacoes();
 
-// VERIFICA VALIDADE DO CEP
+
+// VERIFICAÇÕES
+/*<=====================================================================================>*/
+
+
+// CEP
 if($cep == "00000000" || strlen($cep) != 8){
     $verificacao->error("CEP Inválido");
 }
 
 
+/*<=====================================================================================>*/
 
-// VERIFICA A VALIDADE DO EMAIL;
+
+// EMAIL;
 else if(str_contains($email, "@") === false || str_contains($email, ".") === false){
     $verificacao->error("Email Inválido");
 }
@@ -62,8 +61,10 @@ else if($verificacao -> verificaEmail($pdo, $email, $_SESSION['id_contato']) != 
 }
 
 
+/*<=====================================================================================>*/
 
-// VERIFICA A VALIDADE DO TELEFONE;
+
+// TELEFONE;
 else if(strlen($telefone) < 11){
     $verificacao->error("Telefone Inválido");
 }
@@ -72,10 +73,10 @@ else if($verificacao -> verificaTel($pdo, $telefone, $_SESSION['id_contato']) !=
 }
 
 
+/*<=====================================================================================>*/
+
 
 else{
-
-    // INSTANCIÂNDO A CLASSE COM AS INFORMAÇÕES DO USUÁRIO E EXECUTANDO A FUNÇÃO; 
     $usuario = new User(
         $id,
         $_SESSION["nome"],
@@ -89,5 +90,4 @@ else{
     );
 
     $usuario->editar_perfil($pdo, $img_perfil, $descricao, $habilidade, $idioma, $telefone, $nome_comp, $nome, $email, $cep);
-    // INSTANCIÂNDO A CLASSE COM AS INFORMAÇÕES DO USUÁRIO E EXECUTANDO A FUNÇÃO;
 }

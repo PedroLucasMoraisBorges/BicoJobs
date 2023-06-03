@@ -1,23 +1,18 @@
 <?php
-require_once ("../templates/logcad.php");
 // AUTOLOAD DOS ARQUIVOS COM AS CLASSES;
 
+require_once ("../templates/logcad.php");
 require_once "../autoload.php";
 use Pi\Bicojobs\Model\User;
 use Pi\Bicojobs\Model\Verificacoes;
 use Pi\Bicojobs\Infraestrutura\Persistencia\CriadorConexao;
 $pdo = CriadorConexao::criarConexao();
 
-// AUTOLOAD DOS ARQUIVOS COM AS CLASSES;
 
-
-
-// DANDO VALOR ÀS VARIÁVEIS PARA O USO;
 
 $email = $_POST['user_log'];
 $senha = $_POST['password_log'];
 
-// DANDO VALOR ÀS VARIÁVEIS PARA O USO;
 
 $verificacao = new Verificacoes;
 $v_email = $verificacao -> verificaEmailLog($pdo, $email);

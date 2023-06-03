@@ -13,15 +13,9 @@ $pdo = CriadorConexao::criarConexao();
 
 
 $cep = $_POST['cep'];
-$sql_codes = [];
-
-
 $url =  "https://viacep.com.br/ws/$cep/json/";
 $address = json_decode(file_get_contents($url),true);
 
-
-
-// INSTANCIÂNDO A CLASSE COM AS INFORMAÇÕES DO USUÁRIO E EXECUTANDO A FUNÇÃO; 
 
 $usuario = new User(
     0,
@@ -37,6 +31,7 @@ $usuario = new User(
 $verificacoes = new Verificacoes;
 
 
+// VERIFICAÇÕES
 $v_email = $verificacoes->verificaEmailCad($pdo, $_POST['email_cad']);
 $v_cpf = $verificacoes->verificaCpf($pdo, $_POST['cpf']);
 
@@ -47,7 +42,5 @@ else if($v_cpf != 0){
     $verificacoes->error("CPF já cadastrado");
 }
 else{
-    // EFETUTA O CADASTRO;
-    $usuario->sign_in($sql_codes,$pdo);
+    $usuario->sign_in($pdo);
 }
-// INSTANCIÂNDO A CLASSE COM AS INFORMAÇÕES DO USUÁRIO E EXECUTANDO AS FUNÇÕES; 

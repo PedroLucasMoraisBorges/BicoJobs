@@ -1,15 +1,12 @@
 <?php
-require_once("../templates/servicos.php");
 // AUTOLOAD DOS ARQUIVOS COM AS CLASSES;
 
+require_once("../templates/servicos.php");
 require_once "../autoload.php";
 use Pi\Bicojobs\Model\User;
 use Pi\Bicojobs\Model\Verificacoes;
 use Pi\Bicojobs\Infraestrutura\Persistencia\CriadorConexao;
 $pdo = CriadorConexao::criarConexao();
-
-// AUTOLOAD DOS ARQUIVOS COM AS CLASSES;
-
 
 
 // CODIFICAÇÃO DA IMAGEM E ARMAZENAMENTO NA PASTA;
@@ -21,11 +18,6 @@ if(isset($_FILES['img_perfil'])){
     move_uploaded_file($_FILES['img_perfil']['tmp_name'] , $diretorio.$novo_nome);
 }
 
-// CODIFICAÇÃO DA IMAGEM E ARMAZENAMENTO NA PASTA;
-
-
-
-// INSTANCIÂNDO A CLASSE COM AS INFORMAÇÕES DO USUÁRIO E EXECUTANDO A FUNÇÃO; 
 
 $usuario = new User(
     $_SESSION["id"],
@@ -55,5 +47,6 @@ if($v_telefone == 0){
         $usuario
     );
 }
-
-// INSTANCIÂNDO A CLASSE COM AS INFORMAÇÕES DO USUÁRIO E EXECUTANDO A FUNÇÃO; 
+else{
+    $verificacao->error("Telefone já cadastrado");
+}
