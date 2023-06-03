@@ -21,7 +21,7 @@ $pdo = CriadorConexao::criarConexao();
         include '../static/css/seus_bicos_css.php';
         include '../static/css/nav_css.php';
         include '../static/css/card_css.php';
-        include '../static/css/servicos_css.php';
+        include '../static/css/servicos_css.php'; 
     ?>
     </style>
 
@@ -194,33 +194,69 @@ $pdo = CriadorConexao::criarConexao();
 
 
 
-        <div class="graficos">
-            <div class="grafico">
-                <canvas id="total_serv"></canvas>
-                <?php 
-                    include("../functions/retornarServicosFeitos.php");
-                    $meses = $grafico -> setServicosUser($user);
-                    $grafico -> retornarServicosUser($meses);
-                ?>
+        <div class="dashboard">
+            <div class="graficos">
+                <div class="grafico">
+                    <h2>Serviços concluídos</h2>
+                    <canvas id="total_serv"></canvas>
+                    <?php
+                        include("../functions/retornarServicosFeitos.php");
+                        $meses = $grafico -> setServicosUser($user);
+                        $grafico -> retornarServicosUser($meses);
+                    ?>
+                </div>
+                <div class="grafico">
+                    <h2>Valor Ganho</h2>
+                    <canvas id="total_valor"></canvas>
+                    <?php
+                        include("../functions/retornarServicosFeitos.php");
+                        $meses = $grafico -> setServicosUser($user);
+                        $grafico -> retornarServicosValor($meses);
+                    ?>
+                </div>
             </div>
+            <div class="grafico_nota grafico">
+                <h2>Avaliações</h2>
 
-            <div class="grafico">
-                <canvas id="total_valor"></canvas>
-                <?php 
-                    include("../functions/retornarServicosFeitos.php");
-                    $meses = $grafico -> setServicosUser($user);
-                    $grafico -> retornarServicosValor($meses);
-                ?>
-            </div>
-        </div>
-
-        <div class="graficos">
-            <canvas id="total_notas"></canvas>
-            <?php 
+                
+                <div class="notas">
+                    <canvas id="total_notas"></canvas>
+                    <?php
                     include("../functions/retornarServicosFeitos.php");
                     $notas = $grafico -> setNotasUser($user);
                     $grafico -> retornarNotas($notas);
-            ?>
+                    ?>
+
+                    <div class="nota_unid">
+                        <div class="nota um">
+                            <div>1</div>
+                            <p><?php echo $notas['1']; ?></p>
+                        </div>
+
+                        <div class="nota dois">
+                            <div>2</div>
+                            <p><?php echo $notas['2']; ?></p>
+                        </div>
+
+                        <div class="nota tres">
+                            <div>3</div>
+                            <p><?php echo $notas['3']; ?></p>
+                        </div>
+
+                        <div class="nota quatro">
+                            <div>4</div>
+                            <p><?php echo $notas['4']; ?></p>
+                        </div>
+
+                        <div class="nota cinco">
+                            <div>5</div>
+                            <p><?php echo $notas['5']; ?></p>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
         </div>
         
         

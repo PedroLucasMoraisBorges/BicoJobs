@@ -71,19 +71,7 @@ class Verificacoes{
     {
         $sql = "SELECT telefone FROM contato WHERE telefone = '$tel' AND id != $id_usuario";
         $row = ($pdo -> query($sql)) -> rowCount();
-
-        if($row != 0){
-            echo "<script> 
-                let error = document.getElementById('error-msg-login');
-                error.innerHTML = 'Telefone já cadastrado';
-                setTimeout(() => {
-                    error.classList.add('slide');
-                }, 250);
-                setTimeout(() => {
-                error.classList.remove('slide');
-                }, 3250);
-                </script>";
-        }
+        
         return $row;
     }
 
