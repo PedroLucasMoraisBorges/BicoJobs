@@ -1,4 +1,5 @@
 <?php
+
 // AUTOLOAD DOS ARQUIVOS COM AS CLASSES;
 
 require_once("../templates/editar_perfil.php");

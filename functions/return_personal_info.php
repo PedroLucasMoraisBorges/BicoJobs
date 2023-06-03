@@ -1,5 +1,4 @@
 <?php
-// AUTOLOAD DOS ARQUIVOS COM AS CLASSES;
 
 require_once "../autoload.php";
 use Pi\Bicojobs\Model\User;

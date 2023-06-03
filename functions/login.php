@@ -9,7 +9,6 @@ use Pi\Bicojobs\Infraestrutura\Persistencia\CriadorConexao;
 $pdo = CriadorConexao::criarConexao();
 
 
-
 $email = $_POST['user_log'];
 $senha = $_POST['password_log'];
 
