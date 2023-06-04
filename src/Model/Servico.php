@@ -370,9 +370,9 @@
             $pdo->query($sqlInsert);
         }
 
-        public function deletarServicoAvaliacao($pdo, $id_servico) : void
+        public function deletarServicoAvaliacao($pdo, $id) : void
         {
-            $sqlDelete = "DELETE FROM servicoavaliar WHERE id_servico = '$id_servico'";
+            $sqlDelete = "DELETE FROM servicoavaliar WHERE id = '$id'";
             $pdo -> query($sqlDelete);
         }
     }

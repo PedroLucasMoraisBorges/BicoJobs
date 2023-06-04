@@ -28,7 +28,7 @@
 
             $servico->mostrarServicosAvaliar(
                 $pdo,
-                $serv['id_servico']
+                $serv['id']
             );
         }
     }
