@@ -16,7 +16,7 @@ class Paginator{
         // PG = número da página, limit = limite de elementos por página, start é o número do elemento que inicia a página
         $capture = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_URL);
         $this -> page = ($capture == "" ? 1 : $capture);
-        $this -> limit = 1;
+        $this -> limit = 2;
         $this -> start = ($this->page * $this->limit) - $this->limit;
 
         $sql_query = $pdo -> prepare($sql." AND serv_status = :status LIMIT $this->start, $this->limit");

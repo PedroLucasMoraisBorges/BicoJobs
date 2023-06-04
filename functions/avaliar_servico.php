@@ -7,7 +7,8 @@
     $nota = $_POST['score'];
     $id_servico = $_POST['id'];
 
-    $sqlConsult = "SELECT id_usuario FROM servico WHERE id = $id_servico";
+
+    $sqlConsult = "SELECT ser.id_usuario FROM servico ser join servicoavaliar serva on serva.id_servico = ser.id WHERE serva.id = $id_servico";
     $stmt = $pdo->query($sqlConsult);
 
     $id_usuario = ($stmt->fetch(PDO::FETCH_ASSOC))['id_usuario'];
@@ -23,7 +24,7 @@
     $stmt->bindValue(":dt", $data, PDO::PARAM_STR);
     $stmt->execute();
 
-    $sqlDelete = "DELETE FROM servicoavaliar WHERE id_servico = $id_servico";
+    $sqlDelete = "DELETE FROM servicoavaliar WHERE id = $id_servico";
     $pdo->query($sqlDelete);
 
     header("location: http://localhost/BicoJobs/templates/ultimos_bicos.php");

@@ -349,10 +349,10 @@ class User{
 
     public function retornar_info($pdo) : void
     {
+        $contatos = $this->getContatos($pdo);
         if($this -> tipo_usuario == 1){
             $idioma = $this->getIdioma($pdo);
             $cidade = $this->getCidade($pdo);
-            $contatos = $this->getContatos($pdo);
             $avaliacao = $this->getNotas($pdo);
 
             if(!isset($_SESSION)){
@@ -368,6 +368,7 @@ class User{
         else{
             $cidade = $this->getCidade($pdo);
             $_SESSION['cidade'] = $cidade;
+            $_SESSION['email'] = $contatos['email'];
         }
     }
 
