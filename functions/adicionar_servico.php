@@ -35,3 +35,5 @@
     $servico->inserirNoDB($pdo);
 
     header("Location: http://localhost/BicoJobs/templates/servicos.php");
+
+    
