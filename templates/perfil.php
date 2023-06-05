@@ -43,7 +43,7 @@ $caminho = 'http://localhost/BicoJobs/';
 
             <div class="right">
                 <div class="nome">
-                    <p><?php echo $_SESSION['avaliacao']?></p>
+                    <p><?php echo number_format($_SESSION['avaliacao'], 1, ".", "")?></p>
                     <h2><?php echo $_SESSION['nome']?></h2>
                 </div>
 

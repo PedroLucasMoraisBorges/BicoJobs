@@ -189,7 +189,12 @@ nav a{
     right: 3%;
 }
 
+.opções{
+
+}
+
 .op_none{
+    margin: 0;
     display: none;
 }
 
@@ -207,6 +212,10 @@ nav a{
 
 .opçoes div a{
     color: black;
+}
+
+.opçoes a{
+    line-height: 22px;
 }
 
 footer{

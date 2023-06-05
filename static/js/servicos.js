@@ -37,6 +37,8 @@ function fecharModal(){
 
     modal_fundo.classList.add("none");
 }
+
+
 function fecharModal2(){
     var modal = document.querySelector(".modal_fundo");
     var modal_mudar_tipo = document.querySelector(".modal_mudar_tipo");

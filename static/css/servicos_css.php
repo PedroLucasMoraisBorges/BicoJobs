@@ -138,6 +138,7 @@ button:hover{
     height: 3rem;
     padding: 10px 15px 10px 15px;
     border-radius: 15px;
+    transition: 0.2s;
 }
 
 
@@ -146,12 +147,15 @@ button:hover{
     padding: 4px;
     border-radius: 100%;
     margin-right: 5px;
-    transition: 2s;
+    transition: 0.5s;
 }
 
 .adicionar:hover img{
-    transition: 2s;
     transform: rotate(180deg);
+}
+
+.adicionar:hover{
+    transform: scale(1.03);
 }
 
 .adicionar p{
@@ -471,6 +475,10 @@ label:hover{
     align-items: center;
 }
 
+.modal_header h2{
+    margin: 0;
+}
+
 .oferta_detalhes{
     height: 70%;
     padding: 0% 3% 0% 3%;
@@ -552,10 +560,32 @@ label:hover{
 }
 
 .modal_footer .btn-default{
-    transition: .2s;
-    background-color: white;
+    transition: .1s;
+    background: none;
     border: 1px solid black;
     color: #0B2050;
+    position: relative;
+}
+
+.modal_footer .btn-default::before{
+    content: " ";
+    position: absolute;
+    background-color: purple;
+    display: block;
+    width: 0;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: 0.3s;
+}
+
+.modal_footer .btn-default:hover{
+    color: white; 
+}
+
+.modal_footer .btn-default:hover:before{
+    width: 100%;
 }
 
 .modal_footer .btn-primary{
