@@ -70,8 +70,8 @@
     cursor: pointer;
 }
 
-.botao_abrir p{
-    font-size: 1.2rem;
+.botao_abrir{
+    font-size: 1.1rem;
     font-weight: bold;
 }
 

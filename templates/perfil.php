@@ -43,7 +43,16 @@ $caminho = 'http://localhost/BicoJobs/';
 
             <div class="right">
                 <div class="nome">
-                    <p><?php echo number_format($_SESSION['avaliacao'], 1, ".", "")?></p>
+                    <p>
+                        <?php 
+                        if($_SESSION['avaliacao'] != "Novo"){
+                            echo number_format($_SESSION['avaliacao'], 1, ".", "");
+                        }
+                        else{
+                            echo $_SESSION['avaliacao'];
+                        }
+                        ?>
+                    </p>
                     <h2><?php echo $_SESSION['nome']?></h2>
                 </div>
 

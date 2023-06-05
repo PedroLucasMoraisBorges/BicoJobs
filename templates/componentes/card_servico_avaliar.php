@@ -1,5 +1,4 @@
 <?php
-
 echo "
     <div class='card' id='card$id' onClick='verOferta(this)'>
 

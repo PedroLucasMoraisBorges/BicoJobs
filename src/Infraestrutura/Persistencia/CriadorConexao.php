@@ -12,5 +12,3 @@
             return self::$instace;
         }
     }
-
-

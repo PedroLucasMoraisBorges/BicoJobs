@@ -1,6 +1,7 @@
 <?php
 
 require_once("../autoload.php");
+require_once("../templates/logcad.php");
 use Pi\Bicojobs\Model\User;
 use Pi\Bicojobs\Model\Verificacoes;
 use Pi\Bicojobs\Infraestrutura\Persistencia\CriadorConexao;

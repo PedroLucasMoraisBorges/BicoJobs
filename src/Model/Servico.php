@@ -264,6 +264,7 @@
                     $avaliacao += $row['notas'];
                 }
                 $avaliacao = $avaliacao/=$n;
+                $avaliacao = number_format($avaliacao, 1, ".", "");
             }
             
             if($estado == 0){
@@ -313,6 +314,7 @@
                     $avaliacao += $row['notas'];
                 }
                 $avaliacao = $avaliacao/=$n;
+                $avaliacao = number_format($avaliacao, 1, ".", "");
             }
 
             if($this->img_servico == NULL){

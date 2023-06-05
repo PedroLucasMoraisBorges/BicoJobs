@@ -1,5 +1,6 @@
 <?php
 $user_id = $_SESSION['id'];
+
 echo "
     <div class='card' id='card$id' onClick='verOferta(this)'>
 

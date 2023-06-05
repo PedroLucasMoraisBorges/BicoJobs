@@ -127,7 +127,7 @@ class User{
 
     public function setImgPerfil($pdo, $img_perfil) : void
     {
-        $pdo->query("UPDATE usuario SET img_perfil = '$img_perfil'");
+        $pdo->query("UPDATE usuario SET img_perfil = '$img_perfil' WHERE id = '$this->id'");
     }
 
     public function setIdioma($pdo, $idioma) : int

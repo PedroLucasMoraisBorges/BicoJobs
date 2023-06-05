@@ -5,4 +5,4 @@
     }
     session_destroy();
     
-    header("Location: http://localhost/BicoJobs/templates/index.php");
+    header("Location: http://localhost/BicoJobs/index.php");

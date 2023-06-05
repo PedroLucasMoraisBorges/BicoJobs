@@ -578,6 +578,7 @@ label:hover{
     left: 0;
     z-index: -1;
     transition: 0.3s;
+    border-radius: 5px;
 }
 
 .modal_footer .btn-default:hover{
