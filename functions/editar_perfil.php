@@ -14,14 +14,14 @@ $pdo = CriadorConexao::criarConexao();
 
 // CODIFICAÇÃO DA IMAGEM E ARMAZENAMENTO NA PASTA;
 
-if(isset($_FILES['img_perfil']) && !empty($_FILES["img_perfil"]["name"])){
+if($_FILES["img_perfil"]["name"] != ""){
     $arquivo = strtolower(substr($_FILES['img_perfil']['name'], -4));
     $novo_nome = md5(time()) . $arquivo;
     $diretorio = "../media/img_perfis/";
     move_uploaded_file($_FILES['img_perfil']['tmp_name'] , $diretorio.$novo_nome);
 }
 else{
-    $img_perfil = $_SESSION['img_perfil'];
+    $novo_nome = $_SESSION['img_perfil'];
 }
 
 
@@ -90,5 +90,5 @@ else{
         1
     );
 
-    $usuario->editar_perfil($pdo, $img_perfil, $descricao, $habilidade, $idioma, $telefone, $nome_comp, $nome, $email, $cep);
+    $usuario->editar_perfil($pdo, $novo_nome, $descricao, $habilidade, $idioma, $telefone, $nome_comp, $nome, $email, $cep);
 }

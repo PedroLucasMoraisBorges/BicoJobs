@@ -11,11 +11,14 @@ $pdo = CriadorConexao::criarConexao();
 
 // CODIFICAÇÃO DA IMAGEM E ARMAZENAMENTO NA PASTA;
 
-if(isset($_FILES['img_perfil'])){
+if($_FILES['img_perfil']['name'] != ""){
     $arquivo = strtolower(substr($_FILES['img_perfil']['name'], -4));
     $novo_nome = md5(time()) . $arquivo;
     $diretorio = "../media/img_perfis/";
     move_uploaded_file($_FILES['img_perfil']['tmp_name'] , $diretorio.$novo_nome);
+}
+else{
+    $novo_nome = "perfil.svg";
 }
 
 
