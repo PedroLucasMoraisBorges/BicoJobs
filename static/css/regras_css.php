@@ -35,6 +35,13 @@ header li:hover{
     color: white;
 }
 
+main{
+    width: 100%;
+    padding: 3% 2% 2% 2%;
+    box-sizing: border-box;
+    height: fit-content;
+}
+
 body{
     font-family: "Roboto", Arial, Helvetica, sans-serif;
     font-size: 18px;
@@ -45,15 +52,6 @@ body{
 #pageContainer{
     min-height: 100vh;
     position: relative;
-}
-
-
-
-main{
-    padding: 5rem 5rem;
-    padding-bottom: 2rem;
-    display: flex;
-    justify-content: space-between;
 }
 
 footer{
@@ -76,24 +74,24 @@ footer{
 
 .info{
     width: 47%;
+    display: flex;
+    justify-content: space-between;
 }
 
 .local{
     color: #11866F;
 }
 
-header h1{
-    font-weight: bold;
-    font-size: 2.25rem;
-    margin-bottom: 0;
-    margin-top: 0;
+.titulo{
+    margin-bottom: 20px;
+}
+.titulo p{
+    color: #109B6D;
 }
 
-h1{
-    margin-top: 1rem;
-    margin-bottom: 2.50rem;
-    font-weight: 500;
+.titulo h1{
     font-size: 2.5rem;
+    color: #4a4e57;
 }
 
 .dropdown-activer{

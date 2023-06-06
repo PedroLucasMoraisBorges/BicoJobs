@@ -291,7 +291,9 @@ class User{
         $this->set_get_IdCidade($pdo);
 
         if($sql_query->rowCount() <= 0){
-            session_start();
+            if(!isset($_SESSION)){
+                session_start();
+            }
 
             $_SESSION = $this->inserirUserDb($pdo,0);
 

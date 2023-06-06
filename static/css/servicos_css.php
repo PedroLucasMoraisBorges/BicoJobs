@@ -536,6 +536,20 @@ label:hover{
     border-radius: 5px;
     width: fit-content;
     margin-left: 2rem;
+    cursor: pointer;
+}
+
+.modal_footer p{
+    background-color: #404040;
+    color: white;
+    padding: 10px 15px;
+    font-size: 1rem;
+    border: 0;
+    font-weight: 550;
+    border-radius: 5px;
+    width: fit-content;
+    margin-left: 2rem;
+    cursor: pointer;
 }
 
 .modal_footer input{
@@ -548,6 +562,7 @@ label:hover{
     border-radius: 5px;
     width: fit-content;
     margin-left: 2rem;
+    cursor: pointer;
 }
 
 .modal_footer a{

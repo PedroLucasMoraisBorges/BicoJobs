@@ -21,9 +21,12 @@ $caminho = 'http://localhost/BicoJobs/';
         <?php include 'componentes/nav.php';?>
 
         <main>
+            <div class="titulo">
+                <p class="local" ><?php echo $_SESSION['cidade'];?></p>
+                <h1>Serviços</h1>
+            </div>
+            
             <section class="info">
-                <span class="local">Juazeiro Do Norte - CE</span>
-                <h1>Regras</h1>
                 <div class="accordion">
                     <div class="accordion-component is_closed">
                         <h2 class="dropdown-activer">Sobre a Plataforma</h2>
