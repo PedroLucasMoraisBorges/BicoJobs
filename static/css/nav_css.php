@@ -189,9 +189,6 @@ nav a{
     right: 3%;
 }
 
-.opções{
-
-}
 
 .op_none{
     margin: 0;
