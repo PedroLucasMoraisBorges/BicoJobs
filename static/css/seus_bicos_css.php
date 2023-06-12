@@ -197,26 +197,20 @@ button:hover{
 .dashboard{
     padding: 5% 0;
     border-radius: 15px;
-    display: flex;
-    width: 90%;
-    box-sizing: border-box;
-    margin: auto;
-    justify-content: center;
-    background-color: #4040ff25;
 }
 
 .graficos{
-    align-items: flex-start;
+    align-items: center;
     display: flex;
-    flex-direction: column;
-    width: 65%;
+    justify-content: space-between;
+    width: 100%;
 }
 
 .grafico{
     color: #0B2060;
     text-align: center;
     padding: 20px;
-    width: 70%;
+    width: 45%;
 }
 
 .grafico_nota{
