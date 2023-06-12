@@ -215,10 +215,10 @@ $pdo = CriadorConexao::criarConexao();
                     ?>
                 </div>
             </div>
-            <div class="grafico_nota grafico">
+
+            <div class="grafico_nota">
                 <h2>Avaliações</h2>
 
-                
                 <div class="notas">
                     <canvas id="total_notas"></canvas>
                     <?php
